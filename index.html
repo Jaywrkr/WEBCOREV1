@@ -134,15 +134,37 @@
     .hero-stage{display:grid;grid-template-rows:auto minmax(0,1fr) auto;justify-items:center;text-align:center;min-height:min(100svh,1040px);padding-block:calc(72px + clamp(40px,8vh,96px)) clamp(28px,5vh,56px);gap:var(--s5)}
     .hero-stage .intro{display:grid;justify-items:center}
     .hero h1{font-size:clamp(44px,7vw,96px);line-height:1;letter-spacing:-.035em;margin-top:var(--s5);color:#fff;max-width:14ch}
-    .hero-stage{grid-template-rows:auto auto auto;align-content:center;gap:clamp(28px,4vh,48px)}
-    .sector{display:grid;justify-items:center;gap:var(--s4);max-width:680px}
-    .sector-q{font-size:13px;color:var(--blue-30)}
+    .hero-stage{grid-template-rows:auto;align-content:center;min-height:min(88svh,880px)}
+    .hero .intro{gap:var(--s6)}
+    .hero h1{margin-top:0}
+    .hero-go{display:grid;justify-items:center;gap:var(--s5);margin-top:var(--s5)}
+    .textlink{font-size:14px;color:var(--blue-20);border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+    .textlink:hover{color:#fff;border-bottom-color:currentColor}
+    .people-head{display:grid;gap:var(--s5);max-width:820px}
+    .people-head .h2{font-size:clamp(34px,4.6vw,64px);letter-spacing:-.03em;margin:0}
+    .people-head .lede{font-size:clamp(18px,1.6vw,21px)}
+    .vows{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,64px);margin-top:clamp(48px,6vw,88px)}
+    .vow{border-top:2px solid var(--navy);padding-top:var(--s6)}
+    .vow h3{font-size:22px;color:var(--navy);margin-bottom:var(--s3)}
+    .vow p{color:var(--gray-70)}
+    .people .proof{border-top:1px solid var(--line);margin-top:clamp(56px,7vw,104px);max-width:none}
+    .people .proof div{border-right-color:var(--line);padding:var(--s6) var(--s6) 0 0}
+    .people .proof div{flex-direction:column}
+    .people .proof dd{order:-1;margin-bottom:var(--s3);color:var(--navy);font-size:clamp(32px,3.6vw,48px)}
+    .people .proof dt{color:var(--gray-70);font-size:14px;max-width:24ch}
+    .sector-band{background:var(--gray-10);border-block:1px solid var(--line)}
+    .sector{display:grid;justify-items:center;text-align:center;gap:var(--s5)}
+    .sector .h2{margin-top:0}
+    .sector-band .sector-chips button{border-color:var(--gray-30);color:var(--gray-80);background:#fff}
+    .sector-band .sector-chips button:hover{border-color:var(--navy);color:var(--navy)}
+    .sector-band .sector-chips button[aria-checked="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+    .sector-band .sector-msg{color:var(--gray-70);font-size:17px}
     .sector-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s3)}
     .sector-chips button{font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
     .sector-chips button:hover{border-color:#fff}
     .sector-chips button[aria-checked="true"]{background:#fff;border-color:#fff;color:var(--navy)}
     .sector-msg{font-size:15px;color:var(--blue-20);min-height:3em;max-width:56ch;transition:opacity .25s}
-    .proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:clamp(32px,5vh,56px) auto 0;max-width:920px;border-top:1px solid var(--line-dark)}
+    .proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0 auto;border-top:1px solid var(--line-dark)}
     .proof div{padding:var(--s5) var(--s4) 0;border-right:1px solid var(--line-dark)}
     .proof div:last-child{border-right:0}
     .proof dt{font-size:12px;color:var(--blue-30);order:2}
@@ -154,8 +176,6 @@
     .cloud-geo .specs div{border-right:0;border-bottom:1px solid var(--line-dark);padding:var(--s5) 0}
     .cloud-geo .specs div:last-child{border-bottom:0}
     .hero .lede{margin-inline:auto;text-align:center}
-    .hero .cta{justify-content:center;margin-top:0}
-.hero-actions{width:100%}
     .btn.wide{min-width:248px;justify-content:center;gap:var(--s4)}
     .cue{display:grid;place-items:center;width:40px;height:40px;margin:var(--s5) auto 0;color:var(--blue-20);animation:bob 2.4s ease-in-out infinite}
     .cue svg{width:20px;height:20px}
@@ -486,6 +506,7 @@
       .cloud-geo{grid-template-columns:1fr}
       .cloud-geo .map{min-height:min(84vw,420px)}
       .proof{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--s5)}
+      .vows{grid-template-columns:1fr}
       .proof div:nth-child(2){border-right:0}
       .specs{grid-template-columns:1fr 1fr;row-gap:var(--s7)}
       .specs div:nth-child(2){border-right:0}
@@ -509,7 +530,8 @@
       .sol .body{padding:var(--s6)}
       .cell,.tool-in,.tool-out{padding:var(--s6)}
       .hero-stage{padding-top:calc(72px + 32px)}
-      .hero .cta{flex-direction:column;align-items:stretch;width:100%}
+      .hero-go .btn{width:100%}
+      .hero-go{width:100%}
       .btn.wide{min-width:0;width:100%}
       .map-legend{font-size:9.5px;gap:var(--s3);flex-wrap:nowrap}
       .tool-grid{grid-template-columns:1fr}
@@ -549,7 +571,7 @@
         <a href="#industrias">Industrias</a>
         <a href="#herramientas">Herramientas</a>
       </div>
-      <a href="#contacto" class="btn">Agendar evaluación <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+      <a href="#contacto" class="btn">Hablar con un especialista <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
       <button class="menu-btn" id="menu" aria-controls="navlinks" aria-expanded="false" aria-label="Abrir menú"><span></span></button>
     </nav>
     <div class="progress" id="progress" aria-hidden="true"></div>
@@ -562,32 +584,50 @@
       <div class="gridlines" aria-hidden="true"></div>
       <div class="wrap hero-stage">
         <div class="intro">
-          <span class="label">Respaldo · Ciberseguridad · Infraestructura</span>
           <h1>Su operación no se detiene.</h1>
-          <p class="lede">Respaldo, ciberseguridad e infraestructura para cooperativas, salud e industria en Ecuador, con soporte local y nube propia.</p>
-        </div>
-        <div class="sector">
-          <div class="sector-q" id="sector-label">¿De qué sector es su organización?</div>
-          <div class="sector-chips" role="radiogroup" aria-labelledby="sector-label">
-            <button type="button" role="radio" aria-checked="true" data-sector="coop">Cooperativa</button>
-            <button type="button" role="radio" aria-checked="false" data-sector="salud">Salud</button>
-            <button type="button" role="radio" aria-checked="false" data-sector="industria">Industria</button>
-            <button type="button" role="radio" aria-checked="false" data-sector="publico">Sector público</button>
+          <p class="lede">Respaldo, ciberseguridad e infraestructura para organizaciones en Ecuador.</p>
+          <div class="hero-go">
+            <a href="#contacto" class="btn wide">Hablar con un especialista</a>
+            <a href="#herramientas" class="textlink" data-tool="inactividad">o calcule cuánto le cuesta una hora detenida →</a>
           </div>
-          <p class="sector-msg" id="sector-msg" aria-live="polite">Disponibilidad, respaldo y protección de datos para cumplir con la SEPS y atender a sus socios sin interrupciones.</p>
         </div>
-        <div class="hero-actions">
-          <div class="cta">
-            <a href="#contacto" class="btn wide" id="hero-cta">Agendar evaluación</a>
-            <a href="#herramientas" class="btn btn-sec wide" data-tool="inactividad">Calcular mi costo de inactividad</a>
-          </div>
-          <dl class="proof">
-            <div><dt>Años de experiencia</dt><dd>20+</dd></div>
-            <div><dt>Implementaciones</dt><dd>350+</dd></div>
-            <div><dt>Casos de soporte atendidos</dt><dd>1,700+</dd></div>
-            <div><dt>Horas de soporte</dt><dd>11,000+</dd></div>
-          </dl>
+      </div>
+    </section>
+
+    <!-- PERSONAS -->
+    <section class="band people" id="personas">
+      <div class="wrap">
+        <div class="people-head reveal">
+          <h2 class="h2">Detrás de cada sistema hay personas.</h2>
+          <p class="lede">Las suyas, que necesitan trabajar sin interrupciones. Y las nuestras, que se encargan de que así sea.</p>
         </div>
+        <div class="vows">
+          <div class="vow reveal"><h3>Le hablamos claro.</h3><p>Explicamos cada decisión técnica en términos de su negocio: qué riesgo resuelve, cuánto cuesta y qué pasa si no se hace.</p></div>
+          <div class="vow reveal"><h3>Conocemos su operación.</h3><p>El mismo equipo diseña, implementa y da soporte. No tiene que explicar todo de nuevo cada vez que nos llama.</p></div>
+          <div class="vow reveal"><h3>Estamos cerca.</h3><p>Equipo propio en Cuenca y Guayaquil, en su idioma y en su horario.</p></div>
+        </div>
+        <dl class="proof reveal">
+          <div><dt>años acompañando a organizaciones ecuatorianas</dt><dd>20+</dd></div>
+          <div><dt>proyectos puestos en marcha</dt><dd>350+</dd></div>
+          <div><dt>veces que un cliente nos pidió ayuda y respondimos</dt><dd>1,700+</dd></div>
+          <div><dt>horas de soporte junto a nuestros clientes</dt><dd>11,000+</dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- SECTOR -->
+    <section class="band sector-band" id="sector">
+      <div class="wrap sector">
+        <span class="label" id="sector-label">Su sector</span>
+        <h2 class="h2">¿Qué necesita su organización?</h2>
+        <div class="sector-chips" role="radiogroup" aria-labelledby="sector-label">
+          <button type="button" role="radio" aria-checked="true" data-sector="coop">Cooperativa</button>
+          <button type="button" role="radio" aria-checked="false" data-sector="salud">Salud</button>
+          <button type="button" role="radio" aria-checked="false" data-sector="industria">Industria</button>
+          <button type="button" role="radio" aria-checked="false" data-sector="publico">Sector público</button>
+        </div>
+        <p class="sector-msg" id="sector-msg" aria-live="polite">Disponibilidad, respaldo y protección de datos para cumplir con la SEPS y atender a sus socios sin interrupciones.</p>
+        <a href="#contacto" class="btn" id="hero-cta">Hablar con un especialista de mi sector</a>
       </div>
     </section>
 
@@ -836,8 +876,8 @@
       <div class="wrap contact-grid">
         <div class="reveal">
           <span class="label">Contacto</span>
-          <h2 class="h2">Agende una evaluación de su infraestructura.</h2>
-          <p class="lede">Cuéntenos qué necesita su organización. Un especialista revisará su caso y le propondrá las alternativas más adecuadas.</p>
+          <h2 class="h2">Hablemos de su operación.</h2>
+          <p class="lede">Cuéntenos qué le preocupa. Una persona de nuestro equipo técnico revisará su caso y le escribirá.</p>
           <div class="direct">
             <div class="direct-row"><span class="k">Correo</span><span class="v" id="mail">info@coresolutions.com.ec</span><button class="copy" type="button" data-copy="mail">Copiar</button></div>
             <div class="direct-row"><span class="k">Teléfono</span><span class="v mono" id="phone">+593 99 402 1631</span><button class="copy" type="button" data-copy="phone">Copiar</button></div>
@@ -894,7 +934,7 @@
 
   <div class="mbar" id="mbar">
     <a href="#herramientas" class="btn btn-sec">Calculadoras</a>
-    <a href="#contacto" class="btn">Agendar evaluación</a>
+    <a href="#contacto" class="btn">Hablar con un especialista</a>
   </div>
 
   <footer>

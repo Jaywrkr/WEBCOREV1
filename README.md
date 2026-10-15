@@ -12,11 +12,13 @@ En Vercel, importar el repositorio `Jaywrkr/WEBCOREV1`, seleccionar **Other** co
 
 ## Secciones
 
-Inicio, Soluciones, CoreOnCloud, Industrias, Nosotros y Contacto.
+Inicio (red animada en canvas), Ecosistema, Soluciones, CoreOnCloud (rack 42U animado), Cifras, Industrias, Cómo trabajamos y Contacto (formulario que prepara un correo a info@coresolutions.com.ec).
+
+Todo vive en `index.html`: sin dependencias ni compilación, respeta `prefers-reduced-motion` y es responsive hasta 360px.
 
 ## Pendientes antes de publicar en producción
 
-- Sustituir el logotipo tipográfico temporal por el logo oficial y validar los colores institucionales.
+- Sustituir el isotipo SVG temporal por el logo oficial y validar los colores institucionales.
 - Revisar textos, cifras, nombres comerciales y socios tecnológicos.
 - Agregar política de privacidad, formularios y analítica únicamente con las integraciones aprobadas.
 - Añadir páginas detalladas por solución, SEO enriquecido y casos de éxito autorizados.

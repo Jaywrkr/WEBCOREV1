@@ -1,0 +1,3 @@
+"use client";
+import {useEffect,useRef} from "react";import gsap from "gsap";import{ScrollTrigger}from"gsap/ScrollTrigger";
+export function ProgressRail(){const line=useRef<HTMLDivElement>(null);useEffect(()=>{if(!line.current||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;gsap.registerPlugin(ScrollTrigger);const ctx=gsap.context(()=>{gsap.fromTo(line.current,{scaleY:0},{scaleY:1,ease:"none",scrollTrigger:{trigger:document.body,start:"top top",end:"bottom bottom",scrub:true}})},line);return()=>ctx.revert()},[]);return <div aria-hidden="true" className="progress-track"><div ref={line} className="progress-fill"/></div>}

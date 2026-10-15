@@ -1,0 +1,3 @@
+"use client";
+import {useEffect,useState} from "react";
+export function SectionIndicator(){const[active,setActive]=useState("01");useEffect(()=>{const ids=["capacidades","metodo","ecosistema","industrias","evidencia"];const nodes=ids.map(id=>document.getElementById(id)).filter(Boolean) as HTMLElement[];const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const i=ids.indexOf(e.target.id);setActive(String(i+1).padStart(2,"0"))}})},{rootMargin:"-30% 0px -55% 0px"});nodes.forEach(node=>obs.observe(node));return()=>obs.disconnect()},[]);return <div className="section-indicator" aria-hidden="true"><span className="font-mono">{active}</span><span className="indicator-divider"/><span className="font-mono">05</span></div>}

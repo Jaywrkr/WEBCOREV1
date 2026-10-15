@@ -36,3 +36,15 @@ Importe el repositorio, seleccione Next.js, configure `NEXT_PUBLIC_SITE_URL` y `
 - Verificar previews en navegador, navegación por teclado y responsive.
 - Implementar rate limiting y protección anti-spam del formulario.
 - Añadir logos oficiales y Open Graph visual autorizado.
+
+
+## Edición 03: Immersive systems (rama de trabajo)
+- `app/page.tsx`: portada editorial con narrativa de infraestructura y jerarquía comercial.
+- `components/network-map.tsx`: diagrama SVG interactivo ligero, animado con Motion/GSAP, accesible y con alternativa sin movimiento.
+- `components/section-indicator.tsx`: marcador de secciones con IntersectionObserver.
+- `components/number-plate.tsx`: cifras con placeholders, sin métricas ficticias.
+- `styles/immersive-v3.css`: layout, responsive, panel y capítulos del Home.
+- El scroll nativo se mantiene; no se añade Lenis ni Three.js para evitar complejidad y peso sin retorno claro.
+- Revisión manual de reglas: esquinas rectas, componentes con fondo plano, azul saturado reservado a enlaces/foco, interacciones sin rebotes. El fondo hero y CTA conserva el mesh permitido.
+
+**Verificaciones aún necesarias antes de merge:** ejecutar `npm install && npm run build && npm run typecheck`; Lighthouse móvil >= 90, contraste AA y comprobación de desbordamiento a 375px. Desde el entorno de edición de GitHub no se ejecutaron estas pruebas. El mapa representa una topología conceptual, no monitoreo en tiempo real.

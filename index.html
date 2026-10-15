@@ -244,8 +244,8 @@
     .rail li{display:flex;gap:var(--s4);align-items:baseline;color:var(--gray-50);transition:color .25s;font-weight:500}
     .rail li .mono{font-size:12px}
     .rail li.on{color:var(--navy)}
-    .stages{display:grid;gap:var(--s10)}
-    .stage{min-height:62vh;display:flex;flex-direction:column;justify-content:center;gap:var(--s5)}
+    .stages{display:grid;gap:var(--s9)}
+    .stage{min-height:54vh;display:flex;flex-direction:column;justify-content:center;gap:var(--s5)}
     .stage .mono{font-size:12px;color:var(--gray-50)}
     .stage h3{font-size:26px;color:var(--navy)}
     .stage>p{color:var(--gray-70);max-width:52ch}
@@ -307,8 +307,8 @@
     .ctl-h{display:flex;justify-content:space-between;align-items:baseline;gap:var(--s3)}
     .ctl label,.ctl .lbl{font-size:14px;font-weight:500;color:var(--gray-80)}
     .ctl output{font-family:var(--f-mono);font-size:14px;color:var(--navy);font-variant-numeric:tabular-nums}
-    .ctl input[type=number],.ctl select{width:100%;background:var(--gray-10);border:0;border-bottom:1px solid var(--gray-50);border-radius:2px 2px 0 0;padding:10px var(--s4);font-size:15px;font-family:var(--f-mono)}
-    .ctl input[type=number]:focus,.ctl select:focus{outline:2px solid var(--accent);outline-offset:-2px}
+    .ctl input[type=text],.ctl select{width:100%;background:var(--gray-10);border:0;border-bottom:1px solid var(--gray-50);border-radius:2px 2px 0 0;padding:10px var(--s4);font-size:15px;font-family:var(--f-mono)}
+    .ctl input[type=text]:focus,.ctl select:focus{outline:2px solid var(--accent);outline-offset:-2px}
     input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:24px;background:transparent;cursor:pointer;--p:50%}
     input[type=range]::-webkit-slider-runnable-track{height:4px;background:linear-gradient(90deg,var(--navy) var(--p),var(--gray-20) var(--p))}
     input[type=range]::-moz-range-track{height:4px;background:var(--gray-20)}
@@ -391,6 +391,23 @@
     .foot .wordmark{display:inline-block;margin-bottom:var(--s5)}
     .bottom{margin-top:var(--s10);padding-top:var(--s6);border-top:1px solid var(--line-dark);display:flex;justify-content:space-between;gap:var(--s5);flex-wrap:wrap;font-size:13px;color:var(--blue-30)}
 
+    .progress{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent);transform-origin:left;transform:scaleX(0)}
+    .sol-link{display:inline-flex;align-items:center;gap:var(--s3);margin-top:var(--s5);font-size:14px;font-weight:500;color:var(--navy);align-self:flex-start;border-bottom:1px solid transparent;transition:border-color .15s,gap .15s}
+    .sol-link svg{width:14px;height:14px}
+    .sol-link:hover{border-bottom-color:var(--navy);gap:var(--s4)}
+    .tabs-help{margin-top:auto;padding:var(--s5);display:grid;gap:var(--s2);font-size:13px;color:var(--gray-70);border-top:1px solid var(--line)}
+    .tabs-help b{color:var(--gray-90);font-size:14px}
+    .tabs-help a{color:var(--navy);font-weight:500;margin-top:var(--s2)}
+    .tabs-help a:hover{text-decoration:underline}
+    .reset{justify-self:start;background:none;border:0;padding:0;font-size:13px;color:var(--gray-60);text-decoration:underline;cursor:pointer}
+    .reset:hover{color:var(--navy)}
+    .next{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;gap:var(--s5)}
+    .next li{display:flex;gap:var(--s5);align-items:flex-start}
+    .next .num{font-size:12px;color:var(--blue-30);padding-top:3px;width:20px;flex:none}
+    .next b{display:block;color:#fff;font-weight:600}
+    .next span{color:var(--blue-20);font-size:14px}
+    .field input[aria-invalid="true"]{border-bottom:2px solid var(--red-60);background:#FDECEE}
+    .mbar{display:none}
     .reveal{transition:transform .6s var(--ease),opacity .6s var(--ease)}
     .js .reveal.pre{transform:translateY(16px);opacity:.6}
 
@@ -424,16 +441,33 @@
       .stage{min-height:0}
       .tool{grid-template-columns:1fr}
       .tool-in{border-right:0;border-bottom:1px solid var(--line)}
+      .mbar{display:flex;gap:var(--s3);position:fixed;left:0;right:0;bottom:0;z-index:50;padding:var(--s3) var(--gr) calc(var(--s3) + env(safe-area-inset-bottom,0px)) var(--gl);background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s var(--ease)}
+      .mbar.show{transform:none}
+      .mbar .btn{flex:1;white-space:nowrap;justify-content:center;gap:var(--s4);min-height:44px;font-size:14px;padding:0 var(--s4)}
+      .tabs-help{display:none}
     }
     @media (max-width:640px){
       .grid-3,.features,.row2{grid-template-columns:1fr}
       .sol{min-height:0}
       .cell,.tool-in,.tool-out{padding:var(--s6)}
-      .hero-data{grid-template-columns:1fr}
-      .hero-data div{border-right:0;margin-right:0;padding:var(--s4) 0;border-bottom:1px solid var(--line-dark)}
-      .stat-grid{grid-template-columns:1fr}
-      .stat,.stat:first-child{padding:var(--s7) 0;border-right:0;border-bottom:1px solid var(--line)}
-      .stat:last-child{border-bottom:0}
+      .hero-data{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:var(--s7)}
+      .hero-data div{padding:var(--s4) var(--s3) 0 0;margin-right:var(--s3)}
+      .hero-data b{font-size:15px}
+      .hero-data span{font-size:12px;line-height:1.35;display:block}
+      .stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .stat,.stat:first-child{padding:var(--s6) var(--s3)}
+      .stat:first-child{padding-left:0}
+      .stat strong{font-size:36px}
+      .stat span{font-size:12px;margin-top:var(--s3)}
+      .ind-grid{grid-template-columns:1fr 1fr}
+      .ind-grid .ind{padding:var(--s5);gap:var(--s4)}
+      .ind h3{font-size:19px}
+      .ind p{font-size:13px}
+      .tab{flex:0 0 auto;grid-template-columns:20px auto;padding:var(--s4) var(--s5);align-items:center}
+      .tab span{display:none}
+      .tab svg{margin-top:0}
+      .tabs{scroll-snap-type:x mandatory}
+      .tab{scroll-snap-align:start}
       .eco .wrap{flex-direction:column;align-items:flex-start;gap:var(--s4)}
       .track-mask{width:100%}
       .foot{grid-template-columns:1fr}
@@ -474,6 +508,7 @@
       <a href="#contacto" class="btn">Agendar evaluación <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
       <button class="menu-btn" id="menu" aria-controls="navlinks" aria-expanded="false" aria-label="Abrir menú"><span></span></button>
     </nav>
+    <div class="progress" id="progress" aria-hidden="true"></div>
   </header>
 
   <main id="main">
@@ -532,36 +567,42 @@
             <h3>Data Center y sistemas</h3>
             <p>Servidores, almacenamiento, alta disponibilidad y modernización de plataformas críticas.</p>
             <div class="tags"><span class="tag">Servidores</span><span class="tag">Storage</span><span class="tag">Alta disponibilidad</span></div>
+            <a class="sol-link" href="#contacto" data-interest="Infraestructura" data-topic="Data Center y sistemas">Consultar sobre esta solución <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
           </article>
           <article class="cell sol reveal">
             <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 18h10a4 4 0 0 0 .6-7.96A6 6 0 0 0 6.1 9.6 4.2 4.2 0 0 0 7 18Z"/></svg></div><span class="code">SOL-02</span></div>
             <h3>Nube y continuidad</h3>
             <p>Infraestructura como servicio, respaldo y recuperación ante desastres para su continuidad operativa.</p>
             <div class="tags"><span class="tag">IaaS</span><span class="tag">Backup</span><span class="tag">DRaaS</span></div>
+            <a class="sol-link" href="#contacto" data-interest="CoreOnCloud" data-topic="Nube y continuidad">Consultar sobre esta solución <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
           </article>
           <article class="cell sol reveal">
             <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8 7.5 9.5 4.4-1.5 7.5-4.9 7.5-9.5V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg></div><span class="code">SOL-03</span></div>
             <h3>Ciberseguridad</h3>
             <p>Protección de redes, endpoints, accesos y datos frente a amenazas actuales.</p>
             <div class="tags"><span class="tag">Firewall</span><span class="tag">Endpoint</span><span class="tag">Protección de datos</span></div>
+            <a class="sol-link" href="#contacto" data-interest="Ciberseguridad" data-topic="Ciberseguridad">Consultar sobre esta solución <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
           </article>
           <article class="cell sol reveal">
             <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg></div><span class="code">SOL-04</span></div>
             <h3>Virtualización y HCI</h3>
             <p>Consolidación de cargas de trabajo, virtualización y plataformas hiperconvergentes.</p>
             <div class="tags"><span class="tag">Hipervisores</span><span class="tag">HCI</span><span class="tag">Migraciones</span></div>
+            <a class="sol-link" href="#contacto" data-interest="Infraestructura" data-topic="Virtualización y HCI">Consultar sobre esta solución <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
           </article>
           <article class="cell sol reveal">
             <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="10" y="3" width="4" height="4"/><rect x="3" y="17" width="4" height="4"/><rect x="17" y="17" width="4" height="4"/><path d="M12 7v5M12 12H5v5M12 12h7v5"/></svg></div><span class="code">SOL-05</span></div>
             <h3>Redes y conectividad</h3>
             <p>LAN, switching, segmentación y conectividad empresarial preparada para crecer.</p>
             <div class="tags"><span class="tag">Switching</span><span class="tag">Wi-Fi</span><span class="tag">Segmentación</span></div>
+            <a class="sol-link" href="#contacto" data-interest="Redes" data-topic="Redes y conectividad">Consultar sobre esta solución <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
           </article>
           <article class="cell sol reveal">
             <div class="top"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h10M4 12h16M4 17h7"/><path d="m16 15 2 2 3-4"/></svg></div><span class="code">SOL-06</span></div>
             <h3>Automatización e IA</h3>
             <p>Casos de uso, automatización de procesos e integración de inteligencia artificial.</p>
             <div class="tags"><span class="tag">Procesos</span><span class="tag">Integraciones</span><span class="tag">IA aplicada</span></div>
+            <a class="sol-link" href="#contacto" data-interest="Automatización e IA" data-topic="Automatización e IA">Consultar sobre esta solución <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
           </article>
         </div>
       </div>
@@ -638,7 +679,7 @@
           <div><span class="label">Industrias</span><h2 class="h2">Cada sector tiene sus propias exigencias.</h2></div>
           <p>Ajustamos cada solución a las prioridades operativas, regulatorias y tecnológicas de su organización.</p>
         </div>
-        <div class="grid grid-3">
+        <div class="grid grid-3 ind-grid">
           <div class="cell ind reveal"><span class="mono">IND-FIN</span><div><h3>Finanzas</h3><p>Disponibilidad continua, cumplimiento y protección de datos sensibles.</p></div></div>
           <div class="cell ind reveal"><span class="mono">IND-GOB</span><div><h3>Gobierno</h3><p>Plataformas confiables para servicios ciudadanos y contratación pública.</p></div></div>
           <div class="cell ind reveal"><span class="mono">IND-SAL</span><div><h3>Salud</h3><p>Sistemas clínicos disponibles e información del paciente protegida.</p></div></div>
@@ -697,11 +738,11 @@
               <div class="deliv-b">
                 <div class="gantt">
                   <span></span><span class="wk">S1</span><span class="wk">S2</span><span class="wk">S3</span><span class="wk">S4</span><span class="wk">S5</span><span class="wk">S6</span>
-                  <span class="t">Levantamiento</span><span class="b" style="grid-column:2/3"></span>
-                  <span class="t">Diseño final</span><span class="b" style="grid-column:2/4"></span>
-                  <span class="t">Instalación</span><span class="b" style="grid-column:3/6"></span>
-                  <span class="t">Migración</span><span class="b a" style="grid-column:5/7"></span>
-                  <span class="t">Pruebas y entrega</span><span class="b" style="grid-column:6/8"></span>
+                  <span class="t" style="grid-row:2">Levantamiento</span><span class="b" style="grid-row:2;grid-column:2/3"></span>
+                  <span class="t" style="grid-row:3">Diseño final</span><span class="b" style="grid-row:3;grid-column:2/4"></span>
+                  <span class="t" style="grid-row:4">Instalación</span><span class="b" style="grid-row:4;grid-column:3/6"></span>
+                  <span class="t" style="grid-row:5">Migración</span><span class="b a" style="grid-row:5;grid-column:5/7"></span>
+                  <span class="t" style="grid-row:6">Pruebas y entrega</span><span class="b" style="grid-row:6;grid-column:6/8"></span>
                 </div>
               </div>
             </div>
@@ -766,6 +807,11 @@
             <div class="direct-row"><span class="k">Teléfono</span><span class="v mono" id="phone">+593 99 402 1631</span><button class="copy" type="button" data-copy="phone">Copiar</button></div>
             <div class="direct-row"><span class="k">Oficina</span><span class="v">Av. 3 de Noviembre 21-176 y Juan Pablo I, Cuenca</span></div>
           </div>
+          <ol class="next">
+            <li><span class="num">01</span><div><b>Revisamos su requerimiento</b><span>Un especialista analiza la información que nos envía.</span></div></li>
+            <li><span class="num">02</span><div><b>Reunión técnica</b><span>Conversamos sobre su operación, sus riesgos y sus prioridades.</span></div></li>
+            <li><span class="num">03</span><div><b>Propuesta</b><span>Recibe una solución dimensionada para su organización.</span></div></li>
+          </ol>
         </div>
         <form class="panel reveal" id="form" novalidate>
           <div class="row2">
@@ -794,6 +840,11 @@
       </div>
     </section>
   </main>
+
+  <div class="mbar" id="mbar">
+    <a href="#herramientas" class="btn btn-sec">Calculadoras</a>
+    <a href="#contacto" class="btn">Agendar evaluación</a>
+  </div>
 
   <footer>
     <div class="wrap">
@@ -855,10 +906,22 @@
     /* ---------- Contact form ---------- */
     var form=$('#form');
     form.addEventListener('submit',function(e){e.preventDefault();var name=form.nombre.value.trim(),mail=form.correo.value.trim(),err=$('#err');
-      if(!name||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)){err.hidden=false;(name?form.correo:form.nombre).focus();return}err.hidden=true;
+      var okMail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);form.nombre.setAttribute('aria-invalid',String(!name));form.correo.setAttribute('aria-invalid',String(!okMail));
+      if(!name||!okMail){err.hidden=false;(name?form.correo:form.nombre).focus();return}err.hidden=true;
       var ints=$$('.chips input:checked',form).map(function(i){return i.value}).join(', ');
       var body='Nombre: '+name+'\nEmpresa: '+form.empresa.value.trim()+'\nCorreo: '+mail+'\nÁreas de interés: '+(ints||'-')+'\n\n'+form.mensaje.value.trim();
       var a=document.createElement('a');a.href='mailto:info@coresolutions.com.ec?subject='+encodeURIComponent('Solicitud de evaluación: '+(form.empresa.value.trim()||name))+'&body='+encodeURIComponent(body);a.click();$('#done').hidden=false});
+
+    $$('input',form).forEach(function(i){i.addEventListener('input',function(){i.removeAttribute('aria-invalid')})});
+
+    /* ---------- Solution links prefill the form ---------- */
+    $$('.sol-link').forEach(function(a){a.addEventListener('click',function(){$$('.chips input',form).forEach(function(c){if(c.value===a.dataset.interest)c.checked=true});var ta=$('#f-msg');if(!ta.value.trim())ta.value='Me interesa conocer más sobre '+a.dataset.topic+'.'})});
+
+    /* ---------- Scroll progress + mobile action bar ---------- */
+    var prog=$('#progress'),mbar=$('#mbar'),heroEl=$('.hero'),contactEl=$('#contacto');
+    function onScrollUI(){var h=document.documentElement,max=h.scrollHeight-h.clientHeight;prog.style.transform='scaleX('+(max>0?h.scrollTop/max:0)+')';
+      var past=heroEl.getBoundingClientRect().bottom<0,atContact=contactEl.getBoundingClientRect().top<window.innerHeight*.9;mbar.classList.toggle('show',past&&!atContact)}
+    window.addEventListener('scroll',onScrollUI,{passive:true});onScrollUI();
 
     function onVisible(el,cb){if(!('IntersectionObserver' in window)){cb(true);return}new IntersectionObserver(function(es){cb(es[0].isIntersecting)}).observe(el)}
 
@@ -1018,20 +1081,21 @@
       TOOLS.forEach(function(t,i){state[t.id]={};t.inputs.forEach(function(inp){state[t.id][inp.id]=inp.value});
         var b=document.createElement('button');b.type='button';b.className='tab';b.id='tab-'+t.id;b.setAttribute('role','tab');b.setAttribute('aria-controls','tool');b.setAttribute('aria-selected',i===0?'true':'false');b.tabIndex=i===0?0:-1;
         b.innerHTML=ICON[t.icon]+'<div><b>'+t.name+'</b><span>'+t.sub+'</span></div>';b.addEventListener('click',function(){select(i,true)});tabs.appendChild(b)});
+      var help=document.createElement('div');help.className='tabs-help';help.innerHTML='<b>¿Necesita un cálculo a medida?</b><span>Un especialista puede dimensionar su caso con datos reales.</span><a href="#contacto">Hablar con un especialista →</a>';tabs.appendChild(help);
       tabs.addEventListener('keydown',function(e){if(e.key!=='ArrowDown'&&e.key!=='ArrowUp'&&e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();var d=(e.key==='ArrowDown'||e.key==='ArrowRight')?1:-1;select((active+d+TOOLS.length)%TOOLS.length,true);tabs.children[active].focus()});
       function control(t,inp){var v=state[t.id][inp.id],id='t-'+t.id+'-'+inp.id,h='<div class="ctl">';
         if(inp.type==='range'){h+='<div class="ctl-h"><label for="'+id+'">'+inp.label+'</label><output id="'+id+'-o" for="'+id+'">'+inp.fmt(v)+'</output></div><input type="range" id="'+id+'" data-k="'+inp.id+'" min="'+inp.min+'" max="'+inp.max+'" step="'+inp.step+'" value="'+v+'">'}
-        else if(inp.type==='number'){h+='<label for="'+id+'">'+inp.label+'</label><input type="number" inputmode="decimal" id="'+id+'" data-k="'+inp.id+'" min="'+inp.min+'" step="'+inp.step+'" value="'+v+'">'}
+        else if(inp.type==='number'){h+='<label for="'+id+'">'+inp.label+'</label><input type="text" inputmode="numeric" autocomplete="off" id="'+id+'" data-k="'+inp.id+'" data-num="1" value="'+nf(v)+'">'}
         else if(inp.type==='select'){h+='<label for="'+id+'">'+inp.label+'</label><select id="'+id+'" data-k="'+inp.id+'">'+inp.options.map(function(o){return '<option value="'+o[0]+'"'+(o[0]===v?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select>'}
         else if(inp.type==='seg'){h+='<span class="lbl" id="'+id+'">'+inp.label+'</span><div class="seg" role="group" aria-labelledby="'+id+'">'+inp.options.map(function(o){return '<button type="button" data-k="'+inp.id+'" data-v="'+o+'" aria-pressed="'+(o===v)+'">'+inp.fmt(o)+'</button>'}).join('')+'</div>'}
         return h+'</div>'}
       function setP(r){r.style.setProperty('--p',((r.value-r.min)/(r.max-r.min)*100)+'%')}
       function select(i,focusless){active=i;$$('.tab',tabs).forEach(function(b,j){b.setAttribute('aria-selected',String(j===i));b.tabIndex=j===i?0:-1});var t=TOOLS[i];panel.setAttribute('aria-labelledby','tab-'+t.id);
-        panel.innerHTML='<div class="tool-in"><div><h3>'+t.name+'</h3><p class="desc">'+t.desc+'</p></div>'+t.inputs.map(function(inp){return control(t,inp)}).join('')+'</div><div class="tool-out" id="out"></div>';
+        panel.innerHTML='<div class="tool-in"><div><h3>'+t.name+'</h3><p class="desc">'+t.desc+'</p></div>'+t.inputs.map(function(inp){return control(t,inp)}).join('')+'<button type="button" class="reset" data-reset>Restablecer valores</button></div><div class="tool-out" id="out"></div>';
         $$('input[type=range]',panel).forEach(setP);
-        panel.oninput=function(e){var el=e.target,k=el.dataset.k;if(!k)return;var inp=t.inputs.filter(function(x){return x.id===k})[0];var val=parseFloat(el.value);if(isNaN(val))val=0;state[t.id][k]=val;if(el.type==='range'){setP(el);$('#'+el.id+'-o').textContent=inp.fmt(val)}compute()};
+        panel.oninput=function(e){var el=e.target,k=el.dataset.k;if(!k)return;var inp=t.inputs.filter(function(x){return x.id===k})[0];var val=parseFloat(el.dataset.num?el.value.replace(/[^0-9.]/g,''):el.value);if(isNaN(val))val=0;state[t.id][k]=val;if(e.type==='change'&&el.dataset.num)el.value=nf(val);if(el.type==='range'){setP(el);$('#'+el.id+'-o').textContent=inp.fmt(val)}compute()};
         panel.onchange=panel.oninput;
-        panel.onclick=function(e){var b=e.target.closest('.seg button');if(b){state[t.id][b.dataset.k]=parseFloat(b.dataset.v);$$('.seg button',panel).forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});compute()}var q=e.target.closest('[data-quote]');if(q){quote()}};
+        panel.onclick=function(e){var b=e.target.closest('.seg button');if(b){state[t.id][b.dataset.k]=parseFloat(b.dataset.v);$$('.seg button',panel).forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});compute()}var q=e.target.closest('[data-quote]');if(q){quote()}if(e.target.closest('[data-reset]')){t.inputs.forEach(function(inp){state[t.id][inp.id]=inp.value});select(active)}};
         compute()}
       var last='';
       function compute(){var t=TOOLS[active],r=t.calc(state[t.id]);last=r.sum;

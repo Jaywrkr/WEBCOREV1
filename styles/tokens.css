@@ -1,0 +1,8 @@
+:root {
+ --brand:#01095C; --blue-10:#E9EAFC; --blue-20:#CED1F5; --blue-30:#ABB2ED; --blue-40:#838EE3; --blue-50:#596BD6; --blue-60:#394AB5; --blue-70:#26368F; --blue-80:#172371; --blue-90:#01095C; --blue-100:#00053B;
+ --accent-blue:#2D43E7;
+ --gray-0:#FFFFFF; --gray-10:#F6F7F9; --gray-20:#E5E8ED; --gray-30:#CED3DB; --gray-40:#ABB3BE; --gray-50:#8893A1; --gray-60:#687483; --gray-70:#4D5866; --gray-80:#333D49; --gray-90:#222A35; --gray-100:#121720;
+ --success:#198038; --warning:#F1C21B; --danger:#DA1E28;
+ --ease:cubic-bezier(.2,0,.38,.9); --container:1280px;
+ --space-1:8px; --space-2:16px; --space-3:24px; --space-4:32px; --space-5:40px; --space-6:48px; --space-8:64px; --space-10:80px;
+}

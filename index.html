@@ -311,18 +311,52 @@
     .rep dt{font-size:12px;color:var(--gray-60)}
     .rep dd{margin:0;font-family:var(--f-mono);font-size:20px;color:var(--navy)}
 
-    /* Tools dashboard */
+    /* Tools grid + drawer */
+    .tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+    .tcard{background:#fff;padding:var(--s7);border:0;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:var(--s3);min-height:260px;color:inherit;transition:background .25s var(--ease)}
+    .tcard .ti{width:48px;height:48px;display:grid;place-items:center;background:var(--blue-10);color:var(--navy);margin-bottom:var(--s5);transition:background .25s,color .25s}
+    .tcard .ti svg{width:24px;height:24px}
+    .tcard b{font-size:20px;font-weight:600;color:var(--navy)}
+    .tcard .d{font-size:15px;color:var(--gray-70)}
+    .tcard .peek{font-family:var(--f-mono);font-size:13px;color:var(--gray-60);margin-top:var(--s3)}
+    .tcard .peek em{font-style:normal;color:var(--navy)}
+    .tcard .go{margin-top:auto;padding-top:var(--s5);display:inline-flex;align-items:center;gap:var(--s3);font-size:14px;font-weight:500;color:var(--navy);transition:gap .2s}
+    .tcard .go svg{width:14px;height:14px}
+    .tcard:hover{background:var(--gray-10)}
+    .tcard:hover .ti{background:var(--navy);color:#fff}
+    .tcard:hover .go{gap:var(--s4)}
+    .tcard.alt{background:var(--navy);color:#fff}
+    .tcard.alt b{color:#fff}.tcard.alt .d{color:var(--blue-20)}.tcard.alt .go{color:#fff}
+    .tcard.alt .ti{background:rgba(255,255,255,.1);color:#fff}
+    .tcard.alt:hover{background:var(--blue-80)}
+    .drawer{position:fixed;inset:0;z-index:60}
+    .drawer-bg{position:absolute;inset:0;background:rgba(0,4,64,.42);opacity:0;transition:opacity .35s var(--ease)}
+    .drawer-panel{position:absolute;top:0;right:0;bottom:0;width:min(940px,100%);background:#fff;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .45s var(--ease);box-shadow:-24px 0 64px -32px rgba(1,9,92,.45);padding-top:env(safe-area-inset-top,0px)}
+    .drawer.open .drawer-bg{opacity:1}
+    .drawer.open .drawer-panel{transform:none}
+    .drawer-h{display:flex;justify-content:space-between;align-items:center;gap:var(--s5);padding:var(--s5) var(--s6);border-bottom:1px solid var(--line)}
+    .dh-l{display:flex;align-items:center;gap:var(--s4);min-width:0}
+    .dh-ico{width:40px;height:40px;flex:none;display:grid;place-items:center;background:var(--navy);color:#fff}
+    .dh-ico svg{width:20px;height:20px}
+    .drawer-h h3{font-size:20px;color:var(--navy);margin-top:2px}
+    .x{width:44px;height:44px;flex:none;display:grid;place-items:center;border:1px solid var(--gray-30);background:#fff;cursor:pointer;color:var(--navy)}
+    .x:hover{background:var(--gray-10)}
+    .x svg{width:18px;height:18px}
+    .drawer-b{flex:1;overflow-y:auto;overscroll-behavior:contain;container-type:inline-size}
+    .drawer-f{display:flex;justify-content:space-between;gap:var(--s4);padding:var(--s3) var(--s6) calc(var(--s3) + env(safe-area-inset-bottom,0px));border-top:1px solid var(--line)}
+    .dnav{background:none;border:0;padding:var(--s3) 0;font-size:14px;color:var(--gray-70);cursor:pointer;max-width:48%;text-align:left}
+    .dnav:last-child{text-align:right}
+    .dnav:hover{color:var(--navy)}
+    .drawer .tool{grid-template-columns:1fr}
+    .drawer .tool-in{border-right:0;border-bottom:1px solid var(--line)}
+    @container (min-width:760px){.drawer .tool{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr)}.drawer .tool-in{border-right:1px solid var(--line);border-bottom:0}}
+    html.lock{overflow:hidden}
+    .dsum{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;align-items:baseline;gap:var(--s4);padding:var(--s4) var(--s5);background:var(--navy);color:var(--blue-20);font-size:12px}
+    .dsum b{font-family:var(--f-mono);font-weight:500;font-size:18px;color:#fff;white-space:nowrap}
+    @container (min-width:760px){.dsum{display:none}}
+
+    /* Calculator internals */
     .tools{background:var(--gray-10);overflow:hidden}
-    .dash{display:grid;grid-template-columns:260px minmax(0,1fr);border:1px solid var(--line);background:#fff;position:relative;z-index:2}
-    .tabs{display:flex;flex-direction:column;border-right:1px solid var(--line);background:var(--gray-10)}
-    .tab{display:grid;grid-template-columns:24px minmax(0,1fr);gap:var(--s4);text-align:left;padding:var(--s5);border:0;border-bottom:1px solid var(--line);background:transparent;cursor:pointer;color:var(--gray-70);position:relative}
-    .tab svg{width:20px;height:20px;margin-top:2px}
-    .tab b{display:block;font-weight:600;font-size:14px;color:var(--gray-90)}
-    .tab span{display:block;font-size:12px;color:var(--gray-60);margin-top:2px}
-    .tab:hover{background:#fff}
-    .tab[aria-selected="true"]{background:#fff;color:var(--navy)}
-    .tab[aria-selected="true"]::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--navy)}
-    .tab[aria-selected="true"] b{color:var(--navy)}
     .tool{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);min-width:0}
     .tool-in{padding:var(--s7);border-right:1px solid var(--line);display:grid;gap:var(--s6);align-content:start}
     .tool-in h3{font-size:22px;color:var(--navy)}
@@ -419,10 +453,6 @@
     .sol-link{display:inline-flex;align-items:center;gap:var(--s3);margin-top:var(--s5);font-size:14px;font-weight:500;color:var(--navy);align-self:flex-start;border-bottom:1px solid transparent;transition:border-color .15s,gap .15s}
     .sol-link svg{width:14px;height:14px}
     .sol-link:hover{border-bottom-color:var(--navy);gap:var(--s4)}
-    .tabs-help{margin-top:auto;padding:var(--s5);display:grid;gap:var(--s2);font-size:13px;color:var(--gray-70);border-top:1px solid var(--line)}
-    .tabs-help b{color:var(--gray-90);font-size:14px}
-    .tabs-help a{color:var(--navy);font-weight:500;margin-top:var(--s2)}
-    .tabs-help a:hover{text-decoration:underline}
     .reset{justify-self:start;background:none;border:0;padding:0;font-size:13px;color:var(--gray-60);text-decoration:underline;cursor:pointer}
     .reset:hover{color:var(--navy)}
     .next{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;gap:var(--s5)}
@@ -436,13 +466,9 @@
     .js .reveal.pre{transform:translateY(16px);opacity:.6}
 
     @media (max-width:1100px){
-      .dash{grid-template-columns:1fr}
-      .tabs{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line)}
-      .tab{flex:0 0 220px;border-bottom:0;border-right:1px solid var(--line)}
-      .tab[aria-selected="true"]::before{left:0;right:0;top:auto;bottom:0;width:auto;height:3px}
     }
     @media (max-width:1040px){
-      .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .grid-3,.tool-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
       .contact-grid{grid-template-columns:1fr}
       .noc-body{grid-template-columns:1fr}
       .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -473,7 +499,6 @@
       .mbar{display:flex;gap:var(--s3);position:fixed;left:0;right:0;bottom:0;z-index:50;padding:var(--s3) var(--gr) calc(var(--s3) + env(safe-area-inset-bottom,0px)) var(--gl);background:rgba(255,255,255,.96);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .3s var(--ease)}
       .mbar.show{transform:none}
       .mbar .btn{flex:1;white-space:nowrap;justify-content:center;gap:var(--s4);min-height:44px;font-size:14px;padding:0 var(--s4)}
-      .tabs-help{display:none}
     }
     @media (max-width:640px){
       .grid-3,.row2{grid-template-columns:1fr}
@@ -489,11 +514,11 @@
       .stat,.stat:first-child{padding:var(--s6) var(--s3)}
       .stat strong{font-size:38px}
       .stat span{font-size:12px;margin-top:var(--s3)}
-      .tab{flex:0 0 auto;grid-template-columns:20px auto;padding:var(--s4) var(--s5);align-items:center}
-      .tab span{display:none}
-      .tab svg{margin-top:0}
-      .tabs{scroll-snap-type:x mandatory}
-      .tab{scroll-snap-align:start}
+      .tool-grid{grid-template-columns:1fr}
+      .tcard{min-height:0;padding:var(--s6)}
+      .tcard .ti{margin-bottom:var(--s3)}
+      .drawer-panel{top:auto;height:94svh;width:100%;transform:translateY(100%);box-shadow:0 -24px 64px -32px rgba(1,9,92,.45)}
+      .drawer-h{padding:var(--s4) var(--s5)}
       .eco .wrap{flex-direction:column;align-items:flex-start;gap:var(--s4)}
       .foot{grid-template-columns:1fr}
       .direct-row{flex-wrap:wrap;gap:var(--s3)}
@@ -527,7 +552,6 @@
         <a href="#industrias">Industrias</a>
         <a href="#metodo">Cómo trabajamos</a>
         <a href="#herramientas">Herramientas</a>
-        <a href="#contacto">Contacto</a>
       </div>
       <a href="#contacto" class="btn">Agendar evaluación <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
       <button class="menu-btn" id="menu" aria-controls="navlinks" aria-expanded="false" aria-label="Abrir menú"><span></span></button>
@@ -700,12 +724,12 @@
           <p>Ajustamos cada solución a las prioridades operativas, regulatorias y tecnológicas de su organización.</p>
         </div>
         <div class="ind-list">
-          <a class="ind-row reveal" href="#contacto" data-topic="Finanzas"><span class="mono">IND-FIN</span><h3>Finanzas</h3><p>Disponibilidad continua, cumplimiento y protección de datos sensibles.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Gobierno"><span class="mono">IND-GOB</span><h3>Gobierno</h3><p>Plataformas confiables para servicios ciudadanos y contratación pública.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Salud"><span class="mono">IND-SAL</span><h3>Salud</h3><p>Sistemas clínicos disponibles e información del paciente protegida.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Industria"><span class="mono">IND-MFG</span><h3>Industria</h3><p>Conectividad de planta, continuidad operativa y visibilidad de procesos.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Comercio"><span class="mono">IND-COM</span><h3>Comercio</h3><p>Infraestructura que soporta picos de demanda y operación multisede.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Educación"><span class="mono">IND-EDU</span><h3>Educación</h3><p>Redes y plataformas para campus, aulas híbridas y gestión académica.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="ind-row reveal" href="#contacto" data-topic="Finanzas"><h3>Finanzas</h3><p>Disponibilidad continua, cumplimiento y protección de datos sensibles.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="ind-row reveal" href="#contacto" data-topic="Gobierno"><h3>Gobierno</h3><p>Plataformas confiables para servicios ciudadanos y contratación pública.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="ind-row reveal" href="#contacto" data-topic="Salud"><h3>Salud</h3><p>Sistemas clínicos disponibles e información del paciente protegida.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="ind-row reveal" href="#contacto" data-topic="Industria"><h3>Industria</h3><p>Conectividad de planta, continuidad operativa y visibilidad de procesos.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="ind-row reveal" href="#contacto" data-topic="Comercio"><h3>Comercio</h3><p>Infraestructura que soporta picos de demanda y operación multisede.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+          <a class="ind-row reveal" href="#contacto" data-topic="Educación"><h3>Educación</h3><p>Redes y plataformas para campus, aulas híbridas y gestión académica.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
         </div>
       </div>
     </section>
@@ -801,16 +825,12 @@
 
     <!-- HERRAMIENTAS -->
     <section class="band tools" id="herramientas">
-      <div class="mesh light" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="wrap">
         <div class="head reveal">
-          <div><span class="label">Herramientas para clientes</span><h2 class="h2">Dimensione su escenario antes de hablar con nosotros.</h2></div>
-          <p>Calculadoras de referencia para estimar costos de inactividad, capacidad de respaldo, niveles de servicio y tiempos de migración. Los resultados son orientativos.</p>
+          <div><span class="label">Herramientas para clientes</span><h2 class="h2">Dimensione su escenario.</h2></div>
+          <p>Cinco calculadoras de referencia. Elija una, ajuste sus datos y lleve el resultado a una evaluación con nuestro equipo.</p>
         </div>
-        <div class="dash reveal">
-          <div class="tabs" role="tablist" aria-label="Calculadoras" id="tabs"></div>
-          <div class="tool" role="tabpanel" id="tool"></div>
-        </div>
+        <div class="tool-grid reveal" id="tool-grid"></div>
       </div>
     </section>
 
@@ -861,6 +881,21 @@
     </section>
   </main>
 
+  <div class="drawer" id="drawer" hidden>
+    <div class="drawer-bg" data-close></div>
+    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+      <div class="drawer-h">
+        <div class="dh-l"><span class="dh-ico" id="drawer-ico" aria-hidden="true"></span><div><span class="label">Calculadora</span><h3 id="drawer-title"></h3></div></div>
+        <button type="button" class="x" data-close aria-label="Cerrar calculadora"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m5 5 10 10M15 5 5 15"/></svg></button>
+      </div>
+      <div class="drawer-b"><div class="dsum" id="dsum" aria-live="polite"></div><div class="tool" id="tool"></div></div>
+      <div class="drawer-f">
+        <button type="button" class="dnav" id="d-prev"></button>
+        <button type="button" class="dnav" id="d-next"></button>
+      </div>
+    </aside>
+  </div>
+
   <div class="mbar" id="mbar">
     <a href="#herramientas" class="btn btn-sec">Calculadoras</a>
     <a href="#contacto" class="btn">Agendar evaluación</a>
@@ -874,7 +909,7 @@
           <p>Infraestructura, nube, ciberseguridad y servicios gestionados.</p>
         </div>
         <div><h4>Explorar</h4><a href="#soluciones">Soluciones</a><a href="#cloud">CoreOnCloud</a><a href="#industrias">Industrias</a><a href="#metodo">Cómo trabajamos</a></div>
-        <div><h4>Herramientas</h4><a href="#herramientas">Costo de inactividad</a><a href="#herramientas">Capacidad de respaldo</a><a href="#herramientas">Disponibilidad y SLA</a><a href="#herramientas">Tiempo de migración</a></div>
+        <div><h4>Herramientas</h4><a href="#herramientas" data-tool="inactividad">Costo de inactividad</a><a href="#herramientas" data-tool="respaldo">Capacidad de respaldo</a><a href="#herramientas" data-tool="sla">Disponibilidad y SLA</a><a href="#herramientas" data-tool="migracion">Tiempo de migración</a><a href="#herramientas" data-tool="continuidad">Nivel de continuidad</a></div>
         <div><h4>Contacto</h4><a href="mailto:info@coresolutions.com.ec">info@coresolutions.com.ec</a><a href="tel:+593994021631">+593 99 402 1631</a><p>Cuenca, Ecuador</p></div>
       </div>
       <div class="bottom"><span>© <span id="year">2026</span> Coresolutions. Todos los derechos reservados.</span><span class="mono">Cuenca · Guayaquil</span></div>
@@ -1100,12 +1135,24 @@
              sum:'Nivel de continuidad sugerido: '+names[tier]+' para '+v.srv+' servidores críticos (RTO '+lab(v.rto)+', RPO '+(v.rpo===0?'≈ 0':lab(v.rpo))+').'}}}
       ];
       function lab(h){return h<1?Math.round(h*60)+' min':h+' h'}
-      var tabs=$('#tabs'),panel=$('#tool'),state={},active=0;
+      var grid=$('#tool-grid'),panel=$('#tool'),drawer=$('#drawer'),state={},active=0,opener=null;
+      var GO='<span class="go">Abrir calculadora <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></span>';
       TOOLS.forEach(function(t,i){state[t.id]={};t.inputs.forEach(function(inp){state[t.id][inp.id]=inp.value});
-        var b=document.createElement('button');b.type='button';b.className='tab';b.id='tab-'+t.id;b.setAttribute('role','tab');b.setAttribute('aria-controls','tool');b.setAttribute('aria-selected',i===0?'true':'false');b.tabIndex=i===0?0:-1;
-        b.innerHTML=ICON[t.icon]+'<div><b>'+t.name+'</b><span>'+t.sub+'</span></div>';b.addEventListener('click',function(){select(i,true)});tabs.appendChild(b)});
-      var help=document.createElement('div');help.className='tabs-help';help.innerHTML='<b>¿Necesita un cálculo a medida?</b><span>Un especialista puede dimensionar su caso con datos reales.</span><a href="#contacto">Hablar con un especialista →</a>';tabs.appendChild(help);
-      tabs.addEventListener('keydown',function(e){if(e.key!=='ArrowDown'&&e.key!=='ArrowUp'&&e.key!=='ArrowRight'&&e.key!=='ArrowLeft')return;e.preventDefault();var d=(e.key==='ArrowDown'||e.key==='ArrowRight')?1:-1;select((active+d+TOOLS.length)%TOOLS.length,true);tabs.children[active].focus()});
+        var ex=t.calc(state[t.id]).res[0];
+        var b=document.createElement('button');b.type='button';b.className='tcard';b.setAttribute('aria-haspopup','dialog');
+        b.innerHTML='<span class="ti">'+ICON[t.icon]+'</span><b>'+t.name+'</b><span class="d">'+t.desc+'</span><span class="peek">Ejemplo: <em>'+ex.v+'</em></span>'+GO;
+        b.addEventListener('click',function(){open(i,b)});grid.appendChild(b)});
+      var alt=document.createElement('a');alt.href='#contacto';alt.className='tcard alt';
+      alt.innerHTML='<span class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></span><b>Cálculo a medida</b><span class="d">Un especialista dimensiona su caso con sus datos reales.</span>'+GO.replace('Abrir calculadora','Hablar con un especialista');
+      grid.appendChild(alt);
+      function open(i,from){opener=from||document.activeElement;select(i);drawer.hidden=false;doc.classList.add('lock');requestAnimationFrame(function(){requestAnimationFrame(function(){drawer.classList.add('open')})});setTimeout(function(){$('.x',drawer).focus()},reduce?0:120)}
+      function close(){if(drawer.hidden)return;drawer.classList.remove('open');doc.classList.remove('lock');setTimeout(function(){drawer.hidden=true},reduce?0:450);if(opener&&opener.focus)opener.focus({preventScroll:true})}
+      window.__closeDrawer=close;
+      drawer.addEventListener('click',function(e){if(e.target.closest('[data-close]'))close()});
+      drawer.addEventListener('keydown',function(e){if(e.key==='Escape'){e.stopPropagation();close()}if(e.key==='Tab'){var f=$$('button,input,select,textarea,a[href]',drawer).filter(function(x){return x.offsetParent!==null});if(!f.length)return;var first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
+      $('#d-prev').addEventListener('click',function(){select((active-1+TOOLS.length)%TOOLS.length);$('.drawer-b').scrollTop=0});
+      $('#d-next').addEventListener('click',function(){select((active+1)%TOOLS.length);$('.drawer-b').scrollTop=0});
+      $$('[data-tool]').forEach(function(a){a.addEventListener('click',function(e){var i=TOOLS.map(function(t){return t.id}).indexOf(a.dataset.tool);if(i<0)return;e.preventDefault();open(i,a)})});
       function control(t,inp){var v=state[t.id][inp.id],id='t-'+t.id+'-'+inp.id,h='<div class="ctl">';
         if(inp.type==='range'){h+='<div class="ctl-h"><label for="'+id+'">'+inp.label+'</label><output id="'+id+'-o" for="'+id+'">'+inp.fmt(v)+'</output></div><input type="range" id="'+id+'" data-k="'+inp.id+'" min="'+inp.min+'" max="'+inp.max+'" step="'+inp.step+'" value="'+v+'">'}
         else if(inp.type==='number'){h+='<label for="'+id+'">'+inp.label+'</label><input type="text" inputmode="numeric" autocomplete="off" id="'+id+'" data-k="'+inp.id+'" data-num="1" value="'+nf(v)+'">'}
@@ -1113,18 +1160,18 @@
         else if(inp.type==='seg'){h+='<span class="lbl" id="'+id+'">'+inp.label+'</span><div class="seg" role="group" aria-labelledby="'+id+'">'+inp.options.map(function(o){return '<button type="button" data-k="'+inp.id+'" data-v="'+o+'" aria-pressed="'+(o===v)+'">'+inp.fmt(o)+'</button>'}).join('')+'</div>'}
         return h+'</div>'}
       function setP(r){r.style.setProperty('--p',((r.value-r.min)/(r.max-r.min)*100)+'%')}
-      function select(i,focusless){active=i;$$('.tab',tabs).forEach(function(b,j){b.setAttribute('aria-selected',String(j===i));b.tabIndex=j===i?0:-1});var t=TOOLS[i];panel.setAttribute('aria-labelledby','tab-'+t.id);
-        panel.innerHTML='<div class="tool-in"><div><h3>'+t.name+'</h3><p class="desc">'+t.desc+'</p></div>'+t.inputs.map(function(inp){return control(t,inp)}).join('')+'<button type="button" class="reset" data-reset>Restablecer valores</button></div><div class="tool-out" id="out"></div>';
+      function select(i){active=i;var t=TOOLS[i];$('#drawer-title').textContent=t.name;$('#drawer-ico').innerHTML=ICON[t.icon];
+        var pv=TOOLS[(i-1+TOOLS.length)%TOOLS.length],nx=TOOLS[(i+1)%TOOLS.length];$('#d-prev').textContent='← '+pv.name;$('#d-next').textContent=nx.name+' →';
+        panel.innerHTML='<div class="tool-in"><p class="desc" style="margin:0">'+t.desc+'</p>'+t.inputs.map(function(inp){return control(t,inp)}).join('')+'<button type="button" class="reset" data-reset>Restablecer valores</button></div><div class="tool-out" id="out"></div>';
         $$('input[type=range]',panel).forEach(setP);
         panel.oninput=function(e){var el=e.target,k=el.dataset.k;if(!k)return;var inp=t.inputs.filter(function(x){return x.id===k})[0];var val=parseFloat(el.dataset.num?el.value.replace(/[^0-9.]/g,''):el.value);if(isNaN(val))val=0;state[t.id][k]=val;if(e.type==='change'&&el.dataset.num)el.value=nf(val);if(el.type==='range'){setP(el);$('#'+el.id+'-o').textContent=inp.fmt(val)}compute()};
         panel.onchange=panel.oninput;
         panel.onclick=function(e){var b=e.target.closest('.seg button');if(b){state[t.id][b.dataset.k]=parseFloat(b.dataset.v);$$('.seg button',panel).forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});compute()}var q=e.target.closest('[data-quote]');if(q){quote()}if(e.target.closest('[data-reset]')){t.inputs.forEach(function(inp){state[t.id][inp.id]=inp.value});select(active)}};
         compute()}
       var last='';
-      function compute(){var t=TOOLS[active],r=t.calc(state[t.id]);last=r.sum;
+      function compute(){var t=TOOLS[active],r=t.calc(state[t.id]);last=r.sum;var m=r.res[0];$('#dsum').innerHTML='<span>'+m.k+'</span><b>'+m.v+'</b>';
         $('#out').innerHTML='<div class="res">'+r.res.map(function(x){return '<div'+(x.main?' class="main"':'')+'><span class="k">'+x.k+'</span><span class="v">'+x.v+'</span>'+(x.s?'<span class="s">'+x.s+'</span>':'')+'</div>'}).join('')+'</div><div class="viz">'+r.viz+'</div><div class="tool-act"><button type="button" class="btn" data-quote>Solicitar evaluación con estos datos <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><span class="note">Resultado orientativo.</span></div>'}
-      function quote(){var ta=$('#f-msg');ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+'['+TOOLS[active].name+'] '+last;$('#contacto').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(function(){$('#f-name').focus({preventScroll:true});ta.classList.remove('flash');void ta.offsetWidth;ta.classList.add('flash')},reduce?0:600)}
-      select(0);
+      function quote(){close();var ta=$('#f-msg');ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+'['+TOOLS[active].name+'] '+last;$('#contacto').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(function(){$('#f-name').focus({preventScroll:true});ta.classList.remove('flash');void ta.offsetWidth;ta.classList.add('flash')},reduce?0:600)}
     })();
   })();
   </script>

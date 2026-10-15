@@ -2,6 +2,7 @@
 @import "../styles/tokens.css";
 @import "../components/editorial-motion.css";
 @import "../styles/immersive-v3.css";
+@import "../styles/kinetic-v4.css";
 @theme inline { --font-sans:var(--font-plex-sans); --font-mono:var(--font-plex-mono); --font-serif:var(--font-plex-serif); --color-brand:var(--brand); --color-accent:var(--accent-blue); }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}

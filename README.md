@@ -48,3 +48,8 @@ Importe el repositorio, seleccione Next.js, configure `NEXT_PUBLIC_SITE_URL` y `
 - Revisión manual de reglas: esquinas rectas, componentes con fondo plano, azul saturado reservado a enlaces/foco, interacciones sin rebotes. El fondo hero y CTA conserva el mesh permitido.
 
 **Verificaciones aún necesarias antes de merge:** ejecutar `npm install && npm run build && npm run typecheck`; Lighthouse móvil >= 90, contraste AA y comprobación de desbordamiento a 375px. Desde el entorno de edición de GitHub no se ejecutaron estas pruebas. El mapa representa una topología conceptual, no monitoreo en tiempo real.
+
+## Kinetic V4
+La portada integra Three.js/React Three Fiber (escena 3D conceptual), GSAP ScrollTrigger (metodología y entrada editorial) y Motion (transiciones del selector de capacidades). Se carga el WebGL mediante importación dinámica; el Canvas limita DPR a 1.5 y usa antialias desactivado. Se respeta reduced-motion. La escena no muestra métricas reales.
+
+Validaciones obligatorias antes de merge: `npm install`, `npm run build`, `npm run typecheck`, Lighthouse móvil >=90, navegación teclado, contraste AA y scroll horizontal a 375px. No se ejecutaron pruebas locales de compilación por indisponibilidad de conexión a GitHub desde el entorno de verificación.

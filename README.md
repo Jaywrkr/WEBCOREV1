@@ -1,25 +1,38 @@
-# Coresolutions — Web corporativa V1
+# Coresolutions — Web corporativa 2026
+Next.js App Router · TypeScript · Tailwind v4 · Framer Motion · Lucide · IBM Plex
 
-Nueva web institucional de Coresolutions, desarrollada como landing estática, responsive y sin dependencias de compilación.
+## Desarrollo local
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
+```
+Abrir http://localhost:3000. Para verificar: `npm run typecheck`, `npm run build`.
 
-## Vista previa local
+## Contenido editable
+- `content/site.ts`: portada, indicadores, sectores, partners, proceso y caso de éxito.
+- `content/services.ts`: las seis fichas de servicio y URLs.
+- `styles/tokens.css`: tokens CSS globales; `app/globals.css`: reglas de UI.
+- `app/design-system/page.tsx`: catálogo visual.
 
-Abrir `index.html` en el navegador o ejecutar `python -m http.server 8000` desde la raíz del repositorio y visitar `http://localhost:8000`.
+## Estructura
+`app/`: rutas de Home, Nosotros, Contacto, Servicios dinámicos y Design System; `components/`: Header, Footer, Mesh, formulario y piezas UI; `app/api/contact/`: proxy server-side a endpoint configurable.
 
-## Despliegue
+## Formulario
+Defina `CONTACT_ENDPOINT` en Vercel para apuntar a un receptor HTTPS de formularios. Sin esa variable, la API responde 503 y NO simula envíos. Agregue medidas de spam, limitación de tasa y consentimiento de datos antes de publicar.
 
-En Vercel, importar el repositorio `Jaywrkr/WEBCOREV1`, seleccionar **Other** como framework y dejar el directorio de salida vacío. El proyecto sirve `index.html` desde la raíz.
+## Marca
+El placeholder tipográfico CORESOLUTIONS se utiliza hasta recibir los archivos oficiales `public/logo-navy.svg` y `public/logo-white.svg`. No se han generado logos no autorizados.
+La disponibilidad 99.97% aparece **solo** como indicador ilustrativo en el panel de monitoreo; cualquier afirmación contractual debe validarse antes de producción.
+No se han inventado cifras corporativas ni casos de éxito. Los datos pendientes aparecen como `{{PLACEHOLDER}}`.
+Los nombres de partners se presentan como texto, no como logotipos de marca.
 
-## Secciones
+## Publicación en Vercel
+Importe el repositorio, seleccione Next.js, configure `NEXT_PUBLIC_SITE_URL` y `CONTACT_ENDPOINT`, despliegue primero a Preview y verifique el entorno. No conecte el dominio principal hasta aprobar contenidos, datos y documentos de privacidad.
 
-Inicio, Soluciones, CoreOnCloud, Industrias, Nosotros y Contacto.
-
-## Pendientes antes de publicar en producción
-
-- Sustituir el logotipo tipográfico temporal por el logo oficial y validar los colores institucionales.
-- Revisar textos, cifras, nombres comerciales y socios tecnológicos.
-- Agregar política de privacidad, formularios y analítica únicamente con las integraciones aprobadas.
-- Añadir páginas detalladas por solución, SEO enriquecido y casos de éxito autorizados.
-- Validar responsive, accesibilidad, metadatos, rendimiento y configuración de dominio.
-
-La web existente en `coresolutions.com.ec` no fue modificada.
+## Pendientes de QA
+- Confirmar métricas oficiales, domicilio principal (Quito o Cuenca), contactos, socios y certificaciones.
+- Validar contraste AA con auditoría automatizada, Lighthouse >=90, mobile 375px sin desbordamientos.
+- Verificar previews en navegador, navegación por teclado y responsive.
+- Implementar rate limiting y protección anti-spam del formulario.
+- Añadir logos oficiales y Open Graph visual autorizado.

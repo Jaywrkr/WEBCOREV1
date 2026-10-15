@@ -16,7 +16,7 @@ Aplica la Guía de marca Coresolutions 2026 v1.0: navy `#01095C`, grises fríos,
 
 ## Secciones
 
-Inicio (mapa de Ecuador animado con los centros de datos CUE y GYE), Soluciones, CoreOnCloud (consola de operaciones con datos de demostración), Cifras, Industrias, Cómo trabajamos (proceso guiado por scroll con entregables), Herramientas (cuadrícula de calculadoras que se abren en un panel lateral, o en una hoja inferior en móvil: costo de inactividad, capacidad de respaldo, disponibilidad y SLA, tiempo de migración, nivel de continuidad) y Contacto (formulario que prepara un correo a info@coresolutions.com.ec).
+Inicio (promesa "Su operación no se detiene", selector de sector y cifras de respaldo), Soluciones (ordenadas por prioridad comercial), CoreOnCloud (mapa de Ecuador con CUE y GYE y consola con datos de demostración), Industrias, Cómo trabajamos, Herramientas (calculadoras en cuadrícula con panel lateral) y Contacto.
 
 Todo vive en `index.html`: sin dependencias ni compilación, respeta `prefers-reduced-motion` y es responsive hasta 360px.
 
@@ -24,6 +24,7 @@ Todo vive en `index.html`: sin dependencias ni compilación, respeta `prefers-re
 
 - Confirmar el logotipo final (hoy es el wordmark CORESOLUTIONS en IBM Plex Sans Condensed, según la guía de marca 2026).
 - Reemplazar los datos de demostración de la consola CoreOnCloud por métricas reales (o mantener la etiqueta "Datos de demostración").
+- Validar las cifras de la portada (350+ implementaciones, 1,700+ casos de soporte, 11,000+ horas) contra el sistema interno.
 - Revisar textos, cifras, nombres comerciales y socios tecnológicos.
 - Agregar política de privacidad, formularios y analítica únicamente con las integraciones aprobadas.
 - Añadir páginas detalladas por solución, SEO enriquecido y casos de éxito autorizados.

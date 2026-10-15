@@ -164,28 +164,33 @@
     .vow:hover h3{transform:translateX(6px)}
     .vow h3{font-size:22px;color:var(--navy);margin-bottom:var(--s3)}
     .vow p{color:var(--gray-70)}
-    .people .proof{border-top:1px solid var(--line);margin-top:clamp(56px,7vw,104px);max-width:none}
-    .people .proof div{border-right-color:var(--line);padding:var(--s6) var(--s6) 0 0}
-    .people .proof div{flex-direction:column}
-    .people .proof dd{order:-1;margin-bottom:var(--s3);color:var(--navy);font-size:clamp(32px,3.6vw,48px)}
-    .people .proof dt{color:var(--gray-70);font-size:14px;max-width:24ch}
-    .sector-band{background:var(--gray-10);border-block:1px solid var(--line)}
-    .sector{display:grid;justify-items:center;text-align:center;gap:var(--s5)}
-    .sector .h2{margin-top:0}
-    .sector-band .sector-chips button{border-color:var(--gray-30);color:var(--gray-80);background:#fff}
-    .sector-band .sector-chips button:hover{border-color:var(--navy);color:var(--navy)}
-    .sector-band .sector-chips button[aria-checked="true"]{background:transparent;border-color:transparent;color:#fff}
-    .sector-chips{position:relative}
-    .sector-chips button{position:relative;z-index:1}
-    .sector-chips .pill{position:absolute;left:0;top:0;border-radius:999px;background:var(--navy);z-index:0;transition:transform .5s var(--ease),width .5s var(--ease),height .5s var(--ease)}
-    .sector-msg.swap{animation:msgIn .5s var(--ease)}
+    .facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--s4);margin:clamp(56px,7vw,104px) 0 0}
+    .fact{display:flex;flex-direction:column;background:var(--gray-10);padding:var(--s7) var(--s6) var(--s6);min-width:0;position:relative;overflow:hidden;transition:background .3s var(--ease)}
+    .fact::before{content:"";position:absolute;left:0;top:0;height:2px;width:100%;background:var(--navy);transform:scaleX(.18);transform-origin:left;transition:transform .6s var(--ease)}
+    .fact:hover{background:var(--blue-10)}
+    .fact:hover::before{transform:scaleX(1)}
+    .fact dd{order:-1;margin:0 0 var(--s3);font-size:clamp(34px,3.4vw,52px);font-weight:600;letter-spacing:-.03em;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums}
+    .fact dt{font-size:14px;color:var(--gray-70);max-width:26ch;margin-bottom:var(--s6)}
+    .fact>span,.fact>svg{margin-top:auto;height:36px;width:100%;display:flex}
+    .viz-ticks{align-items:flex-end;gap:3px}
+    .viz-ticks i{flex:1;height:var(--h);background:var(--blue-30);transform-origin:bottom}
+    .viz-ticks i:last-child{background:var(--navy)}
+    .viz-dots{display:grid!important;grid-template-columns:repeat(18,1fr);gap:4px;align-content:end}
+    .viz-dots i{aspect-ratio:1;max-width:100%;border-radius:50%;background:var(--navy)}
+    .viz-dots i:nth-child(n+19){background:var(--blue-40)}
+    .viz-line path{fill:none;stroke:var(--navy);stroke-width:2;vector-effect:non-scaling-stroke;stroke-dasharray:400;stroke-dashoffset:0}
+    .viz-blocks{align-items:flex-end;gap:4px}
+    .viz-blocks i{flex:1;height:14px;background:var(--navy)}
+    .viz-blocks i:nth-child(even){background:var(--blue-50)}
+    .facts.arm .viz-ticks i{transform:scaleY(0)}
+    .facts.arm .viz-dots i{transform:scale(0)}
+    .facts.arm .viz-line path{stroke-dashoffset:400}
+    .facts.arm .viz-blocks i{transform:scaleX(0)}
+    .facts.in .viz-ticks i{transform:scaleY(1);transition:transform .6s var(--ease) var(--d)}
+    .facts.in .viz-dots i{transform:scale(1);transition:transform .4s var(--ease) var(--d)}
+    .facts.in .viz-line path{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s var(--ease)}
+    .facts.in .viz-blocks i{transform:scaleX(1);transform-origin:left;transition:transform .5s var(--ease) var(--d)}
     @keyframes msgIn{from{opacity:0;transform:translateY(8px);filter:blur(4px)}}
-    .sector-band .sector-msg{color:var(--gray-70);font-size:17px}
-    .sector-chips{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s3)}
-    .sector-chips button{font-size:14px;font-weight:500;padding:8px 16px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:transparent;color:#fff;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
-    .sector-chips button:hover{border-color:#fff}
-    .sector-chips button[aria-checked="true"]{background:#fff;border-color:#fff;color:var(--navy)}
-    .sector-msg{font-size:15px;color:var(--blue-20);min-height:3em;max-width:56ch;transition:opacity .25s}
     .proof{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0 auto;border-top:1px solid var(--line-dark)}
     .proof div{padding:var(--s5) var(--s4) 0;border-right:1px solid var(--line-dark)}
     .proof div:last-child{border-right:0}
@@ -239,7 +244,14 @@
     .sol .vis::before{content:"";position:absolute;inset:-25%;background:radial-gradient(circle at var(--gx,30%) var(--gy,30%),rgba(43,63,232,.95),transparent 42%),radial-gradient(circle at calc(100% - var(--gx,30%)) 90%,rgba(102,114,250,.55),transparent 45%);transition:transform 1.2s var(--ease)}
     .sol .vis::after{content:"";position:absolute;inset:0;background-image:linear-gradient(var(--line-dark) 1px,transparent 1px),linear-gradient(90deg,var(--line-dark) 1px,transparent 1px);background-size:32px 32px;opacity:.7}
     .sol .vis svg{position:relative;z-index:1;width:76px;height:76px;stroke-width:.9;transition:transform .8s var(--ease)}
-    .sol:hover .vis::before{transform:scale(1.18) translate(5%,-5%)}
+    .sol .vis::before{animation:tileDrift 16s ease-in-out infinite alternate}
+    .grid-3 .sol:nth-child(2) .vis::before{animation-duration:19s;animation-delay:-6s}
+    .grid-3 .sol:nth-child(3) .vis::before{animation-duration:14s;animation-delay:-3s}
+    .grid-3 .sol:nth-child(4) .vis::before{animation-duration:21s;animation-delay:-9s}
+    .grid-3 .sol:nth-child(5) .vis::before{animation-duration:17s;animation-delay:-12s}
+    .grid-3 .sol:nth-child(6) .vis::before{animation-duration:23s;animation-delay:-4s}
+    @keyframes tileDrift{0%{transform:translate(-7%,5%) rotate(0deg) scale(1)}50%{transform:translate(4%,-6%) rotate(6deg) scale(1.12)}100%{transform:translate(8%,4%) rotate(-4deg) scale(1.05)}}
+    .sol:hover .vis{background:var(--blue-80)}
     .sol:hover .vis svg{transform:scale(1.08)}
     .sol .body{padding:var(--s7);display:flex;flex-direction:column;gap:var(--s3);flex:1}
     .sol .body h3{font-size:22px}
@@ -252,16 +264,32 @@
     .specs b{display:block;font-weight:500;font-size:clamp(22px,2.6vw,34px);letter-spacing:-.01em;color:#fff;line-height:1.2}
     .specs span{display:block;margin-top:var(--s3);font-size:13px;color:var(--blue-20)}
 
-    /* Industries list */
-    .ind-list{border-top:1px solid var(--gray-30)}
-    .ind-row{display:grid;grid-template-columns:96px minmax(0,1fr) minmax(0,1.4fr) 24px;gap:var(--s6);align-items:center;padding:var(--s6) var(--s4);border-bottom:1px solid var(--gray-30);transition:background .25s var(--ease)}
-    .ind-row .mono{font-size:12px;color:var(--gray-50)}
-    .ind-row h3{font-size:clamp(22px,2.4vw,32px);color:var(--navy);letter-spacing:-.015em}
-    .ind-row p{color:var(--gray-70)}
-    .ind-row svg{width:20px;height:20px;color:var(--navy);opacity:.35;transform:translateX(-6px);transition:transform .25s var(--ease),opacity .25s}
-    .ind-row:hover{background:#fff}
-    .ind-row:hover svg{opacity:1;transform:none}
 
+
+    /* Sector explorer */
+    .sx{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);border:1px solid var(--line);background:#fff}
+    .sx-list{display:flex;flex-direction:column;border-right:1px solid var(--line)}
+    .sx-tab{display:flex;justify-content:space-between;align-items:center;gap:var(--s5);padding:var(--s6) var(--s7);border:0;border-bottom:1px solid var(--line);background:#fff;text-align:left;cursor:pointer;font-size:clamp(19px,1.8vw,24px);font-weight:600;letter-spacing:-.01em;color:var(--gray-50);position:relative;flex:1;transition:color .25s,background .25s}
+    .sx-tab:last-child{border-bottom:0}
+    .sx-tab svg{width:18px;height:18px;flex:none;opacity:0;transform:translateX(-8px);transition:opacity .25s,transform .35s var(--ease)}
+    .sx-tab::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--navy);transform:scaleY(0);transition:transform .35s var(--ease)}
+    .sx-tab:hover{color:var(--navy)}
+    .sx-tab:hover svg{opacity:.5;transform:none}
+    .sx-tab[aria-selected="true"]{color:var(--navy);background:var(--gray-10)}
+    .sx-tab[aria-selected="true"]::before{transform:scaleY(1)}
+    .sx-tab[aria-selected="true"] svg{opacity:1;transform:none}
+    .sx-panel{position:relative;overflow:hidden;padding:clamp(32px,4.5vw,64px);min-width:0}
+    .sx-in{position:relative;z-index:2;display:grid;gap:var(--s6);align-content:start;justify-items:start}
+    .sx-in.swap>*{animation:msgIn .55s var(--ease) both}
+    .sx-in.swap>*:nth-child(2){animation-delay:.05s}.sx-in.swap>*:nth-child(3){animation-delay:.1s}.sx-in.swap>*:nth-child(4){animation-delay:.15s}.sx-in.swap>*:nth-child(5){animation-delay:.2s}
+    .sx-msg{font-size:clamp(22px,2.2vw,30px);line-height:1.3;font-weight:500;color:#fff;letter-spacing:-.01em;max-width:30ch}
+    .sx-pri{list-style:none;margin:0;padding:0;display:grid;gap:var(--s3);width:100%}
+    .sx-pri li{display:flex;align-items:center;gap:var(--s4);padding:var(--s3) 0;border-bottom:1px solid var(--line-dark);color:var(--blue-10)}
+    .sx-pri li::before{content:"";width:8px;height:8px;flex:none;background:var(--blue-30)}
+    .sx-sol{display:grid;gap:var(--s3)}
+    .sx-sol>span{font-size:12px;color:var(--blue-30)}
+    .sx-sol div{display:flex;flex-wrap:wrap;gap:var(--s3)}
+    @keyframes msgIn{from{opacity:0;transform:translateY(10px);filter:blur(4px)}}
 
     /* Cloud + NOC */
     .noc{border:1px solid var(--line-dark);background:rgba(0,4,64,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
@@ -297,7 +325,6 @@
 
 
     /* Industries */
-    .industries{background:var(--gray-10)}
 
     /* Process (scroll-driven) */
     .proc{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(32px,6vw,96px)}
@@ -526,16 +553,20 @@
       .navlinks a.active{border-bottom-color:var(--line)}
       .head{grid-template-columns:1fr;gap:var(--s5)}
       .cloud-geo{grid-template-columns:1fr}
+      .sx{grid-template-columns:1fr}
+      .sx-list{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);scroll-snap-type:x mandatory;scrollbar-width:none}
+      .sx-list::-webkit-scrollbar{display:none}
+      .sx-tab{flex:0 0 auto;font-size:15px;padding:var(--s4) var(--s5);border-bottom:0;border-right:1px solid var(--line);scroll-snap-align:start}
+      .sx-tab svg{display:none}
+      .sx-tab::before{top:auto;right:0;height:3px;width:auto;transform:scaleX(0)}
+      .sx-tab[aria-selected="true"]::before{transform:scaleX(1)}
       .cloud-geo .map{min-height:min(84vw,420px)}
       .proof{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:var(--s5)}
       .vows{grid-template-columns:1fr}
+      .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
       .proof div:nth-child(2){border-right:0}
       .specs{grid-template-columns:1fr 1fr;row-gap:var(--s7)}
       .specs div:nth-child(2){border-right:0}
-      .ind-row{grid-template-columns:minmax(0,1fr) 24px;gap:var(--s3) var(--s4);padding:var(--s5) var(--s3)}
-      .ind-row .mono{display:none}
-      .ind-row p{grid-column:1/-1;grid-row:2;font-size:14px}
-      .ind-row svg{grid-column:2;grid-row:1}
       .proc{grid-template-columns:1fr}
       .proc-side{position:static}
       .rail{display:none}
@@ -548,6 +579,11 @@
     }
     @media (max-width:640px){
       .grid-3,.row2{grid-template-columns:1fr}
+      .facts{gap:var(--s3)}
+      .fact{padding:var(--s5)}
+      .fact dt{font-size:13px;margin-bottom:var(--s4)}
+      .viz-dots{grid-template-columns:repeat(12,1fr)}
+      .viz-dots i:nth-child(n+25){display:none}
       .sol{min-height:0}
       .sol .body{padding:var(--s6)}
       .cell,.tool-in,.tool-out{padding:var(--s6)}
@@ -590,7 +626,7 @@
       <div class="navlinks" id="navlinks">
         <a href="#soluciones">Soluciones</a>
         <a href="#cloud">CoreOnCloud</a>
-        <a href="#industrias">Industrias</a>
+        <a href="#sectores">Sectores</a>
         <a href="#herramientas">Herramientas</a>
       </div>
       <a href="#contacto" class="btn">Hablar con un especialista <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
@@ -630,28 +666,29 @@
           <div class="vow reveal"><h3>Conocemos su operación.</h3><p>El mismo equipo diseña, implementa y da soporte. No tiene que explicar todo de nuevo cada vez que nos llama.</p></div>
           <div class="vow reveal"><h3>Estamos cerca.</h3><p>Equipo propio en Cuenca y Guayaquil, en su idioma y en su horario.</p></div>
         </div>
-        <dl class="proof reveal">
-          <div><dt>años acompañando a organizaciones ecuatorianas</dt><dd data-count="20">20+</dd></div>
-          <div><dt>proyectos puestos en marcha</dt><dd data-count="350">350+</dd></div>
-          <div><dt>veces que un cliente nos pidió ayuda y respondimos</dt><dd data-count="1700">1,700+</dd></div>
-          <div><dt>horas de soporte junto a nuestros clientes</dt><dd data-count="11000">11,000+</dd></div>
+        <dl class="facts" id="facts">
+          <div class="fact"><dt>años acompañando a organizaciones ecuatorianas</dt><dd data-count="20">20+</dd><span class="viz-ticks" aria-hidden="true"><i style="--h:30%;--d:0ms"></i><i style="--h:33%;--d:30ms"></i><i style="--h:37%;--d:60ms"></i><i style="--h:41%;--d:90ms"></i><i style="--h:44%;--d:120ms"></i><i style="--h:48%;--d:150ms"></i><i style="--h:52%;--d:180ms"></i><i style="--h:55%;--d:210ms"></i><i style="--h:59%;--d:240ms"></i><i style="--h:63%;--d:270ms"></i><i style="--h:66%;--d:300ms"></i><i style="--h:70%;--d:330ms"></i><i style="--h:74%;--d:360ms"></i><i style="--h:77%;--d:390ms"></i><i style="--h:81%;--d:420ms"></i><i style="--h:85%;--d:450ms"></i><i style="--h:88%;--d:480ms"></i><i style="--h:92%;--d:510ms"></i><i style="--h:96%;--d:540ms"></i><i style="--h:100%;--d:570ms"></i></span></div>
+          <div class="fact"><dt>proyectos puestos en marcha</dt><dd data-count="350">350+</dd><span class="viz-dots" aria-hidden="true"><i style="--d:0ms"></i><i style="--d:22ms"></i><i style="--d:44ms"></i><i style="--d:66ms"></i><i style="--d:88ms"></i><i style="--d:110ms"></i><i style="--d:132ms"></i><i style="--d:154ms"></i><i style="--d:176ms"></i><i style="--d:198ms"></i><i style="--d:220ms"></i><i style="--d:242ms"></i><i style="--d:264ms"></i><i style="--d:286ms"></i><i style="--d:308ms"></i><i style="--d:330ms"></i><i style="--d:352ms"></i><i style="--d:374ms"></i><i style="--d:396ms"></i><i style="--d:418ms"></i><i style="--d:440ms"></i><i style="--d:462ms"></i><i style="--d:484ms"></i><i style="--d:506ms"></i><i style="--d:528ms"></i><i style="--d:550ms"></i><i style="--d:572ms"></i><i style="--d:594ms"></i><i style="--d:616ms"></i><i style="--d:638ms"></i><i style="--d:660ms"></i><i style="--d:682ms"></i><i style="--d:704ms"></i><i style="--d:726ms"></i><i style="--d:748ms"></i></span></div>
+          <div class="fact"><dt>veces que un cliente nos pidió ayuda y respondimos</dt><dd data-count="1700">1,700+</dd><svg class="viz-line" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 L18 28 L30 31 L44 22 L56 26 L70 14 L84 20 L98 10 L112 18 L126 8 L140 15 L154 6 L170 12 L184 4 L200 8"/></svg></div>
+          <div class="fact"><dt>horas de soporte junto a nuestros clientes</dt><dd data-count="11000">11,000+</dd><span class="viz-blocks" aria-hidden="true"><i style="--d:0ms"></i><i style="--d:70ms"></i><i style="--d:140ms"></i><i style="--d:210ms"></i><i style="--d:280ms"></i><i style="--d:350ms"></i><i style="--d:420ms"></i><i style="--d:490ms"></i><i style="--d:560ms"></i><i style="--d:630ms"></i><i style="--d:700ms"></i></span></div>
         </dl>
       </div>
     </section>
 
-    <!-- SECTOR -->
-    <section class="band sector-band" id="sector">
-      <div class="wrap sector">
-        <span class="label" id="sector-label">Su sector</span>
-        <h2 class="h2">¿Qué necesita su organización?</h2>
-        <div class="sector-chips" role="radiogroup" aria-labelledby="sector-label">
-          <button type="button" role="radio" aria-checked="true" data-sector="coop">Cooperativa</button>
-          <button type="button" role="radio" aria-checked="false" data-sector="salud">Salud</button>
-          <button type="button" role="radio" aria-checked="false" data-sector="industria">Industria</button>
-          <button type="button" role="radio" aria-checked="false" data-sector="publico">Sector público</button>
+    <!-- SECTORES -->
+    <section class="band sectors" id="sectores">
+      <div class="wrap">
+        <div class="head reveal">
+          <div><span class="label">Sectores</span><h2 class="h2">¿Qué necesita su organización?</h2></div>
+          <p>Cada sector tiene sus propias exigencias. Elija el suyo.</p>
         </div>
-        <p class="sector-msg" id="sector-msg" aria-live="polite">Disponibilidad, respaldo y protección de datos para cumplir con la SEPS y atender a sus socios sin interrupciones.</p>
-        <a href="#contacto" class="btn" id="hero-cta">Hablar con un especialista de mi sector</a>
+        <div class="sx reveal">
+          <div class="sx-list" role="tablist" aria-label="Sectores"><button type="button" class="sx-tab" role="tab" id="sx-coop" aria-controls="sx-panel" aria-selected="true" tabindex="0" data-k="coop"><span>Cooperativas y finanzas</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-salud" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="salud"><span>Salud</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-industria" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="industria"><span>Industria</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-publico" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="publico"><span>Sector público</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-comercio" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="comercio"><span>Comercio</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-educacion" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="educacion"><span>Educación</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
+          <div class="sx-panel dark" role="tabpanel" id="sx-panel" aria-labelledby="sx-coop">
+            <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div class="sx-in" id="sx-in"><span class="label">Cooperativas y finanzas</span><p class="sx-msg">Disponibilidad, respaldo y protección de datos para cumplir con la SEPS y atender a sus socios sin interrupciones.</p><ul class="sx-pri"><li>Continuidad del core financiero</li><li>Protección de datos de socios</li><li>Cumplimiento regulatorio</li></ul><div class="sx-sol"><span>Soluciones clave</span><div><span class="tag">Respaldo y continuidad</span><span class="tag">Ciberseguridad</span><span class="tag">Data Center</span></div></div><a href="#contacto" class="btn" data-sx-cta>Hablar con un especialista <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -776,23 +813,6 @@
       </div>
     </section>
 
-    <!-- INDUSTRIAS -->
-    <section class="band industries" id="industrias">
-      <div class="wrap">
-        <div class="head reveal">
-          <div><span class="label">Industrias</span><h2 class="h2">Cada sector tiene sus propias exigencias.</h2></div>
-          <p>Ajustamos cada solución a las prioridades operativas, regulatorias y tecnológicas de su organización.</p>
-        </div>
-        <div class="ind-list">
-          <a class="ind-row reveal" href="#contacto" data-topic="Finanzas"><h3>Finanzas</h3><p>Disponibilidad continua, cumplimiento y protección de datos sensibles.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Gobierno"><h3>Gobierno</h3><p>Plataformas confiables para servicios ciudadanos y contratación pública.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Salud"><h3>Salud</h3><p>Sistemas clínicos disponibles e información del paciente protegida.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Industria"><h3>Industria</h3><p>Conectividad de planta, continuidad operativa y visibilidad de procesos.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Comercio"><h3>Comercio</h3><p>Infraestructura que soporta picos de demanda y operación multisede.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-          <a class="ind-row reveal" href="#contacto" data-topic="Educación"><h3>Educación</h3><p>Redes y plataformas para campus, aulas híbridas y gestión académica.</p><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
-        </div>
-      </div>
-    </section>
 
     <!-- PROCESO -->
     <section class="band" id="metodo">
@@ -968,7 +988,7 @@
           <a class="wordmark" href="#inicio" aria-label="Coresolutions, ir al inicio">Coresolutions</a>
           <p>Infraestructura, nube, ciberseguridad y servicios gestionados.</p>
         </div>
-        <div><h4>Explorar</h4><a href="#soluciones">Soluciones</a><a href="#cloud">CoreOnCloud</a><a href="#industrias">Industrias</a><a href="#metodo">Cómo trabajamos</a></div>
+        <div><h4>Explorar</h4><a href="#soluciones">Soluciones</a><a href="#cloud">CoreOnCloud</a><a href="#sectores">Sectores</a><a href="#metodo">Cómo trabajamos</a></div>
         <div><h4>Herramientas</h4><a href="#herramientas" data-tool="inactividad">Costo de inactividad</a><a href="#herramientas" data-tool="respaldo">Capacidad de respaldo</a><a href="#herramientas" data-tool="sla">Disponibilidad y SLA</a><a href="#herramientas" data-tool="migracion">Tiempo de migración</a><a href="#herramientas" data-tool="continuidad">Nivel de continuidad</a></div>
         <div><h4>Contacto</h4><a href="mailto:info@coresolutions.com.ec">info@coresolutions.com.ec</a><a href="tel:+593994021631">+593 99 402 1631</a><p>Cuenca, Ecuador</p></div>
       </div>
@@ -1021,7 +1041,6 @@
     /* ---------- Solution links prefill the form ---------- */
     $$('.sol-link').forEach(function(a){a.addEventListener('click',function(){$$('.chips input',form).forEach(function(c){if(c.value===a.dataset.interest)c.checked=true});var ta=$('#f-msg');if(!ta.value.trim())ta.value='Me interesa conocer más sobre '+a.dataset.topic+'.'})});
 
-    $$('.ind-row').forEach(function(a){a.addEventListener('click',function(){var ta=$('#f-msg');if(!ta.value.trim())ta.value='Sector: '+a.dataset.topic+'. '})});
 
     /* ---------- Scroll progress + mobile action bar ---------- */
     var prog=$('#progress'),mbar=$('#mbar'),heroEl=$('.hero'),contactEl=$('#contacto');
@@ -1032,19 +1051,14 @@
 
     function onVisible(el,cb){if(!('IntersectionObserver' in window)){cb(true);return}new IntersectionObserver(function(es){cb(es[0].isIntersecting)}).observe(el)}
 
-    /* ---------- Sector selector ---------- */
+    /* ---------- Sector explorer ---------- */
     (function(){
-      var MSG={coop:['Disponibilidad, respaldo y protección de datos para cumplir con la SEPS y atender a sus socios sin interrupciones.','Cooperativa de ahorro y crédito'],
-        salud:['Sistemas clínicos siempre disponibles e información del paciente protegida.','Salud'],
-        industria:['Planta conectada y datos de producción protegidos, para que la línea no se detenga.','Industria'],
-        publico:['Plataformas confiables para servicios ciudadanos, con experiencia en contratación pública.','Sector público']};
-      var chips=$$('.sector-chips button'),msg=$('#sector-msg'),cur='coop';
-      var pill=document.createElement('span');pill.className='pill';pill.setAttribute('aria-hidden','true');$('.sector-chips').prepend(pill);
-      function movePill(){var b=$('.sector-chips [aria-checked="true"]');if(!b)return;pill.style.width=b.offsetWidth+'px';pill.style.height=b.offsetHeight+'px';pill.style.transform='translate('+b.offsetLeft+'px,'+b.offsetTop+'px)'}
-      window.addEventListener('resize',movePill);if(document.fonts)document.fonts.ready.then(movePill);setTimeout(movePill,50);
-      function set(k,focus){cur=k;chips.forEach(function(c){var on=c.dataset.sector===k;c.setAttribute('aria-checked',String(on));c.tabIndex=on?0:-1;if(on&&focus)c.focus()});movePill();msg.textContent=MSG[k][0];msg.classList.remove('swap');void msg.offsetWidth;msg.classList.add('swap')}
-      chips.forEach(function(c,i){c.tabIndex=i?-1:0;c.addEventListener('click',function(){set(c.dataset.sector)});c.addEventListener('keydown',function(e){var d=e.key==='ArrowRight'||e.key==='ArrowDown'?1:e.key==='ArrowLeft'||e.key==='ArrowUp'?-1:0;if(!d)return;e.preventDefault();set(chips[(i+d+chips.length)%chips.length].dataset.sector,true)})});
-      $('#hero-cta').addEventListener('click',function(){var ta=$('#f-msg');if(!ta.value.trim())ta.value='Sector: '+MSG[cur][1]+'. '});
+      var D=[{"k": "coop", "n": "Cooperativas y finanzas", "m": "Disponibilidad, respaldo y protección de datos para cumplir con la SEPS y atender a sus socios sin interrupciones.", "p": ["Continuidad del core financiero", "Protección de datos de socios", "Cumplimiento regulatorio"], "s": ["Respaldo y continuidad", "Ciberseguridad", "Data Center"]}, {"k": "salud", "n": "Salud", "m": "Sistemas clínicos siempre disponibles e información del paciente protegida.", "p": ["Historia clínica disponible", "Red hospitalaria confiable", "Datos de pacientes protegidos"], "s": ["Redes", "Respaldo y continuidad", "Ciberseguridad"]}, {"k": "industria", "n": "Industria", "m": "Planta conectada y datos de producción protegidos, para que la línea no se detenga.", "p": ["Conectividad de planta", "Servidores de producción disponibles", "Recuperación rápida ante fallas"], "s": ["Redes", "Virtualización", "Respaldo y continuidad"]}, {"k": "publico", "n": "Sector público", "m": "Plataformas confiables para servicios ciudadanos, con experiencia en contratación pública.", "p": ["Servicios ciudadanos sin interrupción", "Procesos de contratación pública", "Seguridad de la información"], "s": ["Data Center", "Ciberseguridad", "Redes"]}, {"k": "comercio", "n": "Comercio", "m": "Infraestructura que soporta picos de demanda y operación multisede.", "p": ["Operación multisede", "Picos de demanda", "Pagos y datos protegidos"], "s": ["Redes", "Respaldo y continuidad", "Ciberseguridad"]}, {"k": "educacion", "n": "Educación", "m": "Redes y plataformas para campus, aulas híbridas y gestión académica.", "p": ["Wi-Fi de campus", "Aulas híbridas", "Plataformas académicas disponibles"], "s": ["Redes", "Virtualización", "Respaldo y continuidad"]}],tabs=$$('.sx-tab'),box=$('#sx-in'),panel=$('#sx-panel'),cur=0,AR='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>';
+      function render(d){return '<span class="label">'+d.n+'</span><p class="sx-msg">'+d.m+'</p><ul class="sx-pri">'+d.p.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><div class="sx-sol"><span>Soluciones clave</span><div>'+d.s.map(function(x){return '<span class="tag">'+x+'</span>'}).join('')+'</div></div><a href="#contacto" class="btn" data-sx-cta>Hablar con un especialista '+AR+'</a>'}
+      function set(i,focus){if(i===cur&&!focus)return;cur=i;tabs.forEach(function(t,j){t.setAttribute('aria-selected',String(j===i));t.tabIndex=j===i?0:-1});if(focus)tabs[i].focus();panel.setAttribute('aria-labelledby',tabs[i].id);
+        box.innerHTML=render(D[i]);box.classList.remove('swap');void box.offsetWidth;box.classList.add('swap');tabs[i].scrollIntoView({block:'nearest',inline:'nearest'})}
+      tabs.forEach(function(t,i){t.addEventListener('click',function(){set(i)});t.addEventListener('keydown',function(e){var d=e.key==='ArrowDown'||e.key==='ArrowRight'?1:e.key==='ArrowUp'||e.key==='ArrowLeft'?-1:0;if(!d)return;e.preventDefault();set((i+d+tabs.length)%tabs.length,true)})});
+      box.addEventListener('click',function(e){if(e.target.closest('[data-sx-cta]')){var ta=$('#f-msg');if(!ta.value.trim())ta.value='Sector: '+D[cur].n+'. '}});
     })();
 
     /* ---------- HERO: network → firewall → CoreOnCloud ---------- */
@@ -1126,9 +1140,9 @@
       if(!('IntersectionObserver' in window)||reduce){vows.forEach(function(v){v.classList.add('in')});return}
       var vo=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var i=vows.indexOf(e.target);setTimeout(function(){e.target.classList.add('in')},i*180);vo.unobserve(e.target)}})},{threshold:.4});
       vows.forEach(function(v){vo.observe(v)});
-      var proof=$('.people .proof'),dds=$$('[data-count]',proof);
-      if(proof.getBoundingClientRect().top>window.innerHeight){
-        var po=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;po.disconnect();var s0=performance.now();dds.forEach(function(d){var tgt=+d.dataset.count;(function f(n){var p=Math.min(1,(n-s0)/1600),e=1-Math.pow(1-p,4);d.textContent=nf(Math.round(tgt*e))+'+';if(p<1)requestAnimationFrame(f)})(s0)})},{threshold:.5});
+      var proof=$('#facts'),dds=$$('[data-count]',proof);
+      if(proof.getBoundingClientRect().top>window.innerHeight){proof.classList.add('arm');
+        var po=new IntersectionObserver(function(es){if(!es[0].isIntersecting)return;po.disconnect();proof.classList.add('in');var s0=performance.now();dds.forEach(function(d){var tgt=+d.dataset.count;(function f(n){var p=Math.min(1,(n-s0)/1600),e=1-Math.pow(1-p,4);d.textContent=nf(Math.round(tgt*e))+'+';if(p<1)requestAnimationFrame(f)})(s0)})},{threshold:.5});
         po.observe(proof)}
     })();
 
@@ -1144,7 +1158,7 @@
         poly=EC.map(function(p){return proj(p[0],p[1])});
         cities=CITIES.map(function(c){var p=proj(c[2],c[3]);return {code:c[0],name:c[1],x:p[0],y:p[1],hub:!!c[4]}});
         var hub=cities[0];dots=[];var g=W<520?8:9;
-        for(var y=g/2;y<H;y+=g)for(var x=g/2;x<W;x+=g){if(inside(x,y)){var d=Math.hypot(x-hub.x,y-hub.y);dots.push({x:x,y:y,d:d,ph:Math.random()*6.28});if(d>maxD)maxD=d}}
+        for(var y=Math.round(g/2);y<H;y+=g)for(var x=Math.round(g/2);x<W;x+=g){if(inside(x,y)){var d=Math.hypot(x-hub.x,y-hub.y);dots.push({x:x,y:y,d:d,ph:Math.random()*6.28});if(d>maxD)maxD=d}}
         links=[];var c0=cities[0],c1=cities[1];links.push(mk(c0,c1,0));
         cities.slice(2).forEach(function(c,i){var from=(Math.hypot(c.x-c0.x,c.y-c0.y)<Math.hypot(c.x-c1.x,c.y-c1.y))?c0:c1;links.push(mk(from,c,i+1))});
         packets=[];
@@ -1155,9 +1169,9 @@
       function draw(now){var t=reduce?99:(now-t0)/1000;ctx.clearRect(0,0,W,H);
         var R=t*520;
         ctx.beginPath();poly.forEach(function(p,i){i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1])});ctx.closePath();
-        ctx.fillStyle='rgba(43,63,232,'+(.12*clamp(R/maxD,0,1)).toFixed(3)+')';ctx.fill();
-        ctx.strokeStyle='rgba(200,204,255,'+(.45*clamp((t-.4)/.8,0,1)).toFixed(3)+')';ctx.lineWidth=1;ctx.stroke();
-        for(var i=0;i<dots.length;i++){var p=dots[i];if(p.d>R)continue;var a=.22+.12*Math.sin(t*1.2+p.ph),front=R-p.d;if(front<60&&R<maxD+60)a+=(1-front/60)*.7;var md=Math.hypot(mouse.x-p.x,mouse.y-p.y);var s=1.6;if(md<70){a+=(1-md/70)*.6;s+=(1-md/70)*1.6}ctx.fillStyle='rgba(200,204,255,'+clamp(a,0,1).toFixed(3)+')';ctx.fillRect(p.x-s/2,p.y-s/2,s,s)}
+        ctx.fillStyle='rgba(43,63,232,'+(.2*clamp(R/maxD,0,1)).toFixed(3)+')';ctx.fill();
+        ctx.strokeStyle='rgba(200,204,255,'+(.85*clamp((t-.4)/.8,0,1)).toFixed(3)+')';ctx.lineWidth=1.25;ctx.stroke();
+        for(var i=0;i<dots.length;i++){var p=dots[i];if(p.d>R)continue;var a=.42+.14*Math.sin(t*1.2+p.ph),front=R-p.d;if(front<60&&R<maxD+60)a+=(1-front/60)*.7;var md=Math.hypot(mouse.x-p.x,mouse.y-p.y);var s=1.6;if(md<70){a+=(1-md/70)*.6;s+=(1-md/70)*1.6}ctx.fillStyle='rgba(200,204,255,'+clamp(a,0,1).toFixed(3)+')';ctx.fillRect(p.x-s/2,p.y-s/2,s,s)}
         links.forEach(function(l){var pr=clamp((t-1-l.i*.06)/.7,0,1);if(pr<=0)return;ctx.beginPath();for(var k=0;k<=24*pr;k++){var q=bz(l,k/24);k?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1])}ctx.strokeStyle=l.hub?'rgba(255,255,255,.85)':'rgba(157,165,255,.5)';ctx.lineWidth=l.hub?1.6:1;ctx.stroke()});
         if(!reduce&&t>2&&Math.random()<.18){var l=links[Math.floor(Math.random()*links.length)];packets.push({l:l,p:0,v:.008+Math.random()*.01,rev:Math.random()<.5})}
         ctx.fillStyle='#fff';packets=packets.filter(function(k){k.p+=k.v;if(k.p>=1)return false;var q=bz(k.l,k.rev?1-k.p:k.p);ctx.fillRect(q[0]-2,q[1]-2,4,4);return true});

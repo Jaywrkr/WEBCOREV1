@@ -16,7 +16,7 @@ Aplica la Guía de marca Coresolutions 2026 v1.0: navy `#01095C`, grises fríos,
 
 ## Secciones
 
-Inicio mínimo ("Su operación no se detiene" y un solo botón), Personas (compromisos y cifras en lenguaje humano), Su sector (selector con mensaje por sector), Soluciones (ordenadas por prioridad comercial), CoreOnCloud (mapa de Ecuador con CUE y GYE y consola con datos de demostración), Industrias, Cómo trabajamos, Herramientas (calculadoras en cuadrícula con panel lateral) y Contacto.
+Inicio mínimo ("Su operación no se detiene" y un solo botón), Personas (compromisos y cifras con visualizaciones), Sectores (explorador con prioridades y soluciones por sector), Soluciones (ordenadas por prioridad comercial), CoreOnCloud (mapa de Ecuador con CUE y GYE y consola con datos de demostración), Cómo trabajamos, Herramientas (calculadoras en cuadrícula con panel lateral) y Contacto.
 
 Todo vive en `index.html`: sin dependencias ni compilación, respeta `prefers-reduced-motion` y es responsive hasta 360px.
 

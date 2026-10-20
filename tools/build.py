@@ -210,10 +210,10 @@ def footer(r):
           <p>Respaldo, ciberseguridad e infraestructura para organizaciones en Ecuador.</p>
           <p class="made">Cuenca · Guayaquil</p>
         </div>
-        <div><h4>Soluciones</h4>%(sols)s</div>
-        <div><h4>Empresa</h4><a href="%(r)scoreoncloud.html">CoreOnCloud</a><a href="%(r)ssectores.html">Sectores</a><a href="%(r)snosotros.html">Nosotros</a><a href="%(r)scontacto.html">Contacto</a></div>
-        <div><h4>Calculadoras</h4>%(tools)s</div>
-        <div><h4>Contacto</h4><a href="mailto:info@coresolutions.com.ec">info@coresolutions.com.ec</a><a href="tel:+593994021631">+593 99 402 1631</a><p>Av. 3 de Noviembre 21-176 y Juan Pablo I, Cuenca</p></div>
+        <div><h3 class="fh">Soluciones</h3>%(sols)s</div>
+        <div><h3 class="fh">Empresa</h3><a href="%(r)scoreoncloud.html">CoreOnCloud</a><a href="%(r)ssectores.html">Sectores</a><a href="%(r)snosotros.html">Nosotros</a><a href="%(r)scontacto.html">Contacto</a></div>
+        <div><h3 class="fh">Calculadoras</h3>%(tools)s</div>
+        <div><h3 class="fh">Contacto</h3><a href="mailto:info@coresolutions.com.ec">info@coresolutions.com.ec</a><a href="tel:+593994021631">+593 99 402 1631</a><p>Av. 3 de Noviembre 21-176 y Juan Pablo I, Cuenca</p></div>
       </div>
       <div class="bottom"><span>© <span id="year">2026</span> Coresolutions. Todos los derechos reservados.</span><span><a href="%(r)sprivacidad.html">Política de privacidad</a> · <button type="button" class="linklike" data-cmdk>Buscar en el sitio</button></span></div>
     </div>

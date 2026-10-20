@@ -389,8 +389,59 @@ ORG = {'@context': 'https://schema.org', '@type': 'Organization', 'name': 'Cores
 
 # --------------------------------------------------------------------------- pages
 def build_home():
-    hero = part('home-hero.html').replace('href="#contacto"', 'href="{r}contacto.html"') \
-        .replace('<a href="#herramientas" class="textlink" data-tool="inactividad">', '<a href="{r}herramientas.html#inactividad" class="textlink">')
+    hero = """    <!-- HERO: el interruptor -->
+    <section class="hero dark h3" id="inicio">
+      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="gridlines" aria-hidden="true"></div>
+      <div class="wrap h3-grid">
+        <div class="h3-copy intro">
+          <span class="label">Respaldo · Ciberseguridad · Infraestructura · Ecuador</span>
+          <h1>Apáguelo.<br><em>Su operación sigue.</em></h1>
+          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Cuenca y Guayaquil. Haga la prueba con el interruptor.</p>
+          <div class="cta"><a href="{r}contacto.html" class="btn wide magnet">Hablar con un especialista</a><a href="{r}herramientas.html#inactividad" class="textlink">¿Cuánto le cuesta una hora detenida? →</a></div>
+        </div>
+        <div class="sim" id="sim" aria-live="polite">
+          <div class="sim-top"><span class="mono">SIMULACIÓN ILUSTRATIVA</span><span class="sim-clock mono" id="sim-clock">10:00:00</span></div>
+          <div class="sim-site" id="sim-main">
+            <div class="sim-h"><span>Sitio principal <em class="mono">· SU EMPRESA</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
+            <div class="sim-m">
+              <div><span>Transacciones por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
+              <div><span>Usuarios conectados</span><b class="num" id="sim-usr">312</b></div>
+              <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
+            </div>
+            <canvas class="sim-spark" id="sim-spark" aria-hidden="true"></canvas>
+          </div>
+          <div class="sim-link" id="sim-link" aria-hidden="true"><i></i><i></i><i></i><span class="mono">réplica CUE ↔ GYE</span></div>
+          <div class="sim-site cloud" id="sim-cloud">
+            <div class="sim-h"><span>CoreOnCloud <em class="mono">· CUE / GYE</em></span><span class="tag" id="sim-cloud-st">En espera</span></div>
+            <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
+          </div>
+          <div class="sim-ctl">
+            <button type="button" class="switch" id="sim-switch" aria-pressed="true" aria-label="Interruptor del sitio principal: encendido. Pulse para simular una falla."><span class="sw-track"><span class="sw-knob"></span></span><span class="sw-lbl"><b id="sw-txt">Encendido</b><small>Sitio principal</small></span></button>
+            <p class="sim-msg" id="sim-msg"><span class="hint">← Pulse el interruptor para simular una falla.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+"""
+    rto = """    <!-- RTO -->
+    <section class="band" id="espera">
+      <div class="wrap split">
+        <div class="reveal">
+          <span class="label">Continuidad a su medida</span>
+          <h2 class="h2">Usted decide cuánto puede esperar.</h2>
+          <p class="lede" style="margin-top:var(--s5)">No todas las organizaciones necesitan lo mismo. Elija el nivel que se ajusta a su operación y a su presupuesto.</p>
+          <a class="textlink dark-l" href="{r}herramientas.html#continuidad">Calcular mi nivel de continuidad →</a>
+        </div>
+        <div class="rto reveal" role="group" aria-label="Niveles de continuidad">
+          <button type="button" class="rto-row" aria-pressed="false" data-rto="horas"><span class="rto-n">Respaldo gestionado</span><span class="rto-bar"><i style="--w:100%"></i></span><span class="rto-v mono">horas</span><p>Copias automáticas fuera de su sitio, con pruebas de restauración. Recupera sus datos y vuelve a operar en horas.</p></button>
+          <button type="button" class="rto-row" aria-pressed="true" data-rto="1-4 h"><span class="rto-n">Recuperación ante desastres</span><span class="rto-bar"><i style="--w:34%"></i></span><span class="rto-v mono">1 – 4 h</span><p>Sus servidores críticos replicados en CoreOnCloud y listos para encenderse en el sitio alterno.</p></button>
+          <button type="button" class="rto-row" aria-pressed="false" data-rto="minutos"><span class="rto-n">Alta disponibilidad</span><span class="rto-bar"><i style="--w:6%"></i></span><span class="rto-v mono">minutos</span><p>Réplica continua entre Cuenca y Guayaquil con conmutación automática. Sus usuarios no lo notan.</p></button>
+          <p class="note">Tiempo estimado hasta volver a operar (RTO). Lo definimos juntos según cada sistema.</p>
+        </div>
+      </div>
+    </section>
+"""
     layers = [('Conectividad', 'La red que une sus sedes, equipos y personas: estable, segmentada y monitoreada.', 'redes-y-conectividad', 'Ver redes y conectividad'),
               ('Infraestructura', 'Servidores, almacenamiento y virtualización dimensionados para sus cargas críticas.', 'data-center', 'Ver Data Center y sistemas'),
               ('Datos', 'Respaldos automáticos, copias inmutables y pruebas de restauración.', 'respaldo-y-continuidad', 'Ver respaldo y continuidad'),
@@ -398,13 +449,13 @@ def build_home():
               ('CoreOnCloud', 'Nuestra nube en Cuenca y Guayaquil, con réplica entre ambos sitios.', None, 'Conocer CoreOnCloud')]
     lis = ''.join('<li><span class="mono">0%d</span><div><h3>%s</h3><p>%s</p><a href="{r}%s">%s →</a></div></li>' % (
         i + 1, n, d, ('soluciones/%s.html' % sl) if sl else 'coreoncloud.html', lk) for i, (n, d, sl, lk) in enumerate(layers))
-    stack = '''    <!-- CAPAS -->
+    stack = """    <!-- CAPAS -->
     <section class="band dark stack" id="capas">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="stack-sticky">
         <div class="wrap stack-grid">
           <div class="stack-copy">
-            <span class="label">Cómo protegemos su operación</span>
+            <span class="label">Cómo lo hacemos posible</span>
             <h2 class="h2">Cinco capas. Un solo equipo responsable.</h2>
             <ol class="stack-steps">%s</ol>
           </div>
@@ -412,33 +463,33 @@ def build_home():
         </div>
       </div>
     </section>
-''' % lis
-    cloud = '''    <!-- CLOUD -->
-    <section class="band dark" id="cloud">
-      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+""" % lis
+    sectors = ''.join('<a class="sec-tile reveal" href="{r}sectores.html#%s"><span class="mono">%02d</span><b>%s</b><span>%s</span>%s</a>' % (
+        x['k'], i + 1, x['n'], x['p'][0], ARROW) for i, x in enumerate(SECTORS))
+    sect = """    <!-- SECTORES -->
+    <section class="band band-gray" id="sectores">
       <div class="wrap">
-        <div class="head reveal">
-          <div><span class="label">CoreOnCloud</span><h2 class="h2">Su infraestructura. Nuestra responsabilidad.</h2></div>
-          <p>Nube propia en Ecuador, operada por un equipo técnico que conoce su operación.</p>
-        </div>
-%s        <div class="cta reveal" style="justify-content:center"><a class="btn" href="{r}coreoncloud.html">Conocer CoreOnCloud %s</a></div>
+        <div class="head reveal"><div><span class="label">Para quién</span><h2 class="h2">Conocemos las reglas de su sector.</h2></div><p>Cooperativas, hospitales, plantas, instituciones públicas, comercios y universidades. Cada uno con sus propias exigencias.</p></div>
+        <div class="sec-grid">%s</div>
       </div>
     </section>
-''' % (cloud_geo(), ARROW)
-    tools = '''    <!-- HERRAMIENTAS -->
-    <section class="band tools band-gray" id="herramientas">
-      <div class="wrap">
-        <div class="head reveal">
-          <div><span class="label">Herramientas para clientes</span><h2 class="h2">Dimensione su escenario.</h2></div>
-          <p>Cinco calculadoras de referencia. Elija una, ajuste sus datos y lleve el resultado a una conversación con nuestro equipo.</p>
+""" % sectors
+    people = """    <!-- PERSONAS -->
+    <section class="band" id="personas">
+      <div class="wrap split">
+        <div class="reveal"><span class="label">Quiénes responden</span><h2 class="h2">Detrás de cada sistema hay personas.</h2><p class="lede" style="margin-top:var(--s5)">Las suyas, que necesitan trabajar sin interrupciones. Y las nuestras, que se encargan de que así sea, desde Cuenca y Guayaquil, hace más de 20 años.</p></div>
+        <div class="vows one">
+          <div class="vow reveal"><h3>Le hablamos claro.</h3><p>Cada decisión técnica explicada en términos de su negocio: qué riesgo resuelve, cuánto cuesta y qué pasa si no se hace.</p></div>
+          <div class="vow reveal"><h3>Conocemos su operación.</h3><p>El mismo equipo diseña, implementa y da soporte. No tiene que explicar todo de nuevo cada vez que nos llama.</p></div>
+          <div class="vow reveal"><h3>Estamos cerca.</h3><p>Equipo propio en Ecuador, en su idioma y en su horario.</p></div>
         </div>
-%s      </div>
+      </div>
     </section>
-''' % tools_grid()
-    body = hero + part('personas.html') + stack + sector_explorer() + cloud + tools + cta_band()
-    return page('index.html', 'Coresolutions · Su operación no se detiene',
-                'Respaldo, ciberseguridad e infraestructura para cooperativas, salud e industria en Ecuador, con soporte local y nube propia en Cuenca y Guayaquil.',
-                body, active='', jsonld=[ORG, {'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'Coresolutions', 'url': SITE, 'inLanguage': 'es-EC'}], drawer=True)
+"""
+    body = hero + rto + stack + sect + people + cta_band('¿Y si lo apagamos juntos?', 'Agende una evaluación: revisamos su operación y le decimos, con números, cuánto tardaría en volver.')
+    return page('index.html', 'Coresolutions · Apáguelo. Su operación sigue.',
+                'Respaldo, ciberseguridad e infraestructura con nube propia en Cuenca y Guayaquil. Cuando algo falla, sus sistemas siguen funcionando.',
+                body, active='', jsonld=[ORG, {'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'Coresolutions', 'url': SITE, 'inLanguage': 'es-EC'}])
 
 def build_solutions_index():
     c, ld = crumbs([('Inicio', '{r}index.html'), ('Soluciones', None)])

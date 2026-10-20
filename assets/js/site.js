@@ -406,6 +406,46 @@
     onVisible(sec,function(v){var was=run;run=v;if(v&&!was&&!reduce)requestAnimationFrame(frame)});
   })();
 
+
+  /* ---------- Home: failover simulator (the switch) ---------- */
+  (function(){
+    var sim=$('#sim');if(!sim)return;
+    var sw=$('#sim-switch'),txt=$('#sw-txt'),msg=$('#sim-msg'),main=$('#sim-main'),cloud=$('#sim-cloud'),mst=$('#sim-main-st'),cst=$('#sim-cloud-st'),note=$('#sim-note'),sync=$('#sim-sync'),clock=$('#sim-clock');
+    var tpm=$('#sim-tpm'),usr=$('#sim-usr'),sys=$('#sim-sys'),cv=$('#sim-spark'),ctx=cv.getContext('2d');
+    var state='on',data=[],W,H,vTpm=1248,vUsr=312,t0=Date.now(),timer=null,run=true,hint=true;
+    for(var i=0;i<48;i++)data.push(.5+Math.random()*.3);
+    function size(){var dpr=Math.min(2,window.devicePixelRatio||1),r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
+    function draw(){ctx.clearRect(0,0,W,H);var n=data.length,px=function(i){return i/(n-1)*W},py=function(v){return H-4-v*(H-8)};
+      var g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,state==='on'?'rgba(102,114,250,.45)':state==='over'?'rgba(66,190,101,.4)':'rgba(218,30,40,.25)');g.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.beginPath();ctx.moveTo(0,H);data.forEach(function(v,i){ctx.lineTo(px(i),py(v))});ctx.lineTo(W,H);ctx.closePath();ctx.fillStyle=g;ctx.fill();
+      ctx.beginPath();data.forEach(function(v,i){i?ctx.lineTo(px(i),py(v)):ctx.moveTo(px(i),py(v))});ctx.strokeStyle=state==='on'?'#C8CCFF':state==='over'?'#42BE65':'#DA1E28';ctx.lineWidth=1.5;ctx.stroke()}
+    function say(h){msg.innerHTML=h;msg.classList.remove('swap');void msg.offsetWidth;msg.classList.add('swap')}
+    function pad(n){return n<10?'0'+n:''+n}
+    function tick(){if(!run)return;var el=Math.floor((Date.now()-t0)/1000),h=10+Math.floor(el/3600),m=Math.floor(el/60)%60,sct=el%60;clock.textContent=pad(h)+':'+pad(m)+':'+pad(sct);
+      if(state==='down'){data.push(0);data.shift();draw();return}
+      vTpm=clamp(vTpm+Math.round((Math.random()-.5)*60),900,1600);vUsr=clamp(vUsr+Math.round((Math.random()-.5)*8),260,360);tpm.textContent=nf(vTpm);usr.textContent=nf(vUsr);
+      data.push(clamp((vTpm-900)/700*.8+.1+(Math.random()-.5)*.08,.05,.95));data.shift();draw();
+      if(state==='on'){var sv=parseInt(sync.textContent,10)+1;if(sv>20)sv=1;sync.textContent=sv}}
+    setInterval(tick,1000);
+    function off(){state='down';hint=false;sim.classList.add('down');sim.classList.remove('over');main.classList.add('off');mst.textContent='Caída';mst.className='tag err';sys.textContent='0 / 12';tpm.textContent='0';usr.textContent='0';sw.setAttribute('aria-pressed','false');txt.textContent='Apagado';sw.setAttribute('aria-label','Interruptor del sitio principal: apagado. Pulse para restaurar.');
+      say('<b>Sitio principal sin servicio.</b> CoreOnCloud está tomando el relevo…');var t1=Date.now();
+      timer=setTimeout(function(){if(state!=='down')return;state='over';sim.classList.remove('down');sim.classList.add('over');cst.textContent='Activo';cst.className='tag ok';cloud.classList.add('on');note.innerHTML='Sus sistemas ahora funcionan desde Cuenca y Guayaquil. Sus usuarios siguen trabajando.';
+        sys.textContent='12 / 12';var el=((Date.now()-t1)/1000).toFixed(1);say('<b>Recuperado en <span class="t">'+el+' s</span>.</b> Sus usuarios siguieron trabajando sin notarlo. Así funciona la recuperación ante desastres en CoreOnCloud.');tick()},reduce?300:3200)}
+    function on(){clearTimeout(timer);state='on';sim.classList.remove('down','over');main.classList.remove('off');mst.textContent='Operando';mst.className='tag ok';cst.textContent='En espera';cst.className='tag';cloud.classList.remove('on');sys.textContent='12 / 12';sync.textContent='2';
+      note.innerHTML='Copia sincronizada hace <span class="num" id="sim-sync">2</span> s. Lista para tomar el relevo.';sync=$('#sim-sync');sw.setAttribute('aria-pressed','true');txt.textContent='Encendido';sw.setAttribute('aria-label','Interruptor del sitio principal: encendido. Pulse para simular una falla.');
+      say('<b>Sitio principal restaurado.</b> La réplica vuelve a sincronizarse. Pruébelo las veces que quiera.');tick()}
+    sw.addEventListener('click',function(){state==='on'?off():on()});
+    size();window.addEventListener('resize',size);
+    onVisible(sim,function(v){run=v});
+  })();
+
+  /* ---------- Home: RTO picker ---------- */
+  (function(){
+    var box=$('.rto');if(!box)return;var rows=$$('.rto-row',box);
+    rows.forEach(function(r){r.addEventListener('click',function(){rows.forEach(function(x){x.setAttribute('aria-pressed',String(x===r))})})});
+    if('IntersectionObserver' in window&&!reduce&&box.getBoundingClientRect().top>window.innerHeight){box.classList.add('arm');var o=new IntersectionObserver(function(es){if(es[0].isIntersecting){box.classList.add('in');o.disconnect()}},{threshold:.4});o.observe(box)}
+  })();
+
   /* ---------- Command palette (Ctrl/⌘ K) ---------- */
   (function(){
     var box=$('#cmdk');if(!box)return;

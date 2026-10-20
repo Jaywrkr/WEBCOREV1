@@ -6,7 +6,7 @@ Sitio estático, sin dependencias de ejecución, listo para Vercel.
 
 | Ruta | Contenido |
 | --- | --- |
-| `/` | Inicio: promesa, personas, cinco capas (animación por scroll), sectores, CoreOnCloud, calculadoras |
+| `/` | Inicio: interruptor de conmutación (simulación interactiva), niveles de continuidad, cinco capas (animación por scroll), sectores, personas |
 | `/soluciones` y `/soluciones/<slug>` | Índice y seis páginas de solución (problema, qué incluye, etapas, FAQ, relacionados) |
 | `/coreoncloud` | Nube propia: mapa CUE/GYE, servicios, consola de demostración, FAQ |
 | `/sectores` | Explorador por sector (enlazable: `/sectores#salud`) |

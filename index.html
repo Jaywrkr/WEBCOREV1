@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Coresolutions · Su operación no se detiene</title>
+  <title>Coresolutions · Apáguelo. Su operación sigue.</title>
   <meta name="claude:viewport-fit-sides" content="cover">
-  <meta name="description" content="Respaldo, ciberseguridad e infraestructura para cooperativas, salud e industria en Ecuador, con soporte local y nube propia en Cuenca y Guayaquil.">
+  <meta name="description" content="Respaldo, ciberseguridad e infraestructura con nube propia en Cuenca y Guayaquil. Cuando algo falla, sus sistemas siguen funcionando.">
   <meta name="theme-color" content="#01095C">
   <link rel="canonical" href="https://coresolutions.com.ec/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_EC">
   <meta property="og:site_name" content="Coresolutions">
-  <meta property="og:title" content="Coresolutions · Su operación no se detiene">
-  <meta property="og:description" content="Respaldo, ciberseguridad e infraestructura para cooperativas, salud e industria en Ecuador, con soporte local y nube propia en Cuenca y Guayaquil.">
+  <meta property="og:title" content="Coresolutions · Apáguelo. Su operación sigue.">
+  <meta property="og:description" content="Respaldo, ciberseguridad e infraestructura con nube propia en Cuenca y Guayaquil. Cuando algo falla, sus sistemas siguen funcionando.">
   <meta property="og:url" content="https://coresolutions.com.ec/">
   <meta property="og:image" content="https://coresolutions.com.ec/og.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -48,52 +48,64 @@
   </header>
 
   <main id="main">
-    <!-- HERO -->
-    <section class="hero dark" id="inicio">
+    <!-- HERO: el interruptor -->
+    <section class="hero dark h3" id="inicio">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <canvas id="flow" aria-hidden="true"></canvas>
-      <div class="spot" aria-hidden="true"></div>
-      <div class="wrap hero-stage">
-        <div class="intro" id="hero-intro">
-          <h1 class="split"><span class="w" style="--i:0">Su</span> <span class="w" style="--i:1">operación</span> <span class="w shine" style="--i:2">no</span> <span class="w shine" style="--i:3">se</span> <span class="w shine" style="--i:4">detiene.</span></h1>
-          <p class="lede">Respaldo, ciberseguridad e infraestructura para organizaciones en Ecuador.</p>
-          <div class="hero-go">
-            <a href="contacto.html" class="btn wide magnet">Hablar con un especialista</a>
-            <a href="herramientas.html#inactividad" class="textlink">o calcule cuánto le cuesta una hora detenida →</a>
+      <div class="gridlines" aria-hidden="true"></div>
+      <div class="wrap h3-grid">
+        <div class="h3-copy intro">
+          <span class="label">Respaldo · Ciberseguridad · Infraestructura · Ecuador</span>
+          <h1>Apáguelo.<br><em>Su operación sigue.</em></h1>
+          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Cuenca y Guayaquil. Haga la prueba con el interruptor.</p>
+          <div class="cta"><a href="contacto.html" class="btn wide magnet">Hablar con un especialista</a><a href="herramientas.html#inactividad" class="textlink">¿Cuánto le cuesta una hora detenida? →</a></div>
+        </div>
+        <div class="sim" id="sim" aria-live="polite">
+          <div class="sim-top"><span class="mono">SIMULACIÓN ILUSTRATIVA</span><span class="sim-clock mono" id="sim-clock">10:00:00</span></div>
+          <div class="sim-site" id="sim-main">
+            <div class="sim-h"><span>Sitio principal <em class="mono">· SU EMPRESA</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
+            <div class="sim-m">
+              <div><span>Transacciones por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
+              <div><span>Usuarios conectados</span><b class="num" id="sim-usr">312</b></div>
+              <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
+            </div>
+            <canvas class="sim-spark" id="sim-spark" aria-hidden="true"></canvas>
+          </div>
+          <div class="sim-link" id="sim-link" aria-hidden="true"><i></i><i></i><i></i><span class="mono">réplica CUE ↔ GYE</span></div>
+          <div class="sim-site cloud" id="sim-cloud">
+            <div class="sim-h"><span>CoreOnCloud <em class="mono">· CUE / GYE</em></span><span class="tag" id="sim-cloud-st">En espera</span></div>
+            <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
+          </div>
+          <div class="sim-ctl">
+            <button type="button" class="switch" id="sim-switch" aria-pressed="true" aria-label="Interruptor del sitio principal: encendido. Pulse para simular una falla."><span class="sw-track"><span class="sw-knob"></span></span><span class="sw-lbl"><b id="sw-txt">Encendido</b><small>Sitio principal</small></span></button>
+            <p class="sim-msg" id="sim-msg"><span class="hint">← Pulse el interruptor para simular una falla.</span></p>
           </div>
         </div>
       </div>
-      <a class="scroll-hint" href="#personas" aria-label="Ir a la siguiente sección"><span></span>Desplácese</a>
     </section>
-
-    <!-- PERSONAS -->
-    <section class="band people" id="personas">
-      <div class="wrap">
-        <div class="people-head reveal">
-          <h2 class="h2">Detrás de cada sistema hay personas.</h2>
-          <p class="lede">Las suyas, que necesitan trabajar sin interrupciones. Y las nuestras, que se encargan de que así sea.</p>
+    <!-- RTO -->
+    <section class="band" id="espera">
+      <div class="wrap split">
+        <div class="reveal">
+          <span class="label">Continuidad a su medida</span>
+          <h2 class="h2">Usted decide cuánto puede esperar.</h2>
+          <p class="lede" style="margin-top:var(--s5)">No todas las organizaciones necesitan lo mismo. Elija el nivel que se ajusta a su operación y a su presupuesto.</p>
+          <a class="textlink dark-l" href="herramientas.html#continuidad">Calcular mi nivel de continuidad →</a>
         </div>
-        <div class="vows">
-          <div class="vow reveal"><h3>Le hablamos claro.</h3><p>Explicamos cada decisión técnica en términos de su negocio: qué riesgo resuelve, cuánto cuesta y qué pasa si no se hace.</p></div>
-          <div class="vow reveal"><h3>Conocemos su operación.</h3><p>El mismo equipo diseña, implementa y da soporte. No tiene que explicar todo de nuevo cada vez que nos llama.</p></div>
-          <div class="vow reveal"><h3>Estamos cerca.</h3><p>Equipo propio en Cuenca y Guayaquil, en su idioma y en su horario.</p></div>
+        <div class="rto reveal" role="group" aria-label="Niveles de continuidad">
+          <button type="button" class="rto-row" aria-pressed="false" data-rto="horas"><span class="rto-n">Respaldo gestionado</span><span class="rto-bar"><i style="--w:100%"></i></span><span class="rto-v mono">horas</span><p>Copias automáticas fuera de su sitio, con pruebas de restauración. Recupera sus datos y vuelve a operar en horas.</p></button>
+          <button type="button" class="rto-row" aria-pressed="true" data-rto="1-4 h"><span class="rto-n">Recuperación ante desastres</span><span class="rto-bar"><i style="--w:34%"></i></span><span class="rto-v mono">1 – 4 h</span><p>Sus servidores críticos replicados en CoreOnCloud y listos para encenderse en el sitio alterno.</p></button>
+          <button type="button" class="rto-row" aria-pressed="false" data-rto="minutos"><span class="rto-n">Alta disponibilidad</span><span class="rto-bar"><i style="--w:6%"></i></span><span class="rto-v mono">minutos</span><p>Réplica continua entre Cuenca y Guayaquil con conmutación automática. Sus usuarios no lo notan.</p></button>
+          <p class="note">Tiempo estimado hasta volver a operar (RTO). Lo definimos juntos según cada sistema.</p>
         </div>
-        <dl class="facts" id="facts">
-          <div class="fact"><dt>años acompañando a organizaciones ecuatorianas</dt><dd data-count="20">20+</dd><span class="viz-ticks" aria-hidden="true"><i style="--h:30%;--d:0ms"></i><i style="--h:33%;--d:30ms"></i><i style="--h:37%;--d:60ms"></i><i style="--h:41%;--d:90ms"></i><i style="--h:44%;--d:120ms"></i><i style="--h:48%;--d:150ms"></i><i style="--h:52%;--d:180ms"></i><i style="--h:55%;--d:210ms"></i><i style="--h:59%;--d:240ms"></i><i style="--h:63%;--d:270ms"></i><i style="--h:66%;--d:300ms"></i><i style="--h:70%;--d:330ms"></i><i style="--h:74%;--d:360ms"></i><i style="--h:77%;--d:390ms"></i><i style="--h:81%;--d:420ms"></i><i style="--h:85%;--d:450ms"></i><i style="--h:88%;--d:480ms"></i><i style="--h:92%;--d:510ms"></i><i style="--h:96%;--d:540ms"></i><i style="--h:100%;--d:570ms"></i></span></div>
-          <div class="fact"><dt>proyectos puestos en marcha</dt><dd data-count="350">350+</dd><span class="viz-dots" aria-hidden="true"><i style="--d:0ms"></i><i style="--d:22ms"></i><i style="--d:44ms"></i><i style="--d:66ms"></i><i style="--d:88ms"></i><i style="--d:110ms"></i><i style="--d:132ms"></i><i style="--d:154ms"></i><i style="--d:176ms"></i><i style="--d:198ms"></i><i style="--d:220ms"></i><i style="--d:242ms"></i><i style="--d:264ms"></i><i style="--d:286ms"></i><i style="--d:308ms"></i><i style="--d:330ms"></i><i style="--d:352ms"></i><i style="--d:374ms"></i><i style="--d:396ms"></i><i style="--d:418ms"></i><i style="--d:440ms"></i><i style="--d:462ms"></i><i style="--d:484ms"></i><i style="--d:506ms"></i><i style="--d:528ms"></i><i style="--d:550ms"></i><i style="--d:572ms"></i><i style="--d:594ms"></i><i style="--d:616ms"></i><i style="--d:638ms"></i><i style="--d:660ms"></i><i style="--d:682ms"></i><i style="--d:704ms"></i><i style="--d:726ms"></i><i style="--d:748ms"></i></span></div>
-          <div class="fact"><dt>veces que un cliente nos pidió ayuda y respondimos</dt><dd data-count="1700">1,700+</dd><svg class="viz-line" viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30 L18 28 L30 31 L44 22 L56 26 L70 14 L84 20 L98 10 L112 18 L126 8 L140 15 L154 6 L170 12 L184 4 L200 8"/></svg></div>
-          <div class="fact"><dt>horas de soporte junto a nuestros clientes</dt><dd data-count="11000">11,000+</dd><span class="viz-blocks" aria-hidden="true"><i style="--d:0ms"></i><i style="--d:70ms"></i><i style="--d:140ms"></i><i style="--d:210ms"></i><i style="--d:280ms"></i><i style="--d:350ms"></i><i style="--d:420ms"></i><i style="--d:490ms"></i><i style="--d:560ms"></i><i style="--d:630ms"></i><i style="--d:700ms"></i></span></div>
-        </dl>
       </div>
     </section>
-
     <!-- CAPAS -->
     <section class="band dark stack" id="capas">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="stack-sticky">
         <div class="wrap stack-grid">
           <div class="stack-copy">
-            <span class="label">Cómo protegemos su operación</span>
+            <span class="label">Cómo lo hacemos posible</span>
             <h2 class="h2">Cinco capas. Un solo equipo responsable.</h2>
             <ol class="stack-steps"><li><span class="mono">01</span><div><h3>Conectividad</h3><p>La red que une sus sedes, equipos y personas: estable, segmentada y monitoreada.</p><a href="soluciones/redes-y-conectividad.html">Ver redes y conectividad →</a></div></li><li><span class="mono">02</span><div><h3>Infraestructura</h3><p>Servidores, almacenamiento y virtualización dimensionados para sus cargas críticas.</p><a href="soluciones/data-center.html">Ver Data Center y sistemas →</a></div></li><li><span class="mono">03</span><div><h3>Datos</h3><p>Respaldos automáticos, copias inmutables y pruebas de restauración.</p><a href="soluciones/respaldo-y-continuidad.html">Ver respaldo y continuidad →</a></div></li><li><span class="mono">04</span><div><h3>Seguridad</h3><p>Firewall, endpoints y accesos: cada capa protegida frente a amenazas.</p><a href="soluciones/ciberseguridad.html">Ver ciberseguridad →</a></div></li><li><span class="mono">05</span><div><h3>CoreOnCloud</h3><p>Nuestra nube en Cuenca y Guayaquil, con réplica entre ambos sitios.</p><a href="coreoncloud.html">Conocer CoreOnCloud →</a></div></li></ol>
           </div>
@@ -101,61 +113,30 @@
         </div>
       </div>
     </section>
-    <section class="band sectors" id="sectores">
+    <!-- SECTORES -->
+    <section class="band band-gray" id="sectores">
       <div class="wrap">
-        <div class="head reveal">
-          <div><span class="label">Sectores</span><h2 class="h2">¿Qué necesita su organización?</h2></div>
-          <p>Cada sector tiene sus propias exigencias. Elija el suyo.</p>
-        </div>
-        <div class="sx reveal">
-          <div class="sx-list" role="tablist" aria-label="Sectores"><button type="button" class="sx-tab" role="tab" id="sx-coop" aria-controls="sx-panel" aria-selected="true" tabindex="0" data-k="coop"><span>Cooperativas y finanzas</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-salud" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="salud"><span>Salud</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-industria" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="industria"><span>Industria</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-publico" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="publico"><span>Sector público</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-comercio" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="comercio"><span>Comercio</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button><button type="button" class="sx-tab" role="tab" id="sx-educacion" aria-controls="sx-panel" aria-selected="false" tabindex="-1" data-k="educacion"><span>Educación</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button></div>
-          <div class="sx-panel dark" role="tabpanel" id="sx-panel" aria-labelledby="sx-coop">
-            <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-            <div class="sx-in" id="sx-in"><span class="label">Cooperativas y finanzas</span><p class="sx-msg">Disponibilidad, respaldo y protección de datos para cumplir con la SEPS y atender a sus socios sin interrupciones.</p></div>
-          </div>
-        </div>
+        <div class="head reveal"><div><span class="label">Para quién</span><h2 class="h2">Conocemos las reglas de su sector.</h2></div><p>Cooperativas, hospitales, plantas, instituciones públicas, comercios y universidades. Cada uno con sus propias exigencias.</p></div>
+        <div class="sec-grid"><a class="sec-tile reveal" href="sectores.html#coop"><span class="mono">01</span><b>Cooperativas y finanzas</b><span>Continuidad del core financiero</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#salud"><span class="mono">02</span><b>Salud</b><span>Historia clínica disponible</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#industria"><span class="mono">03</span><b>Industria</b><span>Conectividad de planta</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#publico"><span class="mono">04</span><b>Sector público</b><span>Servicios ciudadanos sin interrupción</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#comercio"><span class="mono">05</span><b>Comercio</b><span>Operación multisede</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#educacion"><span class="mono">06</span><b>Educación</b><span>Wi-Fi de campus</span><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
       </div>
     </section>
-    <!-- CLOUD -->
-    <section class="band dark" id="cloud">
-      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="wrap">
-        <div class="head reveal">
-          <div><span class="label">CoreOnCloud</span><h2 class="h2">Su infraestructura. Nuestra responsabilidad.</h2></div>
-          <p>Nube propia en Ecuador, operada por un equipo técnico que conoce su operación.</p>
+    <!-- PERSONAS -->
+    <section class="band" id="personas">
+      <div class="wrap split">
+        <div class="reveal"><span class="label">Quiénes responden</span><h2 class="h2">Detrás de cada sistema hay personas.</h2><p class="lede" style="margin-top:var(--s5)">Las suyas, que necesitan trabajar sin interrupciones. Y las nuestras, que se encargan de que así sea, desde Cuenca y Guayaquil, hace más de 20 años.</p></div>
+        <div class="vows one">
+          <div class="vow reveal"><h3>Le hablamos claro.</h3><p>Cada decisión técnica explicada en términos de su negocio: qué riesgo resuelve, cuánto cuesta y qué pasa si no se hace.</p></div>
+          <div class="vow reveal"><h3>Conocemos su operación.</h3><p>El mismo equipo diseña, implementa y da soporte. No tiene que explicar todo de nuevo cada vez que nos llama.</p></div>
+          <div class="vow reveal"><h3>Estamos cerca.</h3><p>Equipo propio en Ecuador, en su idioma y en su horario.</p></div>
         </div>
-        <div class="cloud-geo reveal">
-          <div class="map" aria-hidden="true">
-            <canvas id="map"></canvas>
-            <div class="map-tip" id="map-tip"></div>
-            <div class="map-legend"><span><i></i>Centro de datos CoreOnCloud</span><span><i class="c"></i>Ciudad conectada</span><span>Ilustrativo</span></div>
-          </div>
-          <div class="specs">
-            <div><b>2</b><span>centros de datos en Ecuador</span></div>
-            <div><b>CUE ↔ GYE</b><span>réplica entre sitios</span></div>
-            <div><b>IaaS · DRaaS</b><span>y respaldo gestionado</span></div>
-            <div><b>Por uso</b><span>modelo de consumo</span></div>
-          </div>
-        </div>
-        <div class="cta reveal" style="justify-content:center"><a class="btn" href="coreoncloud.html">Conocer CoreOnCloud <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
-      </div>
-    </section>
-    <!-- HERRAMIENTAS -->
-    <section class="band tools band-gray" id="herramientas">
-      <div class="wrap">
-        <div class="head reveal">
-          <div><span class="label">Herramientas para clientes</span><h2 class="h2">Dimensione su escenario.</h2></div>
-          <p>Cinco calculadoras de referencia. Elija una, ajuste sus datos y lleve el resultado a una conversación con nuestro equipo.</p>
-        </div>
-        <div class="tool-grid reveal" id="tool-grid"></div>
       </div>
     </section>
     <section class="band dark cta-band">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="gridlines" aria-hidden="true"></div>
       <div class="wrap">
-        <h2>Hablemos de su operación.</h2>
-        <p>Una persona de nuestro equipo técnico revisará su caso y le escribirá.</p>
+        <h2>¿Y si lo apagamos juntos?</h2>
+        <p>Agende una evaluación: revisamos su operación y le decimos, con números, cuánto tardaría en volver.</p>
         <div class="cta"><a href="contacto.html" class="btn wide magnet">Hablar con un especialista</a><a href="herramientas.html" class="btn btn-sec wide">Usar las calculadoras</a></div>
       </div>
     </section>
@@ -177,21 +158,6 @@
       <div class="bottom"><span>© <span id="year">2026</span> Coresolutions. Todos los derechos reservados.</span><span><a href="privacidad.html">Política de privacidad</a> · <button type="button" class="linklike" data-cmdk>Buscar en el sitio</button></span></div>
     </div>
   </footer>
-  <div class="drawer" id="drawer" hidden>
-    <div class="drawer-bg" data-close></div>
-    <aside class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
-      <div class="drawer-h">
-        <div class="dh-l"><span class="dh-ico" id="drawer-ico" aria-hidden="true"></span><div><span class="label">Calculadora</span><h3 id="drawer-title"></h3></div></div>
-        <button type="button" class="x" data-close aria-label="Cerrar calculadora"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m5 5 10 10M15 5 5 15"/></svg></button>
-      </div>
-      <div class="drawer-b"><div class="dsum" id="dsum" aria-live="polite"></div><div class="tool" id="tool"></div></div>
-      <div class="drawer-f">
-        <button type="button" class="dnav" id="d-prev"></button>
-        <button type="button" class="dnav" id="d-next"></button>
-      </div>
-    </aside>
-  </div>
-
   <div class="cmdk" id="cmdk" hidden>
     <div class="cmdk-bg" data-cx></div>
     <div class="cmdk-panel" role="dialog" aria-modal="true" aria-label="Buscar en el sitio">

@@ -1,0 +1,61 @@
+    <!-- CLOUD / NOC -->
+    <section class="band dark" id="cloud">
+      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="wrap">
+        <div class="head reveal">
+          <div><span class="label">CoreOnCloud</span><h2 class="h2">Su infraestructura. Nuestra responsabilidad.</h2></div>
+          <p>Nube propia en Ecuador, operada por un equipo técnico que conoce su operación.</p>
+        </div>
+        <div class="cloud-geo reveal">
+          <div class="map" aria-hidden="true">
+            <canvas id="map"></canvas>
+            <div class="map-tip" id="map-tip"></div>
+            <div class="map-legend"><span><i></i>Centro de datos CoreOnCloud</span><span><i class="c"></i>Ciudad conectada</span><span>Ilustrativo</span></div>
+          </div>
+          <div class="specs">
+            <div><b>2</b><span>centros de datos en Ecuador</span></div>
+            <div><b>CUE ↔ GYE</b><span>réplica entre sitios</span></div>
+            <div><b>IaaS · DRaaS</b><span>y respaldo gestionado</span></div>
+            <div><b>Por uso</b><span>modelo de consumo</span></div>
+          </div>
+        </div>
+
+        <div class="noc reveal" role="region" aria-label="Consola de operaciones de CoreOnCloud, datos de demostración">
+          <div class="noc-bar">
+            <div class="l"><b>CoreOnCloud · Consola de operaciones</b><span class="tag warn">Datos de demostración</span></div>
+            <div class="l"><span class="tag live">En vivo</span><span class="num" id="clock">--:--:--</span><span>UTC−5</span></div>
+          </div>
+          <div class="kpis">
+            <div class="kpi"><span class="k">Disponibilidad · 30 días</span><span class="v">99.97<small>%</small></span><span class="s">Objetivo de SLA cumplido</span></div>
+            <div class="kpi"><span class="k">Latencia CUE ↔ GYE</span><span class="v"><span id="lat-now">7.4</span><small>ms</small></span><span class="s">Promedio 60 s: <span class="num" id="lat-avg">7.4</span> ms</span></div>
+            <div class="kpi"><span class="k">Réplica entre sitios</span><span class="v"><span id="rpo">5</span><small>min RPO</small></span><span class="s">Última sincronización: <span class="num" id="sync">hace 12 s</span></span></div>
+            <div class="kpi"><span class="k">Respaldos completados hoy</span><span class="v" id="bk">1,148</span><span class="s">0 fallidos</span></div>
+          </div>
+          <div class="noc-body">
+            <div class="noc-card">
+              <h4>Latencia entre centros de datos <span>últimos 60 s · ms</span></h4>
+              <canvas id="lat-chart"></canvas>
+            </div>
+            <div class="noc-card">
+              <h4>Sitios <span>uso actual</span></h4>
+              <div class="site" data-site="CUE">
+                <div class="site-h"><span>CUE-DC1 · Cuenca</span><span class="tag ok">Activo</span></div>
+                <div class="meter"><span>Cómputo</span><span class="bar"><i style="width:58%"></i></span><span class="num">58%</span></div>
+                <div class="meter"><span>Almacenamiento</span><span class="bar"><i style="width:64%"></i></span><span class="num">64%</span></div>
+                <div class="meter"><span>Red</span><span class="bar"><i style="width:31%"></i></span><span class="num">31%</span></div>
+              </div>
+              <div class="site" data-site="GYE">
+                <div class="site-h"><span>GYE-DC1 · Guayaquil</span><span class="tag ok">Activo</span></div>
+                <div class="meter"><span>Cómputo</span><span class="bar"><i style="width:49%"></i></span><span class="num">49%</span></div>
+                <div class="meter"><span>Almacenamiento</span><span class="bar"><i style="width:57%"></i></span><span class="num">57%</span></div>
+                <div class="meter"><span>Red</span><span class="bar"><i style="width:27%"></i></span><span class="num">27%</span></div>
+              </div>
+            </div>
+          </div>
+          <ul class="log" id="log" aria-live="off"></ul>
+          <div class="noc-foot">Valores simulados con fines ilustrativos. Los clientes de CoreOnCloud reciben sus métricas reales en informes mensuales.</div>
+        </div>
+      </div>
+    </section>
+
+

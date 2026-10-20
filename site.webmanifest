@@ -1,0 +1,13 @@
+{
+  "name": "Coresolutions",
+  "short_name": "Coresolutions",
+  "lang": "es-EC",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#01095C",
+  "theme_color": "#01095C",
+  "icons": [
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

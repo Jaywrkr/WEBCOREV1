@@ -1,0 +1,45 @@
+    <!-- CONTACTO -->
+    <section class="band contact dark" id="contacto">
+      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+      <div class="wrap contact-grid">
+        <div class="reveal">
+          <span class="label">Contacto</span>
+          <h2 class="h2">Hablemos de su operación.</h2>
+          <p class="lede">Cuéntenos qué le preocupa. Una persona de nuestro equipo técnico revisará su caso y le escribirá.</p>
+          <div class="direct">
+            <div class="direct-row"><span class="k">Correo</span><span class="v" id="mail">info@coresolutions.com.ec</span><button class="copy" type="button" data-copy="mail">Copiar</button></div>
+            <div class="direct-row"><span class="k">Teléfono</span><span class="v mono" id="phone">+593 99 402 1631</span><button class="copy" type="button" data-copy="phone">Copiar</button></div>
+            <div class="direct-row"><span class="k">Oficina</span><span class="v">Av. 3 de Noviembre 21-176 y Juan Pablo I, Cuenca</span></div>
+          </div>
+          <ol class="next">
+            <li><span class="num">01</span><div><b>Revisamos su requerimiento</b><span>Un especialista analiza la información que nos envía.</span></div></li>
+            <li><span class="num">02</span><div><b>Reunión técnica</b><span>Conversamos sobre su operación, sus riesgos y sus prioridades.</span></div></li>
+            <li><span class="num">03</span><div><b>Propuesta</b><span>Recibe una solución dimensionada para su organización.</span></div></li>
+          </ol>
+        </div>
+        <form class="panel reveal" id="form" novalidate>
+          <div class="row2">
+            <div class="field"><label for="f-name">Nombre</label><input id="f-name" name="nombre" autocomplete="name" required placeholder="Su nombre"></div>
+            <div class="field"><label for="f-company">Empresa</label><input id="f-company" name="empresa" autocomplete="organization" placeholder="Organización"></div>
+          </div>
+          <div class="field"><label for="f-email">Correo corporativo</label><input id="f-email" name="correo" type="email" autocomplete="email" required placeholder="nombre@empresa.com"></div>
+          <fieldset class="field">
+            <legend>Áreas de interés</legend>
+            <div class="chips">
+              <input type="checkbox" id="c1" value="Infraestructura"><label for="c1">Infraestructura</label>
+              <input type="checkbox" id="c2" value="CoreOnCloud" checked><label for="c2">CoreOnCloud</label>
+              <input type="checkbox" id="c3" value="Ciberseguridad"><label for="c3">Ciberseguridad</label>
+              <input type="checkbox" id="c4" value="Redes"><label for="c4">Redes</label>
+              <input type="checkbox" id="c5" value="Automatización e IA"><label for="c5">Automatización e IA</label>
+            </div>
+          </fieldset>
+          <div class="field"><label for="f-msg">Descripción del requerimiento</label><textarea id="f-msg" name="mensaje" placeholder="Describa brevemente su proyecto o necesidad"></textarea></div>
+          <p class="err" id="err" hidden>Ingrese su nombre y un correo válido para continuar.</p>
+          <div class="form-foot">
+            <button class="btn" type="submit">Preparar correo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+            <p class="form-note">Se abrirá su aplicación de correo con el mensaje listo para info@coresolutions.com.ec.</p>
+          </div>
+          <div class="notice" id="done" hidden role="status">Su mensaje está listo en su aplicación de correo. Si no se abrió, escríbanos a info@coresolutions.com.ec.</div>
+        </form>
+      </div>
+    </section>

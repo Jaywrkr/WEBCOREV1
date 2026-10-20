@@ -46,7 +46,7 @@ Vista previa local: `python3 -m http.server 8000` y abrir `http://localhost:8000
 
 ## Marca
 
-El logotipo oficial (wordmark CORESOLUTIONS en IBM Plex Sans Condensed Bold) está en `assets/brand/` como SVG vectorial en tres versiones: `coresolutions-navy.svg`, `coresolutions-white.svg` y `coresolutions-black.svg`. La cabecera y el pie lo insertan en línea (`wordmark.svgfrag`) y toman el color del contexto. Se regenera con `python3 tools/logo.py` (requiere `fonttools` y `brotli`).
+El logotipo oficial está en `assets/brand/`: `coresolutions-navy.png`, `coresolutions-white.png` y `coresolutions-black.png` (1276×138, fondo transparente), derivados del archivo original en alta resolución que se conserva en `assets/brand/original/`. La cabecera usa la versión navy sobre fondos claros y la blanca sobre fondos oscuros; el pie usa la blanca. Para cambiar el logotipo basta reemplazar esos archivos manteniendo el nombre y la proporción.
 
 ## Formulario de contacto
 

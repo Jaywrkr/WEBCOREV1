@@ -59,10 +59,10 @@
     .dark .lede{color:var(--blue-20)}
 
     .wordmark{font-family:var(--f-cond);font-weight:700;font-size:22px;letter-spacing:.01em;line-height:1;color:var(--navy);text-transform:uppercase;display:inline-flex;align-items:center}
-    .wordmark .logo{display:block;height:18px;width:186px;aspect-ratio:7502/726;fill:var(--navy);color:var(--navy);flex:none;overflow:visible;transition:fill .3s}
-    .wordmark .logo path{fill:inherit}
-    header.site.clear .wordmark .logo{fill:#fff;color:#fff}
-    footer .wordmark .logo{height:20px;width:207px;fill:#fff;color:#fff}
+    .wordmark .logo{display:block;height:18px;width:auto;max-width:none;flex:none}
+    .wordmark .logo-white,header.site.clear .wordmark .logo-navy,footer .wordmark .logo-navy{display:none}
+    header.site.clear .wordmark .logo-white,footer .wordmark .logo-white{display:block}
+    footer .wordmark .logo{height:20px}
     footer .wordmark{color:#fff}
 
     .btn{display:inline-flex;align-items:center;justify-content:space-between;gap:var(--s7);min-height:48px;padding:0 var(--s5);border:1px solid var(--navy);background:var(--navy);color:#fff;font-weight:500;font-size:15px;cursor:pointer;transition:background .15s var(--ease),color .15s,border-color .15s}

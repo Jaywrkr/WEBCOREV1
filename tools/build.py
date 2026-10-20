@@ -13,10 +13,11 @@ import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PART = os.path.join(ROOT, 'tools', 'partials')
-with open(os.path.join(ROOT, 'assets', 'brand', 'wordmark.svgfrag'), encoding='utf-8') as _f:
-    LOGO = _f.read().strip()
+# Logotipo oficial (assets/brand): navy sobre fondos claros, blanco sobre oscuros.
+LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
+        '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.10.2'
+VERSION = '2026.10.3'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:
@@ -204,7 +205,7 @@ def header(r, active):
   </header>
 ''' % dict(r=r, sol=a('soluciones.html', 'Soluciones', 'soluciones'), mega=mega, coc=a('coreoncloud.html', 'CoreOnCloud', 'coreoncloud'),
            sec=a('sectores.html', 'Sectores', 'sectores'), her=a('herramientas.html', 'Herramientas', 'herramientas'),
-           nos=a('nosotros.html', 'Nosotros', 'nosotros'), search=SEARCH, arrow=ARROW, logo=LOGO)
+           nos=a('nosotros.html', 'Nosotros', 'nosotros'), search=SEARCH, arrow=ARROW, logo=LOGO % dict(r=r))
 
 def footer(r):
     sols = ''.join('<a href="%ssoluciones/%s.html">%s</a>' % (r, s['slug'], s['name']) for s in SOLS)
@@ -225,7 +226,7 @@ def footer(r):
       <div class="bottom"><span>© <span id="year">2026</span> Coresolutions. Todos los derechos reservados.</span><span><a href="%(r)sprivacidad.html">Política de privacidad</a> · <button type="button" class="linklike" data-cmdk>Buscar en el sitio</button></span></div>
     </div>
   </footer>
-''' % dict(r=r, sols=sols, tools=tools, logo=LOGO)
+''' % dict(r=r, sols=sols, tools=tools, logo=LOGO % dict(r=r))
 
 CMDK = '''  <div class="cmdk" id="cmdk" hidden>
     <div class="cmdk-bg" data-cx></div>

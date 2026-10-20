@@ -39,7 +39,7 @@
 
     /* Mesh gradient */
     .mesh{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-    .mesh i{position:absolute;border-radius:50%;will-change:transform;animation:drift 44s ease-in-out infinite alternate;background:radial-gradient(circle at 50% 50%,var(--mc) 0%,color-mix(in srgb,var(--mc) 55%,transparent) 32%,transparent 70%)!important;transform:translateZ(0)}
+    .mesh i{position:absolute;border-radius:50%;will-change:transform;animation:drift 44s ease-in-out infinite alternate;background:radial-gradient(circle at 50% 50%,var(--mc) 0%,var(--mc) 18%,transparent 70%)!important;transform:translateZ(0)}
     .mesh i:nth-child(1){width:72vw;height:72vw;left:-24vw;top:-36vw;--mc:var(--accent);opacity:.42}
     .mesh i:nth-child(2){width:56vw;height:56vw;right:-16vw;top:-14vw;--mc:var(--blue-40);opacity:.3;animation-duration:52s;animation-delay:-8s}
     .mesh i:nth-child(3){width:64vw;height:64vw;left:22vw;bottom:-40vw;--mc:var(--blue-60);opacity:.5;animation-duration:38s;animation-delay:-4s}

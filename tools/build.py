@@ -144,7 +144,7 @@ SOLS = [
                 ('Medición', 'Seguimiento del impacto y mejora continua.')],
          faq=[('¿Necesito tener mis datos ordenados para empezar?', 'No necesariamente. Parte del trabajo inicial es identificar qué información existe y cómo aprovecharla.'),
               ('¿Mis datos quedan expuestos al usar IA?', 'Diseñamos cada solución con control de accesos y protección de datos, y le explicamos dónde se procesa la información.'),
-              ('¿Cuánto tarda ver resultados?', 'Trabajamos con un primer caso acotado para mostrar valor antes de escalar.')],
+              ('¿Cuánto se tarda en ver resultados?', 'Trabajamos con un primer caso acotado para mostrar valor antes de escalar.')],
          tools=[]),
 ]
 SOL_BY = {s['slug']: s for s in SOLS}
@@ -169,6 +169,11 @@ PAGES = [('index.html', 'Inicio', ''), ('soluciones.html', 'Soluciones', 'soluci
          ('contacto.html', 'Contacto', 'contacto'), ('privacidad.html', 'Privacidad', 'privacidad')]
 
 # --------------------------------------------------------------------------- shell
+def lower_es(t):
+    """Minúsculas que respetan siglas (IA, HCI, SLA, RTO, RPO, DRaaS, IaaS)."""
+    keep = {'IA', 'HCI', 'SLA', 'RTO', 'RPO', 'DRaaS', 'IaaS', 'CoreOnCloud', 'Wi-Fi'}
+    return ' '.join(w if w in keep else w.lower() for w in t.split(' '))
+
 def icon(paths, cls=''):
     return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"%s>%s</svg>' % (' class="%s"' % cls if cls else '', paths)
 
@@ -532,7 +537,7 @@ def build_solution(s):
     vis = '<div class="hero-vis scene" data-scene="%s" aria-hidden="true"><canvas></canvas></div>' % {'respaldo-y-continuidad': 'backup', 'ciberseguridad': 'security', 'redes-y-conectividad': 'network', 'data-center': 'datacenter', 'virtualizacion-hci': 'virt', 'automatizacion-ia': 'automation'}[s['slug']]
     cta = '<div class="cta"><a href="{r}contacto.html" class="btn" data-msg="Me interesa: %s." data-interest="%s">Hablar con un especialista</a>%s</div>' % (
         e(s['name']), e(s['interest']),
-        ('<a href="{r}herramientas.html#%s" class="btn btn-sec">%s</a>' % (s['tools'][0], 'Calcular: ' + TOOL_NAME[s['tools'][0]].lower())) if s['tools'] else '')
+        ('<a href="{r}herramientas.html#%s" class="btn btn-sec">%s</a>' % (s['tools'][0], 'Calcular: ' + lower_es(TOOL_NAME[s['tools'][0]]))) if s['tools'] else '')
     body = page_hero(c, '<span style="view-transition-name:sol-%s">%s</span>' % (s['slug'], s['name']), s['lede'], cta, vis)
     body += '''    <section class="band">
       <div class="wrap">
@@ -567,7 +572,7 @@ def build_solution(s):
       </div>
     </section>
 ''' % cards
-    body += cta_band('¿Hablamos de %s?' % s['name'].lower() if s['slug'] != 'data-center' else '¿Hablamos de su data center?',
+    body += cta_band('¿Hablamos de %s?' % lower_es(s['name']) if s['slug'] != 'data-center' else '¿Hablamos de su data center?',
                      'Cuéntenos su situación actual. Le proponemos un camino concreto, con alcance y plazos claros.', 'Me interesa: %s.' % s['name'])
     service = {'@context': 'https://schema.org', '@type': 'Service', 'name': s['name'], 'description': s['lede'], 'provider': {'@type': 'Organization', 'name': 'Coresolutions', 'url': SITE}, 'areaServed': 'EC'}
     return page('soluciones/%s.html' % s['slug'], s['name'], s['lede'], body, active='soluciones', jsonld=[ld, service, fld])
@@ -643,7 +648,7 @@ def build_herramientas():
 
 def build_nosotros():
     c, ld = crumbs([('Inicio', '{r}index.html'), ('Nosotros', None)])
-    body = page_hero(c, 'Un socio técnico, no un proveedor más.', 'Desde Cuenca acompañamos a organizaciones ecuatorianas en el diseño, la implementación y el soporte de su infraestructura tecnológica desde hace más de 20 años.')
+    body = page_hero(c, 'Un socio técnico, no un proveedor más.', 'Desde Cuenca acompañamos a organizaciones ecuatorianas en el diseño, la implementación y el soporte de su infraestructura tecnológica, hace más de 20 años.')
     body += part('personas.html')
     body += part('proceso.html')
     body += '''    <section class="band band-gray">

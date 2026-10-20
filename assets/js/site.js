@@ -514,7 +514,7 @@
     var q=$('#cmdk-q'),list=$('#cmdk-list'),opener=null,items=[],sel=0;
     var IDX=(window.__INDEX||[]).slice();
     IDX.push({g:'Acciones',t:'Copiar correo: info@coresolutions.com.ec',d:'Escríbanos directamente',copy:'info@coresolutions.com.ec'});
-    IDX.push({g:'Acciones',t:'Copiar teléfono: +593 99 402 1631',d:'Llámenos o escríbanos por WhatsApp',copy:'+593 99 402 1631'});
+    IDX.push({g:'Acciones',t:'Copiar teléfono: +593 99 402 1631',d:'Llámenos en horario de oficina',copy:'+593 99 402 1631'});
     function norm(s){return (s||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
     function render(){var words=norm(q.value).split(/\s+/).filter(Boolean);items=IDX.filter(function(it){var hay=norm(it.t+' '+(it.d||'')+' '+(it.k||'')+' '+it.g);return words.every(function(w){return hay.indexOf(w)>=0})}).slice(0,12);
       sel=Math.min(sel,Math.max(0,items.length-1));var g='',h='';

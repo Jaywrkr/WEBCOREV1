@@ -32,9 +32,17 @@ python3 tools/build.py
 
 Vista previa local: `python3 -m http.server 8000` y abrir `http://localhost:8000`.
 
-## Despliegue
+## Despliegue en Vercel
 
-Vercel con framework **Other**, sin comando de build y con el directorio raíz como salida. `vercel.json` activa URLs limpias y cabeceras de seguridad.
+1. En Vercel, **Add New → Project**, importar `Jaywrkr/WEBCOREV1` desde GitHub.
+2. Framework **Other**, sin comando de build, directorio de salida vacío (raíz). `.vercelignore` excluye `v1/`, `tools/` y el README del despliegue.
+3. `vercel.json` ya configura: URLs limpias (`/soluciones/ciberseguridad` sin `.html`), redirección de `www` al dominio principal, caché de un año para fuentes, y cabeceras de seguridad (HSTS, CSP, nosniff, referrer, permisos). La página `404.html` se sirve sola para rutas inexistentes.
+4. **Dominio:** en el proyecto, **Settings → Domains**, añadir `coresolutions.com.ec` y `www.coresolutions.com.ec`. En el DNS del dominio:
+   - `coresolutions.com.ec` → registro **A** a `76.76.21.21`
+   - `www` → registro **CNAME** a `cname.vercel-dns.com`
+
+   Vercel emite el certificado TLS automáticamente. Si el dominio hoy apunta a la web anterior, cambiar el DNS solo cuando se decida publicar; hasta entonces se puede revisar en la URL `*.vercel.app` del proyecto.
+5. Antes de cambiar el DNS: confirmar que `https://coresolutions.com.ec/sitemap.xml` y `/robots.txt` responden, y enviar el sitemap en Google Search Console.
 
 ## Pendientes antes de publicar en producción
 
@@ -42,4 +50,5 @@ Vercel con framework **Other**, sin comando de build y con el directorio raíz c
 - Revisar con el equipo los textos de soluciones, sectores y FAQ.
 - Revisión legal de `/privacidad` (marcada como “en revisión”).
 - Reemplazar los datos de demostración de la consola CoreOnCloud por métricas reales o mantener la etiqueta.
-- Confirmar logotipo final, dominio y, si se desea, analítica (requiere actualizar la política de privacidad).
+- Confirmar logotipo final y, si se desea analítica, elegir una herramienta y actualizar la política de privacidad y la CSP de `vercel.json`.
+- Probar en Safari real (macOS/iOS): las pruebas automáticas se hicieron en Chromium; las transiciones entre páginas y `100svh` tienen respaldo para navegadores sin soporte.

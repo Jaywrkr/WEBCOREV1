@@ -44,6 +44,24 @@ Vista previa local: `python3 -m http.server 8000` y abrir `http://localhost:8000
    Vercel emite el certificado TLS automáticamente. Si el dominio hoy apunta a la web anterior, cambiar el DNS solo cuando se decida publicar; hasta entonces se puede revisar en la URL `*.vercel.app` del proyecto.
 5. Antes de cambiar el DNS: confirmar que `https://coresolutions.com.ec/sitemap.xml` y `/robots.txt` responden, y enviar el sitemap en Google Search Console.
 
+## Marca
+
+El logotipo oficial (wordmark CORESOLUTIONS en IBM Plex Sans Condensed Bold) está en `assets/brand/` como SVG vectorial en tres versiones: `coresolutions-navy.svg`, `coresolutions-white.svg` y `coresolutions-black.svg`. La cabecera y el pie lo insertan en línea (`wordmark.svgfrag`) y toman el color del contexto. Se regenera con `python3 tools/logo.py` (requiere `fonttools` y `brotli`).
+
+## Formulario de contacto
+
+`/contacto` envía el formulario a la función serverless `api/contact.js` (`POST /api/contact`), que lo reenvía por correo mediante [Resend](https://resend.com). Para activarlo, en el proyecto de Vercel (**Settings → Environment Variables**):
+
+| Variable | Valor |
+|---|---|
+| `RESEND_API_KEY` | Clave de API de Resend (obligatoria) |
+| `CONTACT_TO` | Destino. Por defecto `info@coresolutions.com.ec` |
+| `CONTACT_FROM` | Remitente de un dominio verificado en Resend. Por defecto `Coresolutions Web <web@coresolutions.com.ec>` |
+
+En Resend hay que verificar el dominio `coresolutions.com.ec` (registros DNS que Resend indica) para que el remitente sea aceptado. Mientras la clave no esté configurada, la función responde 503 y la página abre la aplicación de correo del visitante con el mensaje listo, así el formulario siempre tiene salida.
+
+La función incluye campo trampa para robots, tiempo mínimo de llenado, validación de nombre y correo, y límite de cinco envíos por IP cada diez minutos. Para redesplegar tras cambiar una variable: **Deployments → Redeploy**.
+
 ## Pendientes antes de publicar en producción
 
 - Validar las cifras (20+ años, 350+ implementaciones, 1,700+ casos, 11,000+ horas) contra el sistema interno.

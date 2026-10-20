@@ -13,6 +13,8 @@ import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PART = os.path.join(ROOT, 'tools', 'partials')
+with open(os.path.join(ROOT, 'assets', 'brand', 'wordmark.svgfrag'), encoding='utf-8') as _f:
+    LOGO = _f.read().strip()
 SITE = 'https://coresolutions.com.ec'
 VERSION = '2026.10'
 
@@ -184,7 +186,7 @@ def header(r, active):
     mega = ''.join('<a href="%ssoluciones/%s.html">%s<span>%s</span></a>' % (r, s['slug'], s['name'], s['short']) for s in SOLS)
     return '''  <header class="site">
     <nav class="nav wrap" aria-label="Navegación principal">
-      <a class="wordmark" href="%(r)sindex.html" aria-label="Coresolutions, ir al inicio">Coresolutions</a>
+      <a class="wordmark" href="%(r)sindex.html" aria-label="Coresolutions, ir al inicio">%(logo)s</a>
       <div class="navlinks" id="navlinks">
         <div class="nav-item">%(sol)s<div class="mega">%(mega)s</div></div>
         %(coc)s
@@ -202,7 +204,7 @@ def header(r, active):
   </header>
 ''' % dict(r=r, sol=a('soluciones.html', 'Soluciones', 'soluciones'), mega=mega, coc=a('coreoncloud.html', 'CoreOnCloud', 'coreoncloud'),
            sec=a('sectores.html', 'Sectores', 'sectores'), her=a('herramientas.html', 'Herramientas', 'herramientas'),
-           nos=a('nosotros.html', 'Nosotros', 'nosotros'), search=SEARCH, arrow=ARROW)
+           nos=a('nosotros.html', 'Nosotros', 'nosotros'), search=SEARCH, arrow=ARROW, logo=LOGO)
 
 def footer(r):
     sols = ''.join('<a href="%ssoluciones/%s.html">%s</a>' % (r, s['slug'], s['name']) for s in SOLS)
@@ -211,7 +213,7 @@ def footer(r):
     <div class="wrap">
       <div class="foot">
         <div>
-          <a class="wordmark" href="%(r)sindex.html" aria-label="Coresolutions, ir al inicio">Coresolutions</a>
+          <a class="wordmark" href="%(r)sindex.html" aria-label="Coresolutions, ir al inicio">%(logo)s</a>
           <p>Respaldo, ciberseguridad e infraestructura para organizaciones en Ecuador.</p>
           <p class="made">Cuenca · Guayaquil</p>
         </div>
@@ -223,7 +225,7 @@ def footer(r):
       <div class="bottom"><span>© <span id="year">2026</span> Coresolutions. Todos los derechos reservados.</span><span><a href="%(r)sprivacidad.html">Política de privacidad</a> · <button type="button" class="linklike" data-cmdk>Buscar en el sitio</button></span></div>
     </div>
   </footer>
-''' % dict(r=r, sols=sols, tools=tools)
+''' % dict(r=r, sols=sols, tools=tools, logo=LOGO)
 
 CMDK = '''  <div class="cmdk" id="cmdk" hidden>
     <div class="cmdk-bg" data-cx></div>
@@ -689,7 +691,7 @@ def build_privacidad():
           <h2>Responsable del tratamiento</h2>
           <p>Coresolutions, con domicilio en Av. 3 de Noviembre 21-176 y Juan Pablo I, Cuenca, Ecuador. Contacto: <a href="mailto:info@coresolutions.com.ec">info@coresolutions.com.ec</a>.</p>
           <h2>Qué datos tratamos</h2>
-          <p>Este sitio no utiliza cookies de seguimiento ni herramientas de analítica. El formulario de contacto no envía datos a ningún servidor: prepara un mensaje en su aplicación de correo, que usted decide enviar. Si nos escribe, tratamos los datos que incluya en su mensaje, como su nombre, empresa, correo y la descripción de su requerimiento.</p>
+          <p>Este sitio no utiliza cookies de seguimiento ni herramientas de analítica. El formulario de contacto envía los datos que usted escribe (nombre, empresa, correo, áreas de interés y descripción) a nuestro correo info@coresolutions.com.ec a través de un servicio de envío de correo; no se almacenan en ninguna base de datos del sitio. Si el envío no está disponible, el formulario prepara el mensaje en su aplicación de correo, que usted decide enviar. Usamos esos datos únicamente para responder a su solicitud.</p>
           <p>Las calculadoras funcionan en su navegador; los valores que ingresa no se almacenan ni se envían, salvo que usted los incluya en un mensaje.</p>
           <h2>Para qué los usamos</h2>
           <ul><li>Responder a su consulta y preparar una propuesta.</li><li>Dar seguimiento a la relación comercial que usted solicite.</li></ul>

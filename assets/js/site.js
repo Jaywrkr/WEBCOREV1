@@ -53,10 +53,18 @@
     var m0=take('cs-msg'),i0=take('cs-int');if(m0||i0)fill(m0,i0);
     form.addEventListener('submit',function(e){e.preventDefault();var name=form.nombre.value.trim(),mail=form.correo.value.trim(),err=$('#err');
       var okMail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);form.nombre.setAttribute('aria-invalid',String(!name));form.correo.setAttribute('aria-invalid',String(!okMail));
-      if(!name||!okMail){err.hidden=false;(name?form.correo:form.nombre).focus();return}err.hidden=true;
+      if(!name||!okMail){err.textContent='Ingrese su nombre y un correo válido para continuar.';err.hidden=false;(name?form.correo:form.nombre).focus();return}err.hidden=true;
       var ints=$$('.chips input:checked',form).map(function(i){return i.value}).join(', ');
-      var body='Nombre: '+name+'\nEmpresa: '+form.empresa.value.trim()+'\nCorreo: '+mail+'\nÁreas de interés: '+(ints||'-')+'\n\n'+form.mensaje.value.trim();
-      var a=document.createElement('a');a.href='mailto:info@coresolutions.com.ec?subject='+encodeURIComponent('Solicitud de evaluación: '+(form.empresa.value.trim()||name))+'&body='+encodeURIComponent(body);a.click();$('#done').hidden=false});
+      var co=form.empresa.value.trim(),msg=form.mensaje.value.trim(),btn=$('#f-send'),done=$('#done');
+      function mailFallback(){var body='Nombre: '+name+'\nEmpresa: '+co+'\nCorreo: '+mail+'\nÁreas de interés: '+(ints||'-')+'\n\n'+msg;
+        var a=document.createElement('a');a.href='mailto:info@coresolutions.com.ec?subject='+encodeURIComponent('Solicitud de evaluación: '+(co||name))+'&body='+encodeURIComponent(body);a.click();
+        done.textContent='Abrimos su aplicación de correo con el mensaje listo. Si no se abrió, escríbanos a info@coresolutions.com.ec.';done.hidden=false}
+      function sent(){done.textContent='Recibimos su solicitud. Le escribiremos a su correo en horario laboral.';done.hidden=false;form.reset();$$('.chips input',form).forEach(function(c){c.checked=c.value==='CoreOnCloud'})}
+      btn.disabled=true;btn.setAttribute('aria-busy','true');
+      var payload={nombre:name,empresa:co,correo:mail,interes:ints,mensaje:msg,web:form.web.value,t:Date.now()-T0};
+      var p=window.fetch?fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).then(function(r){if(r.ok)return sent();if(r.status===400||r.status===429){err.textContent=r.status===429?'Recibimos varias solicitudes seguidas. Intente en unos minutos o escríbanos por correo.':'Revise su nombre y su correo.';err.hidden=false;return}mailFallback()}).catch(mailFallback):Promise.reject();
+      p.catch(mailFallback).then(function(){btn.disabled=false;btn.removeAttribute('aria-busy')})});
+    var T0=Date.now();
     $$('input',form).forEach(function(i){i.addEventListener('input',function(){i.removeAttribute('aria-invalid')})});
   }
 

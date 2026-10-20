@@ -34,12 +34,13 @@
             </div>
           </fieldset>
           <div class="field"><label for="f-msg">Descripción del requerimiento</label><textarea id="f-msg" name="mensaje" placeholder="Describa brevemente su proyecto o necesidad"></textarea></div>
+          <div class="hp" aria-hidden="true"><label for="f-web">Sitio web</label><input id="f-web" name="web" tabindex="-1" autocomplete="off"></div>
           <p class="err" id="err" hidden>Ingrese su nombre y un correo válido para continuar.</p>
           <div class="form-foot">
-            <button class="btn" type="submit">Preparar correo <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
-            <p class="form-note">Se abrirá su aplicación de correo con el mensaje listo para info@coresolutions.com.ec.</p>
+            <button class="btn" type="submit" id="f-send">Enviar solicitud <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+            <p class="form-note">Llega a nuestro equipo técnico. Le respondemos en horario laboral de Ecuador.</p>
           </div>
-          <div class="notice" id="done" hidden role="status">Su mensaje está listo en su aplicación de correo. Si no se abrió, escríbanos a info@coresolutions.com.ec.</div>
+          <div class="notice" id="done" hidden role="status">Recibimos su solicitud. Le escribiremos a su correo en horario laboral.</div>
         </form>
       </div>
     </section>

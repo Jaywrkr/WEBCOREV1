@@ -16,7 +16,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 with open(os.path.join(ROOT, 'assets', 'brand', 'wordmark.svgfrag'), encoding='utf-8') as _f:
     LOGO = _f.read().strip()
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.10'
+VERSION = '2026.10.2'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:

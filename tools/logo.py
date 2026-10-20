@@ -39,7 +39,7 @@ W, H = int(round(x)) + 2 * PAD, int(cap) + 2 * PAD
 vb = '%d %d %d %d' % (-PAD, -PAD, W, H)
 d_all = ' '.join(paths)
 os.makedirs(OUT, exist_ok=True)
-frag = '<svg class="logo" viewBox="%s" aria-hidden="true" focusable="false"><path d="%s"/></svg>' % (vb, d_all)
+frag = '<svg class="logo" viewBox="%s" width="186" height="18" fill="currentColor" aria-hidden="true" focusable="false"><path fill="currentColor" d="%s"/></svg>' % (vb, d_all)
 with open(os.path.join(OUT, 'wordmark.svgfrag'), 'w') as fh:
     fh.write(frag)
 for name, color in (('navy', '#01095C'), ('white', '#FFFFFF'), ('black', '#000000')):

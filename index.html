@@ -19,9 +19,9 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon-512.png">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/ibmplexsans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibmplexmono-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css?v=2026.10">
   <link rel="stylesheet" href="assets/css/site.css?v=2026.10">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Coresolutions", "url": "https://coresolutions.com.ec", "logo": "https://coresolutions.com.ec/icon-512.png", "email": "info@coresolutions.com.ec", "telephone": "+593994021631", "address": {"@type": "PostalAddress", "streetAddress": "Av. 3 de Noviembre 21-176 y Juan Pablo I", "addressLocality": "Cuenca", "addressCountry": "EC"}, "areaServed": "EC"}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Coresolutions", "url": "https://coresolutions.com.ec", "inLanguage": "es-EC"}</script>
@@ -49,35 +49,44 @@
 
   <main id="main">
     <!-- HERO: el interruptor -->
-    <section class="hero dark h3" id="inicio">
+    <section class="hero dark h4" id="inicio">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="gridlines" aria-hidden="true"></div>
-      <div class="wrap h3-grid">
-        <div class="h3-copy intro">
-          <span class="label">Respaldo · Ciberseguridad · Infraestructura · Ecuador</span>
-          <h1>Apáguelo.<br><em>Su operación sigue.</em></h1>
-          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Cuenca y Guayaquil. Haga la prueba con el interruptor.</p>
-          <div class="cta"><a href="contacto.html" class="btn wide magnet">Hablar con un especialista</a><a href="herramientas.html#inactividad" class="textlink">¿Cuánto le cuesta una hora detenida? →</a></div>
+      <div class="spot" aria-hidden="true"></div>
+      <div class="wrap h4-top">
+        <span class="label">Respaldo · Ciberseguridad · Infraestructura · Ecuador</span>
+        <h1 class="kinetic"><span class="w" style="--i:0">Apáguelo.</span><br><span class="w shine" style="--i:1">Su</span> <span class="w shine" style="--i:2">operación</span> <span class="w shine" style="--i:3">sigue.</span></h1>
+        <div class="h4-sub">
+          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Cuenca y Guayaquil. Haga la prueba.</p>
+          <div class="cta"><a href="contacto.html" class="btn wide magnet" id="hero-cta">Hablar con un especialista</a><a href="herramientas.html#inactividad" class="textlink">¿Cuánto le cuesta una hora detenida? →</a></div>
         </div>
+      </div>
+      <div class="wrap">
         <div class="sim" id="sim" aria-live="polite">
-          <div class="sim-top"><span class="mono">SIMULACIÓN ILUSTRATIVA</span><span class="sim-clock mono" id="sim-clock">10:00:00</span></div>
-          <div class="sim-site" id="sim-main">
-            <div class="sim-h"><span>Sitio principal <em class="mono">· SU EMPRESA</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
-            <div class="sim-m">
-              <div><span>Transacciones por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
-              <div><span>Usuarios conectados</span><b class="num" id="sim-usr">312</b></div>
-              <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
+          <div class="sim-top">
+            <span class="mono">SIMULACIÓN ILUSTRATIVA</span>
+            <div class="sim-sec" role="radiogroup" aria-label="Vea la simulación para su sector"><span>Su sector:</span><button type="button" role="radio" aria-checked="true" data-sec="coop">Cooperativas</button><button type="button" role="radio" aria-checked="false" data-sec="salud">Salud</button><button type="button" role="radio" aria-checked="false" data-sec="industria">Industria</button><button type="button" role="radio" aria-checked="false" data-sec="publico">Sector público</button><button type="button" role="radio" aria-checked="false" data-sec="comercio">Comercio</button><button type="button" role="radio" aria-checked="false" data-sec="educacion">Educación</button></div>
+            <span class="sim-clock mono" id="sim-clock">10:00:00</span>
+          </div>
+          <div class="sim-body">
+            <div class="sim-site" id="sim-main">
+              <div class="sim-h"><span>Sitio principal <em class="mono" id="sim-org">· SU COOPERATIVA</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
+              <div class="sim-m">
+                <div><span id="sim-l1">Transacciones de socios por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
+                <div><span id="sim-l2">Socios atendidos ahora</span><b class="num" id="sim-usr">312</b></div>
+                <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
+              </div>
+              <canvas class="sim-spark" id="sim-spark" aria-hidden="true"></canvas>
             </div>
-            <canvas class="sim-spark" id="sim-spark" aria-hidden="true"></canvas>
-          </div>
-          <div class="sim-link" id="sim-link" aria-hidden="true"><i></i><i></i><i></i><span class="mono">réplica CUE ↔ GYE</span></div>
-          <div class="sim-site cloud" id="sim-cloud">
-            <div class="sim-h"><span>CoreOnCloud <em class="mono">· CUE / GYE</em></span><span class="tag" id="sim-cloud-st">En espera</span></div>
-            <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
-          </div>
-          <div class="sim-ctl">
-            <button type="button" class="switch" id="sim-switch" aria-pressed="true" aria-label="Interruptor del sitio principal: encendido. Pulse para simular una falla."><span class="sw-track"><span class="sw-knob"></span></span><span class="sw-lbl"><b id="sw-txt">Encendido</b><small>Sitio principal</small></span></button>
-            <p class="sim-msg" id="sim-msg"><span class="hint">← Pulse el interruptor para simular una falla.</span></p>
+            <div class="sim-ctl">
+              <button type="button" class="switch" id="sim-switch" aria-pressed="true" aria-label="Interruptor del sitio principal: encendido. Pulse para simular una falla."><span class="sw-ring" aria-hidden="true"></span><span class="sw-track"><span class="sw-knob"></span></span><span class="sw-lbl"><b id="sw-txt">Probar una falla</b><small>Sitio principal · encendido</small></span></button>
+              <p class="sim-msg" id="sim-msg"><span class="hint">Apague el sitio principal y observe qué pasa.</span></p>
+            </div>
+            <div class="sim-site cloud" id="sim-cloud">
+              <div class="sim-h"><span>CoreOnCloud <em class="mono">· CUE / GYE</em></span><span class="tag" id="sim-cloud-st">En espera</span></div>
+              <div class="sim-link" id="sim-link" aria-hidden="true"><i></i><i></i><i></i><span class="mono">réplica</span></div>
+              <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -100,9 +109,10 @@
       </div>
     </section>
     <!-- CAPAS -->
-    <section class="band dark stack" id="capas">
+    <section class="band dark stack deep" id="capas">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="stack-sticky">
+        <div class="stack-prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
         <div class="wrap stack-grid">
           <div class="stack-copy">
             <span class="label">Cómo lo hacemos posible</span>
@@ -131,9 +141,8 @@
         </div>
       </div>
     </section>
-    <section class="band dark cta-band">
+    <section class="band dark cta-band dots">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="gridlines" aria-hidden="true"></div>
       <div class="wrap">
         <h2>¿Y si lo apagamos juntos?</h2>
         <p>Agende una evaluación: revisamos su operación y le decimos, con números, cuánto tardaría en volver.</p>

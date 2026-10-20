@@ -6,7 +6,7 @@ Sitio estático, sin dependencias de ejecución, listo para Vercel.
 
 | Ruta | Contenido |
 | --- | --- |
-| `/` | Inicio: interruptor de conmutación (simulación interactiva), niveles de continuidad, cinco capas (animación por scroll), sectores, personas |
+| `/` | Inicio: titular a gran escala y simulador de conmutación por sector (el interruptor), niveles de continuidad, cinco capas (reaccionan al interruptor), sectores, personas |
 | `/soluciones` y `/soluciones/<slug>` | Índice y seis páginas de solución (problema, qué incluye, etapas, FAQ, relacionados) |
 | `/coreoncloud` | Nube propia: mapa CUE/GYE, servicios, consola de demostración, FAQ |
 | `/sectores` | Explorador por sector (enlazable: `/sectores#salud`) |
@@ -20,6 +20,7 @@ Extras en todas las páginas: búsqueda rápida (`⌘K`, `Ctrl K` o `/`), menú 
 ## Cómo editar
 
 - **Contenido y páginas:** `tools/build.py` (soluciones, sectores, FAQ, textos) y `tools/partials/` (secciones reutilizadas).
+- **Fuentes:** autoalojadas en `assets/fonts/` (IBM Plex, latín) con `assets/css/fonts.css`.
 - **Estilos:** `assets/css/site.css` (guía de marca 2026: navy `#01095C`, IBM Plex, 8px, esquinas rectas).
 - **Comportamiento:** `assets/js/site.js` (cada módulo se activa solo si su sección existe).
 

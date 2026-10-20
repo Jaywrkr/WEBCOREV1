@@ -355,7 +355,7 @@
   (function(){
     var sec=$('#capas'),cv=$('#stack-cv');if(!sec||!cv)return;
     var ctx=cv.getContext('2d'),steps=$$('.stack-steps li',sec),W,H,run=false,t0=performance.now(),p=0,act=-1,cur=-1;
-    var NAMES=['Conectividad','Infraestructura','Datos','Seguridad','CoreOnCloud'];
+    var NAMES=['Conectividad','Infraestructura','Datos','Seguridad','CoreOnCloud'],prog=$$('.stack-prog i',sec);
     if(reduce)sec.classList.add('static');
     var mq=window.matchMedia('(max-width:900px)');
     function size(){var dpr=Math.min(2,window.devicePixelRatio||1),r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
@@ -363,7 +363,7 @@
     function progress(){var r=sec.getBoundingClientRect(),span=r.height-window.innerHeight;return span>0?clamp(-r.top/span,0,1):0}
     function frame(now){var t=(now-t0)/1000,small=mq.matches;if(!reduce)p=progress();
       var e=reduce||small?1:ss(0,.14,p),a=reduce?-1:small?(t*.45)%5:clamp((p-.12)/.82*5,0,4.999);var ai=reduce?-1:Math.floor(a);
-      if(!small&&ai!==cur){cur=ai;steps.forEach(function(s,i){s.classList.toggle('on',i===ai)})}
+      if(!small&&ai!==cur){cur=ai;steps.forEach(function(s,i){s.classList.toggle('on',i===ai)});prog.forEach(function(d,i){d.classList.toggle('on',i<=ai)})}
       ctx.clearRect(0,0,W,H);
       var w=Math.min(W*(W<700?.7:.66),470),d=w*.5,th=10,cx=W*(W<700?.46:.42),cy=H*.52,gap=(th+5)+(Math.min(H*.15,96)-(th+5))*e;
       function iso(y,u,v){return [cx+(u-v)*w/4,y+(u+v)*d/4]}
@@ -374,7 +374,8 @@
         ctx.fillStyle='rgba(11,18,112,.95)';ctx.beginPath();ctx.moveTo(B[0],B[1]);ctx.lineTo(R[0],R[1]);ctx.lineTo(R[0],R[1]+th);ctx.lineTo(B[0],B[1]+th);ctx.closePath();ctx.fill();
         // top
         ctx.beginPath();ctx.moveTo(T[0],T[1]);ctx.lineTo(R[0],R[1]);ctx.lineTo(B[0],B[1]);ctx.lineTo(L[0],L[1]);ctx.closePath();
-        ctx.fillStyle='rgba('+(on>.5?'43,63,232':'20,28,122')+','+(.55+.4*on).toFixed(3)+')';ctx.fill();
+        var fo=window.__failover,col=on>.5?'43,63,232':'20,28,122';if(fo==='down'&&i===1)col='218,30,40';if(fo==='over'&&i===4)col='25,128,56';if(fo==='down'&&i===4)col='241,194,27';
+        ctx.fillStyle='rgba('+col+','+(.55+.4*on).toFixed(3)+')';ctx.fill();
         ctx.strokeStyle='rgba(200,204,255,'+(.3+.6*on).toFixed(3)+')';ctx.lineWidth=1;ctx.stroke();
         ctx.save();ctx.globalAlpha=.35+.65*Math.max(on,e*.5);detail(i,y,t,iso,w,d);ctx.restore();
         // label
@@ -412,7 +413,11 @@
     var sim=$('#sim');if(!sim)return;
     var sw=$('#sim-switch'),txt=$('#sw-txt'),msg=$('#sim-msg'),main=$('#sim-main'),cloud=$('#sim-cloud'),mst=$('#sim-main-st'),cst=$('#sim-cloud-st'),note=$('#sim-note'),sync=$('#sim-sync'),clock=$('#sim-clock');
     var tpm=$('#sim-tpm'),usr=$('#sim-usr'),sys=$('#sim-sys'),cv=$('#sim-spark'),ctx=cv.getContext('2d');
-    var state='on',data=[],W,H,vTpm=1248,vUsr=312,t0=Date.now(),timer=null,run=true,hint=true;
+    var SIMD=window.__SIM||{},cfg=SIMD.coop||['SU EMPRESA','Transacciones por minuto','Usuarios conectados',1248,312],base=[cfg[3],cfg[4]];
+    var state='on',data=[],W,H,vTpm=base[0],vUsr=base[1],t0=Date.now(),timer=null,run=true,hint=true;
+    window.__failover='on';
+    function applySec(k){cfg=SIMD[k]||cfg;base=[cfg[3],cfg[4]];$('#sim-org').textContent='· '+cfg[0];$('#sim-l1').textContent=cfg[1];$('#sim-l2').textContent=cfg[2];if(state!=='down'){vTpm=base[0];vUsr=base[1];tpm.textContent=nf(vTpm);usr.textContent=nf(vUsr)}var cta=$('#hero-cta');if(cta)cta.setAttribute('data-msg','Sector: '+($$('.sim-sec button[aria-checked="true"]')[0]||{}).textContent+'. ')}
+    $$('.sim-sec button').forEach(function(b){b.addEventListener('click',function(){$$('.sim-sec button').forEach(function(x){x.setAttribute('aria-checked',String(x===b))});applySec(b.dataset.sec)})});
     for(var i=0;i<48;i++)data.push(.5+Math.random()*.3);
     function size(){var dpr=Math.min(2,window.devicePixelRatio||1),r=cv.getBoundingClientRect();W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);draw()}
     function draw(){ctx.clearRect(0,0,W,H);var n=data.length,px=function(i){return i/(n-1)*W},py=function(v){return H-4-v*(H-8)};
@@ -423,16 +428,16 @@
     function pad(n){return n<10?'0'+n:''+n}
     function tick(){if(!run)return;var el=Math.floor((Date.now()-t0)/1000),h=10+Math.floor(el/3600),m=Math.floor(el/60)%60,sct=el%60;clock.textContent=pad(h)+':'+pad(m)+':'+pad(sct);
       if(state==='down'){data.push(0);data.shift();draw();return}
-      vTpm=clamp(vTpm+Math.round((Math.random()-.5)*60),900,1600);vUsr=clamp(vUsr+Math.round((Math.random()-.5)*8),260,360);tpm.textContent=nf(vTpm);usr.textContent=nf(vUsr);
-      data.push(clamp((vTpm-900)/700*.8+.1+(Math.random()-.5)*.08,.05,.95));data.shift();draw();
+      vTpm=clamp(vTpm+Math.round((Math.random()-.5)*base[0]*.05),base[0]*.72,base[0]*1.28);vUsr=clamp(vUsr+Math.round((Math.random()-.5)*Math.max(2,base[1]*.03)),base[1]*.85,base[1]*1.15);tpm.textContent=nf(vTpm);usr.textContent=nf(vUsr);
+      data.push(clamp((vTpm-base[0]*.72)/(base[0]*.56)*.8+.1+(Math.random()-.5)*.08,.05,.95));data.shift();draw();
       if(state==='on'){var sv=parseInt(sync.textContent,10)+1;if(sv>20)sv=1;sync.textContent=sv}}
     setInterval(tick,1000);
-    function off(){state='down';hint=false;sim.classList.add('down');sim.classList.remove('over');main.classList.add('off');mst.textContent='Caída';mst.className='tag err';sys.textContent='0 / 12';tpm.textContent='0';usr.textContent='0';sw.setAttribute('aria-pressed','false');txt.textContent='Apagado';sw.setAttribute('aria-label','Interruptor del sitio principal: apagado. Pulse para restaurar.');
+    function off(){state='down';hint=false;window.__failover='down';sim.classList.add('used');sim.classList.add('down');sim.classList.remove('over');main.classList.add('off');mst.textContent='Caída';mst.className='tag err';sys.textContent='0 / 12';tpm.textContent='0';usr.textContent='0';sw.setAttribute('aria-pressed','false');txt.textContent='Restaurar sitio principal';$('.sw-lbl small').textContent='Sitio principal · apagado';sw.setAttribute('aria-label','Interruptor del sitio principal: apagado. Pulse para restaurar.');
       say('<b>Sitio principal sin servicio.</b> CoreOnCloud está tomando el relevo…');var t1=Date.now();
-      timer=setTimeout(function(){if(state!=='down')return;state='over';sim.classList.remove('down');sim.classList.add('over');cst.textContent='Activo';cst.className='tag ok';cloud.classList.add('on');note.innerHTML='Sus sistemas ahora funcionan desde Cuenca y Guayaquil. Sus usuarios siguen trabajando.';
+      timer=setTimeout(function(){if(state!=='down')return;state='over';window.__failover='over';sim.classList.remove('down');sim.classList.add('over');cst.textContent='Activo';cst.className='tag ok';cloud.classList.add('on');note.innerHTML='Sus sistemas ahora funcionan desde Cuenca y Guayaquil. Sus usuarios siguen trabajando.';
         sys.textContent='12 / 12';var el=((Date.now()-t1)/1000).toFixed(1);say('<b>Recuperado en <span class="t">'+el+' s</span>.</b> Sus usuarios siguieron trabajando sin notarlo. Así funciona la recuperación ante desastres en CoreOnCloud.');tick()},reduce?300:3200)}
-    function on(){clearTimeout(timer);state='on';sim.classList.remove('down','over');main.classList.remove('off');mst.textContent='Operando';mst.className='tag ok';cst.textContent='En espera';cst.className='tag';cloud.classList.remove('on');sys.textContent='12 / 12';sync.textContent='2';
-      note.innerHTML='Copia sincronizada hace <span class="num" id="sim-sync">2</span> s. Lista para tomar el relevo.';sync=$('#sim-sync');sw.setAttribute('aria-pressed','true');txt.textContent='Encendido';sw.setAttribute('aria-label','Interruptor del sitio principal: encendido. Pulse para simular una falla.');
+    function on(){clearTimeout(timer);state='on';window.__failover='on';sim.classList.remove('down','over');main.classList.remove('off');mst.textContent='Operando';mst.className='tag ok';cst.textContent='En espera';cst.className='tag';cloud.classList.remove('on');sys.textContent='12 / 12';sync.textContent='2';
+      note.innerHTML='Copia sincronizada hace <span class="num" id="sim-sync">2</span> s. Lista para tomar el relevo.';sync=$('#sim-sync');sw.setAttribute('aria-pressed','true');txt.textContent='Probar una falla';$('.sw-lbl small').textContent='Sitio principal · encendido';sw.setAttribute('aria-label','Interruptor del sitio principal: encendido. Pulse para simular una falla.');
       say('<b>Sitio principal restaurado.</b> La réplica vuelve a sincronizarse. Pruébelo las veces que quiera.');tick()}
     sw.addEventListener('click',function(){state==='on'?off():on()});
     size();window.addEventListener('resize',size);

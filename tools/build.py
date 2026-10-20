@@ -265,9 +265,9 @@ def page(path, title, desc, body, active='', jsonld=None, drawer=False, canon=No
   <link rel="icon" href="%(r)sfavicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="%(r)sicon-512.png">
   <link rel="manifest" href="%(r)ssite.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="%(r)sassets/fonts/ibmplexsans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="%(r)sassets/fonts/ibmplexmono-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="%(r)sassets/css/fonts.css?v=%(v)s">
   <link rel="stylesheet" href="%(r)sassets/css/site.css?v=%(v)s">%(ld)s
 </head>
 <body data-root="%(r)s">
@@ -324,9 +324,8 @@ def faq_html(faq, title='Preguntas frecuentes'):
 
 def cta_band(h='Hablemos de su operación.', p='Una persona de nuestro equipo técnico revisará su caso y le escribirá.', msg=''):
     dm = ' data-msg="%s"' % e(msg) if msg else ''
-    return '''    <section class="band dark cta-band">
+    return '''    <section class="band dark cta-band dots">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="gridlines" aria-hidden="true"></div>
       <div class="wrap">
         <h2>%s</h2>
         <p>%s</p>
@@ -389,41 +388,51 @@ ORG = {'@context': 'https://schema.org', '@type': 'Organization', 'name': 'Cores
 
 # --------------------------------------------------------------------------- pages
 def build_home():
+    chips = ''.join('<button type="button" role="radio" aria-checked="%s" data-sec="%s">%s</button>' % ('true' if i == 0 else 'false', x['k'], x['n'].split(' y ')[0]) for i, x in enumerate(SECTORS))
     hero = """    <!-- HERO: el interruptor -->
-    <section class="hero dark h3" id="inicio">
+    <section class="hero dark h4" id="inicio">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="gridlines" aria-hidden="true"></div>
-      <div class="wrap h3-grid">
-        <div class="h3-copy intro">
-          <span class="label">Respaldo · Ciberseguridad · Infraestructura · Ecuador</span>
-          <h1>Apáguelo.<br><em>Su operación sigue.</em></h1>
-          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Cuenca y Guayaquil. Haga la prueba con el interruptor.</p>
-          <div class="cta"><a href="{r}contacto.html" class="btn wide magnet">Hablar con un especialista</a><a href="{r}herramientas.html#inactividad" class="textlink">¿Cuánto le cuesta una hora detenida? →</a></div>
+      <div class="spot" aria-hidden="true"></div>
+      <div class="wrap h4-top">
+        <span class="label">Respaldo · Ciberseguridad · Infraestructura · Ecuador</span>
+        <h1 class="kinetic"><span class="w" style="--i:0">Apáguelo.</span><br><span class="w shine" style="--i:1">Su</span> <span class="w shine" style="--i:2">operación</span> <span class="w shine" style="--i:3">sigue.</span></h1>
+        <div class="h4-sub">
+          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Cuenca y Guayaquil. Haga la prueba.</p>
+          <div class="cta"><a href="{r}contacto.html" class="btn wide magnet" id="hero-cta">Hablar con un especialista</a><a href="{r}herramientas.html#inactividad" class="textlink">¿Cuánto le cuesta una hora detenida? →</a></div>
         </div>
+      </div>
+      <div class="wrap">
         <div class="sim" id="sim" aria-live="polite">
-          <div class="sim-top"><span class="mono">SIMULACIÓN ILUSTRATIVA</span><span class="sim-clock mono" id="sim-clock">10:00:00</span></div>
-          <div class="sim-site" id="sim-main">
-            <div class="sim-h"><span>Sitio principal <em class="mono">· SU EMPRESA</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
-            <div class="sim-m">
-              <div><span>Transacciones por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
-              <div><span>Usuarios conectados</span><b class="num" id="sim-usr">312</b></div>
-              <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
+          <div class="sim-top">
+            <span class="mono">SIMULACIÓN ILUSTRATIVA</span>
+            <div class="sim-sec" role="radiogroup" aria-label="Vea la simulación para su sector"><span>Su sector:</span>%s</div>
+            <span class="sim-clock mono" id="sim-clock">10:00:00</span>
+          </div>
+          <div class="sim-body">
+            <div class="sim-site" id="sim-main">
+              <div class="sim-h"><span>Sitio principal <em class="mono" id="sim-org">· SU COOPERATIVA</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
+              <div class="sim-m">
+                <div><span id="sim-l1">Transacciones de socios por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
+                <div><span id="sim-l2">Socios atendidos ahora</span><b class="num" id="sim-usr">312</b></div>
+                <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
+              </div>
+              <canvas class="sim-spark" id="sim-spark" aria-hidden="true"></canvas>
             </div>
-            <canvas class="sim-spark" id="sim-spark" aria-hidden="true"></canvas>
-          </div>
-          <div class="sim-link" id="sim-link" aria-hidden="true"><i></i><i></i><i></i><span class="mono">réplica CUE ↔ GYE</span></div>
-          <div class="sim-site cloud" id="sim-cloud">
-            <div class="sim-h"><span>CoreOnCloud <em class="mono">· CUE / GYE</em></span><span class="tag" id="sim-cloud-st">En espera</span></div>
-            <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
-          </div>
-          <div class="sim-ctl">
-            <button type="button" class="switch" id="sim-switch" aria-pressed="true" aria-label="Interruptor del sitio principal: encendido. Pulse para simular una falla."><span class="sw-track"><span class="sw-knob"></span></span><span class="sw-lbl"><b id="sw-txt">Encendido</b><small>Sitio principal</small></span></button>
-            <p class="sim-msg" id="sim-msg"><span class="hint">← Pulse el interruptor para simular una falla.</span></p>
+            <div class="sim-ctl">
+              <button type="button" class="switch" id="sim-switch" aria-pressed="true" aria-label="Interruptor del sitio principal: encendido. Pulse para simular una falla."><span class="sw-ring" aria-hidden="true"></span><span class="sw-track"><span class="sw-knob"></span></span><span class="sw-lbl"><b id="sw-txt">Probar una falla</b><small>Sitio principal · encendido</small></span></button>
+              <p class="sim-msg" id="sim-msg"><span class="hint">Apague el sitio principal y observe qué pasa.</span></p>
+            </div>
+            <div class="sim-site cloud" id="sim-cloud">
+              <div class="sim-h"><span>CoreOnCloud <em class="mono">· CUE / GYE</em></span><span class="tag" id="sim-cloud-st">En espera</span></div>
+              <div class="sim-link" id="sim-link" aria-hidden="true"><i></i><i></i><i></i><span class="mono">réplica</span></div>
+              <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
-"""
+""" % chips
     rto = """    <!-- RTO -->
     <section class="band" id="espera">
       <div class="wrap split">
@@ -450,9 +459,10 @@ def build_home():
     lis = ''.join('<li><span class="mono">0%d</span><div><h3>%s</h3><p>%s</p><a href="{r}%s">%s →</a></div></li>' % (
         i + 1, n, d, ('soluciones/%s.html' % sl) if sl else 'coreoncloud.html', lk) for i, (n, d, sl, lk) in enumerate(layers))
     stack = """    <!-- CAPAS -->
-    <section class="band dark stack" id="capas">
+    <section class="band dark stack deep" id="capas">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="stack-sticky">
+        <div class="stack-prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
         <div class="wrap stack-grid">
           <div class="stack-copy">
             <span class="label">Cómo lo hacemos posible</span>
@@ -719,8 +729,9 @@ def build_data():
     for s in SECTORS:
         idx.append({'g': 'Sectores', 't': s['n'], 'd': s['m'], 'u': 'sectores.html#' + s['k'], 'k': ' '.join(s['p'])})
     idx.append({'g': 'Acciones', 't': 'Hablar con un especialista', 'd': 'Escríbanos su caso', 'u': 'contacto.html', 'k': 'contacto cotizar evaluación'})
-    js = '/* Generado por tools/build.py. No editar a mano. */\nwindow.__SECTORS=%s;\nwindow.__INDEX=%s;\n' % (
-        json.dumps(SECTORS, ensure_ascii=False), json.dumps(idx, ensure_ascii=False))
+    sim = {'coop': ['SU COOPERATIVA', 'Transacciones de socios por minuto', 'Socios atendidos ahora', 1248, 312], 'salud': ['SU HOSPITAL', 'Historias clínicas consultadas por minuto', 'Pacientes en atención', 420, 186], 'industria': ['SU PLANTA', 'Órdenes de producción por hora', 'Equipos de planta conectados', 96, 240], 'publico': ['SU INSTITUCIÓN', 'Trámites ciudadanos por minuto', 'Ciudadanos atendidos ahora', 530, 410], 'comercio': ['SU EMPRESA', 'Ventas por minuto', 'Puntos de venta activos', 860, 64], 'educacion': ['SU CAMPUS', 'Sesiones de aula por minuto', 'Estudiantes conectados', 1120, 2300]}
+    js = '/* Generado por tools/build.py. No editar a mano. */\nwindow.__SECTORS=%s;\nwindow.__SIM=%s;\nwindow.__INDEX=%s;\n' % (
+        json.dumps(SECTORS, ensure_ascii=False), json.dumps(sim, ensure_ascii=False), json.dumps(idx, ensure_ascii=False))
     with open(os.path.join(ROOT, 'assets', 'js', 'data.js'), 'w', encoding='utf-8') as f:
         f.write(js)
 

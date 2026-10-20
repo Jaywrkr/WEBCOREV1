@@ -19,9 +19,9 @@
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="icon-512.png">
   <link rel="manifest" href="site.webmanifest">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="assets/fonts/ibmplexsans.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/ibmplexmono-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/fonts.css?v=2026.10">
   <link rel="stylesheet" href="assets/css/site.css?v=2026.10">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio"}, {"@type": "ListItem", "position": 2, "name": "Herramientas"}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué tan exactos son los resultados?", "acceptedAnswer": {"@type": "Answer", "text": "Son estimaciones orientativas, útiles para dimensionar y comparar escenarios. Para una propuesta formal medimos su entorno real."}}, {"@type": "Question", "name": "¿Qué supuestos utilizan?", "acceptedAnswer": {"@type": "Answer", "text": "Por ejemplo, el tiempo de transferencia considera la eficiencia real del enlace (70% por defecto en respaldo, ajustable en migración) y el costo anual de inactividad considera solo las interrupciones dentro de su horario de operación."}}, {"@type": "Question", "name": "¿Guardan los datos que ingreso?", "acceptedAnswer": {"@type": "Answer", "text": "No. Los cálculos se hacen en su navegador y no se envían a ningún servidor. Solo si usted decide escribirnos, el resultado se incluye en su mensaje."}}]}</script>
@@ -69,9 +69,8 @@
         <div class="faq"><details><summary>¿Qué tan exactos son los resultados?</summary><div><p>Son estimaciones orientativas, útiles para dimensionar y comparar escenarios. Para una propuesta formal medimos su entorno real.</p></div></details><details><summary>¿Qué supuestos utilizan?</summary><div><p>Por ejemplo, el tiempo de transferencia considera la eficiencia real del enlace (70% por defecto en respaldo, ajustable en migración) y el costo anual de inactividad considera solo las interrupciones dentro de su horario de operación.</p></div></details><details><summary>¿Guardan los datos que ingreso?</summary><div><p>No. Los cálculos se hacen en su navegador y no se envían a ningún servidor. Solo si usted decide escribirnos, el resultado se incluye en su mensaje.</p></div></details></div>
       </div>
     </section>
-    <section class="band dark cta-band">
+    <section class="band dark cta-band dots">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="gridlines" aria-hidden="true"></div>
       <div class="wrap">
         <h2>¿Necesita un cálculo a medida?</h2>
         <p>Un especialista puede dimensionar su caso con datos reales de su operación.</p>

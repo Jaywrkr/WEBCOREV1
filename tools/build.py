@@ -342,11 +342,11 @@ def sol_tiles(r, link_label='Ver solución'):
         out.append('''          <article class="cell sol reveal">
             <div class="vis" style="--gx:%s;--gy:%s" aria-hidden="true">%s</div>
             <div class="body">
-              <h3>%s</h3>
+              <h3 style="view-transition-name:sol-%s">%s</h3>
               <p>%s</p>
               <a class="sol-link" href="%ssoluciones/%s.html">%s %s</a>
             </div>
-          </article>''' % (gx, gy, icon(s['icon']), s['name'], s['lede'].split('. ')[0].rstrip('.') + '.', r, s['slug'], link_label, ARROW))
+          </article>''' % (gx, gy, icon(s['icon']), s['slug'], s['name'], s['lede'].split('. ')[0].rstrip('.') + '.', r, s['slug'], link_label, ARROW))
     return '        <div class="grid grid-3">\n' + '\n'.join(out) + '\n        </div>'
 
 def sector_explorer(head=True):
@@ -407,7 +407,7 @@ def build_home():
           <div class="sim-top">
             <span class="mono">SIMULACIÓN ILUSTRATIVA</span>
             <div class="sim-sec" role="radiogroup" aria-label="Vea la simulación para su sector"><span>Su sector:</span>%s</div>
-            <span class="sim-clock mono" id="sim-clock">10:00:00</span>
+            <span class="sim-r"><button type="button" class="snd" id="sim-snd" aria-pressed="false" aria-label="Activar sonido del interruptor"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8v4h3l4 3V5L6 8H3Z"/><path class="on1" d="M13 7.5a3.5 3.5 0 0 1 0 5"/><path class="on2" d="M15 5a7 7 0 0 1 0 10"/><path class="off" d="M13 8l4 4M17 8l-4 4"/></svg></button><span class="sim-clock mono" id="sim-clock">10:00:00</span></span>
           </div>
           <div class="sim-body">
             <div class="sim-site" id="sim-main">
@@ -474,8 +474,9 @@ def build_home():
       </div>
     </section>
 """ % lis
-    sectors = ''.join('<a class="sec-tile reveal" href="{r}sectores.html#%s"><span class="mono">%02d</span><b>%s</b><span>%s</span>%s</a>' % (
-        x['k'], i + 1, x['n'], x['p'][0], ARROW) for i, x in enumerate(SECTORS))
+    SIMC = {'coop': 'Transacciones de socios: 1,248/min', 'salud': 'Historias clínicas: 420/min', 'industria': 'Órdenes de producción: 96/h', 'publico': 'Trámites ciudadanos: 530/min', 'comercio': 'Ventas: 860/min', 'educacion': 'Sesiones de aula: 1,120/min'}
+    sectors = ''.join('<a class="sec-tile reveal" href="{r}sectores.html#%s"><span class="mono">%02d</span><b>%s</b><span>%s</span><em class="peek mono">%s</em>%s</a>' % (
+        x['k'], i + 1, x['n'], x['p'][0], SIMC[x['k']], ARROW) for i, x in enumerate(SECTORS))
     sect = """    <!-- SECTORES -->
     <section class="band band-gray" id="sectores">
       <div class="wrap">
@@ -528,11 +529,11 @@ def build_solutions_index():
 
 def build_solution(s):
     c, ld = crumbs([('Inicio', '{r}index.html'), ('Soluciones', '{r}soluciones.html'), (s['name'], None)])
-    vis = '<div class="hero-vis" aria-hidden="true">%s</div>' % icon(s['icon'])
+    vis = '<div class="hero-vis scene" data-scene="%s" aria-hidden="true"><canvas></canvas></div>' % {'respaldo-y-continuidad': 'backup', 'ciberseguridad': 'security', 'redes-y-conectividad': 'network', 'data-center': 'datacenter', 'virtualizacion-hci': 'virt', 'automatizacion-ia': 'automation'}[s['slug']]
     cta = '<div class="cta"><a href="{r}contacto.html" class="btn" data-msg="Me interesa: %s." data-interest="%s">Hablar con un especialista</a>%s</div>' % (
         e(s['name']), e(s['interest']),
         ('<a href="{r}herramientas.html#%s" class="btn btn-sec">%s</a>' % (s['tools'][0], 'Calcular: ' + TOOL_NAME[s['tools'][0]].lower())) if s['tools'] else '')
-    body = page_hero(c, s['name'], s['lede'], cta, vis)
+    body = page_hero(c, '<span style="view-transition-name:sol-%s">%s</span>' % (s['slug'], s['name']), s['lede'], cta, vis)
     body += '''    <section class="band">
       <div class="wrap">
         <div class="head reveal"><div><span class="label">El problema</span><h2 class="h2">Lo que suele frenar a las organizaciones.</h2></div></div>
@@ -573,7 +574,7 @@ def build_solution(s):
 
 def build_coreoncloud():
     c, ld = crumbs([('Inicio', '{r}index.html'), ('CoreOnCloud', None)])
-    vis = '<div class="hero-vis" aria-hidden="true">%s</div>' % icon('<path d="M7 18h10a4 4 0 0 0 .6-7.96A6 6 0 0 0 6.1 9.6 4.2 4.2 0 0 0 7 18Z"/>')
+    vis = '<div class="hero-vis scene" data-scene="cloud" aria-hidden="true"><canvas></canvas></div>'
     body = page_hero(c, 'Su infraestructura. Nuestra responsabilidad.', 'CoreOnCloud es nuestra nube en Ecuador: infraestructura como servicio, respaldo y recuperación ante desastres, operada por el mismo equipo que conoce su operación.',
                      '<div class="cta"><a href="{r}contacto.html" class="btn" data-msg="Me interesa CoreOnCloud." data-interest="CoreOnCloud">Solicitar información</a><a href="{r}herramientas.html#continuidad" class="btn btn-sec">¿Qué nivel de continuidad necesito?</a></div>', vis)
     body += '''    <section class="band dark" id="cloud">

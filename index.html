@@ -21,8 +21,8 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="assets/fonts/ibmplexsans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibmplexmono-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/fonts.css?v=2026.10.4">
-  <link rel="stylesheet" href="assets/css/site.css?v=2026.10.4">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=2026.10.5">
+  <link rel="stylesheet" href="assets/css/site.css?v=2026.10.5">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Coresolutions", "url": "https://coresolutions.com.ec", "logo": "https://coresolutions.com.ec/icon-512.png", "email": "info@coresolutions.com.ec", "telephone": "+593994021631", "address": {"@type": "PostalAddress", "streetAddress": "Av. 3 de Noviembre 21-176 y Juan Pablo I", "addressLocality": "Cuenca", "addressCountry": "EC"}, "areaServed": "EC"}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Coresolutions", "url": "https://coresolutions.com.ec", "inLanguage": "es-EC"}</script>
 </head>
@@ -63,16 +63,11 @@
       </div>
       <div class="wrap">
         <div class="sim" id="sim" aria-live="polite">
-          <div class="sim-top">
-            <span class="mono">SIMULACIÓN ILUSTRATIVA</span>
-            <div class="sim-sec" role="radiogroup" aria-label="Vea la simulación para su sector"><span>Su sector:</span><button type="button" role="radio" aria-checked="true" data-sec="coop">Cooperativas</button><button type="button" role="radio" aria-checked="false" data-sec="salud">Salud</button><button type="button" role="radio" aria-checked="false" data-sec="industria">Industria</button><button type="button" role="radio" aria-checked="false" data-sec="publico">Sector público</button><button type="button" role="radio" aria-checked="false" data-sec="comercio">Comercio</button><button type="button" role="radio" aria-checked="false" data-sec="educacion">Educación</button></div>
-            <span class="sim-r"><button type="button" class="snd" id="sim-snd" aria-pressed="false" aria-label="Activar sonido del interruptor"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8v4h3l4 3V5L6 8H3Z"/><path class="on1" d="M13 7.5a3.5 3.5 0 0 1 0 5"/><path class="on2" d="M15 5a7 7 0 0 1 0 10"/><path class="off" d="M13 8l4 4M17 8l-4 4"/></svg></button><span class="sim-clock mono" id="sim-clock">10:00:00</span></span>
-          </div>
           <div class="sim-body">
             <div class="sim-site" id="sim-main">
-              <div class="sim-h"><span>Sitio principal <em class="mono" id="sim-org">· SU COOPERATIVA</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
+              <div class="sim-h"><span>Sitio principal <em class="mono" id="sim-org">· SU ORGANIZACIÓN</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
               <div class="sim-m">
-                <div><span id="sim-l1">Transacciones de socios por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
+                <div><span id="sim-l1">Operaciones por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
                 <div><span id="sim-l2">Socios atendidos ahora</span><b class="num" id="sim-usr">312</b></div>
                 <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
               </div>
@@ -88,23 +83,7 @@
               <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-    <!-- RTO -->
-    <section class="band" id="espera">
-      <div class="wrap split">
-        <div class="reveal">
-          <span class="label">Continuidad a su medida</span>
-          <h2 class="h2">Usted decide cuánto puede esperar.</h2>
-          <p class="lede" style="margin-top:var(--s5)">Elija el nivel que se ajusta a su operación y a su presupuesto.</p>
-          <a class="textlink dark-l" href="herramientas.html#continuidad">Calcular mi nivel de continuidad →</a>
-        </div>
-        <div class="rto reveal" role="group" aria-label="Niveles de continuidad">
-          <button type="button" class="rto-row" aria-pressed="false" data-rto="horas"><span class="rto-n">Respaldo gestionado</span><span class="rto-bar"><i style="--w:100%"></i></span><span class="rto-v mono">horas</span><p>Copias automáticas fuera de su sitio, con pruebas de restauración. Recupera sus datos y vuelve a operar en horas.</p></button>
-          <button type="button" class="rto-row" aria-pressed="true" data-rto="1-4 h"><span class="rto-n">Recuperación ante desastres</span><span class="rto-bar"><i style="--w:34%"></i></span><span class="rto-v mono">1 – 4 h</span><p>Sus servidores críticos replicados en CoreOnCloud y listos para encenderse en el sitio alterno.</p></button>
-          <button type="button" class="rto-row" aria-pressed="false" data-rto="minutos"><span class="rto-n">Alta disponibilidad</span><span class="rto-bar"><i style="--w:6%"></i></span><span class="rto-v mono">minutos</span><p>Réplica continua entre Cuenca y Guayaquil con conmutación automática. Sus usuarios no lo notan.</p></button>
-          <p class="note">Tiempo estimado hasta volver a operar (RTO). Lo definimos juntos según cada sistema.</p>
+          <p class="sim-foot mono">Simulación ilustrativa</p>
         </div>
       </div>
     </section>
@@ -127,7 +106,7 @@
     <section class="band band-gray" id="sectores">
       <div class="wrap">
         <div class="head reveal"><div><span class="label">Para quién</span><h2 class="h2">Conocemos las reglas de su sector.</h2></div></div>
-        <div class="sec-grid"><a class="sec-tile reveal" href="sectores.html#coop"><span class="mono">01</span><b>Cooperativas y finanzas</b><span>Continuidad del core financiero</span><em class="peek mono">Transacciones de socios: 1,248/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#salud"><span class="mono">02</span><b>Salud</b><span>Historia clínica disponible</span><em class="peek mono">Historias clínicas: 420/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#industria"><span class="mono">03</span><b>Industria</b><span>Conectividad de planta</span><em class="peek mono">Órdenes de producción: 96/h</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#publico"><span class="mono">04</span><b>Sector público</b><span>Servicios ciudadanos sin interrupción</span><em class="peek mono">Trámites ciudadanos: 530/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#comercio"><span class="mono">05</span><b>Comercio</b><span>Operación multisede</span><em class="peek mono">Ventas: 860/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#educacion"><span class="mono">06</span><b>Educación</b><span>Wi-Fi de campus</span><em class="peek mono">Sesiones de aula: 1,120/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
+        <div class="sec-grid"><a class="sec-tile reveal" href="sectores.html#coop"><b>Cooperativas y finanzas</b><em class="peek mono">Transacciones de socios: 1,248/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#salud"><b>Salud</b><em class="peek mono">Historias clínicas: 420/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#industria"><b>Industria</b><em class="peek mono">Órdenes de producción: 96/h</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#publico"><b>Sector público</b><em class="peek mono">Trámites ciudadanos: 530/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#comercio"><b>Comercio</b><em class="peek mono">Ventas: 860/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a><a class="sec-tile reveal" href="sectores.html#educacion"><b>Educación</b><em class="peek mono">Sesiones de aula: 1,120/min</em><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a></div>
       </div>
     </section>
     <!-- CÓMO EMPEZAMOS -->
@@ -179,7 +158,7 @@
     <a href="herramientas.html" class="btn btn-sec">Calculadoras</a>
     <a href="contacto.html" class="btn">Hablar con un especialista</a>
   </div>
-  <script src="assets/js/data.js?v=2026.10.4"></script>
-  <script src="assets/js/site.js?v=2026.10.4"></script>
+  <script src="assets/js/data.js?v=2026.10.5"></script>
+  <script src="assets/js/site.js?v=2026.10.5"></script>
 </body>
 </html>

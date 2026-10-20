@@ -17,7 +17,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
         '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.10.4'
+VERSION = '2026.10.5'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:
@@ -412,16 +412,11 @@ def build_home():
       </div>
       <div class="wrap">
         <div class="sim" id="sim" aria-live="polite">
-          <div class="sim-top">
-            <span class="mono">SIMULACIÓN ILUSTRATIVA</span>
-            <div class="sim-sec" role="radiogroup" aria-label="Vea la simulación para su sector"><span>Su sector:</span>%s</div>
-            <span class="sim-r"><button type="button" class="snd" id="sim-snd" aria-pressed="false" aria-label="Activar sonido del interruptor"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8v4h3l4 3V5L6 8H3Z"/><path class="on1" d="M13 7.5a3.5 3.5 0 0 1 0 5"/><path class="on2" d="M15 5a7 7 0 0 1 0 10"/><path class="off" d="M13 8l4 4M17 8l-4 4"/></svg></button><span class="sim-clock mono" id="sim-clock">10:00:00</span></span>
-          </div>
           <div class="sim-body">
             <div class="sim-site" id="sim-main">
-              <div class="sim-h"><span>Sitio principal <em class="mono" id="sim-org">· SU COOPERATIVA</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
+              <div class="sim-h"><span>Sitio principal <em class="mono" id="sim-org">· SU ORGANIZACIÓN</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
               <div class="sim-m">
-                <div><span id="sim-l1">Transacciones de socios por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
+                <div><span id="sim-l1">Operaciones por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
                 <div><span id="sim-l2">Socios atendidos ahora</span><b class="num" id="sim-usr">312</b></div>
                 <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
               </div>
@@ -437,10 +432,11 @@ def build_home():
               <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
             </div>
           </div>
+          <p class="sim-foot mono">Simulación ilustrativa</p>
         </div>
       </div>
     </section>
-""" % chips
+"""
     rto = """    <!-- RTO -->
     <section class="band" id="espera">
       <div class="wrap split">
@@ -483,8 +479,8 @@ def build_home():
     </section>
 """ % lis
     SIMC = {'coop': 'Transacciones de socios: 1,248/min', 'salud': 'Historias clínicas: 420/min', 'industria': 'Órdenes de producción: 96/h', 'publico': 'Trámites ciudadanos: 530/min', 'comercio': 'Ventas: 860/min', 'educacion': 'Sesiones de aula: 1,120/min'}
-    sectors = ''.join('<a class="sec-tile reveal" href="{r}sectores.html#%s"><span class="mono">%02d</span><b>%s</b><span>%s</span><em class="peek mono">%s</em>%s</a>' % (
-        x['k'], i + 1, x['n'], x['p'][0], SIMC[x['k']], ARROW) for i, x in enumerate(SECTORS))
+    sectors = ''.join('<a class="sec-tile reveal" href="{r}sectores.html#%s"><b>%s</b><em class="peek mono">%s</em>%s</a>' % (
+        x['k'], x['n'], SIMC[x['k']], ARROW) for i, x in enumerate(SECTORS))
     sect = """    <!-- SECTORES -->
     <section class="band band-gray" id="sectores">
       <div class="wrap">
@@ -505,7 +501,7 @@ def build_home():
       </div>
     </section>
 """
-    body = hero + rto + stack + sect + people + cta_band('¿Y si lo apagamos juntos?', 'Agende su evaluación sin costo. Le decimos, con números, cuánto tardaría en volver.')
+    body = hero + stack + sect + people + cta_band('¿Y si lo apagamos juntos?', 'Agende su evaluación sin costo. Le decimos, con números, cuánto tardaría en volver.')
     return page('index.html', 'Coresolutions · Apáguelo. Su operación sigue.',
                 'Respaldo, ciberseguridad e infraestructura con nube propia en Cuenca y Guayaquil. Cuando algo falla, sus sistemas siguen funcionando.',
                 body, active='', jsonld=[ORG, {'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'Coresolutions', 'url': SITE, 'inLanguage': 'es-EC'}])
@@ -738,7 +734,7 @@ def build_data():
     for s in SECTORS:
         idx.append({'g': 'Sectores', 't': s['n'], 'd': s['m'], 'u': 'sectores.html#' + s['k'], 'k': ' '.join(s['p'])})
     idx.append({'g': 'Acciones', 't': 'Hablar con un especialista', 'd': 'Escríbanos su caso', 'u': 'contacto.html', 'k': 'contacto cotizar evaluación'})
-    sim = {'coop': ['SU COOPERATIVA', 'Transacciones de socios por minuto', 'Socios atendidos ahora', 1248, 312], 'salud': ['SU HOSPITAL', 'Historias clínicas consultadas por minuto', 'Pacientes en atención', 420, 186], 'industria': ['SU PLANTA', 'Órdenes de producción por hora', 'Equipos de planta conectados', 96, 240], 'publico': ['SU INSTITUCIÓN', 'Trámites ciudadanos por minuto', 'Ciudadanos atendidos ahora', 530, 410], 'comercio': ['SU EMPRESA', 'Ventas por minuto', 'Puntos de venta activos', 860, 64], 'educacion': ['SU CAMPUS', 'Sesiones de aula por minuto', 'Estudiantes conectados', 1120, 2300]}
+    sim = {'general': ['SU ORGANIZACIÓN', 'Operaciones por minuto', 'Usuarios conectados', 1248, 312], 'coop': ['SU COOPERATIVA', 'Transacciones de socios por minuto', 'Socios atendidos ahora', 1248, 312], 'salud': ['SU HOSPITAL', 'Historias clínicas consultadas por minuto', 'Pacientes en atención', 420, 186], 'industria': ['SU PLANTA', 'Órdenes de producción por hora', 'Equipos de planta conectados', 96, 240], 'publico': ['SU INSTITUCIÓN', 'Trámites ciudadanos por minuto', 'Ciudadanos atendidos ahora', 530, 410], 'comercio': ['SU EMPRESA', 'Ventas por minuto', 'Puntos de venta activos', 860, 64], 'educacion': ['SU CAMPUS', 'Sesiones de aula por minuto', 'Estudiantes conectados', 1120, 2300]}
     js = '/* Generado por tools/build.py. No editar a mano. */\nwindow.__SECTORS=%s;\nwindow.__SIM=%s;\nwindow.__INDEX=%s;\n' % (
         json.dumps(SECTORS, ensure_ascii=False), json.dumps(sim, ensure_ascii=False), json.dumps(idx, ensure_ascii=False))
     with open(os.path.join(ROOT, 'assets', 'js', 'data.js'), 'w', encoding='utf-8') as f:

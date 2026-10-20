@@ -435,7 +435,7 @@
     var sim=$('#sim');if(!sim)return;
     var sw=$('#sim-switch'),txt=$('#sw-txt'),msg=$('#sim-msg'),main=$('#sim-main'),cloud=$('#sim-cloud'),mst=$('#sim-main-st'),cst=$('#sim-cloud-st'),note=$('#sim-note'),sync=$('#sim-sync'),clock=$('#sim-clock');
     var tpm=$('#sim-tpm'),usr=$('#sim-usr'),sys=$('#sim-sys'),cv=$('#sim-spark'),ctx=cv.getContext('2d');
-    var SIMD=window.__SIM||{},cfg=SIMD.coop||['SU EMPRESA','Transacciones por minuto','Usuarios conectados',1248,312],base=[cfg[3],cfg[4]];
+    var SIMD=window.__SIM||{},cfg=SIMD.general||SIMD.coop||['SU ORGANIZACIÓN','Operaciones por minuto','Usuarios conectados',1248,312],base=[cfg[3],cfg[4]];
     var state='on',data=[],W,H,vTpm=base[0],vUsr=base[1],t0=Date.now(),timer=null,run=true,hint=true;
     window.__failover='on';
     var favEl=document.querySelector('link[rel="icon"]'),favOk=favEl&&favEl.getAttribute('href'),favRed="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23DA1E28'/%3E%3Cpath d='M21.5 10.2A8 8 0 1 0 21.5 21.8' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E";
@@ -450,7 +450,7 @@
       ctx.beginPath();data.forEach(function(v,i){i?ctx.lineTo(px(i),py(v)):ctx.moveTo(px(i),py(v))});ctx.strokeStyle=state==='on'?'#C8CCFF':state==='over'?'#42BE65':'#DA1E28';ctx.lineWidth=1.5;ctx.stroke()}
     function say(h){msg.innerHTML=h;msg.classList.remove('swap');void msg.offsetWidth;msg.classList.add('swap')}
     function pad(n){return n<10?'0'+n:''+n}
-    function tick(){if(!run)return;var el=Math.floor((Date.now()-t0)/1000),h=10+Math.floor(el/3600),m=Math.floor(el/60)%60,sct=el%60;clock.textContent=pad(h)+':'+pad(m)+':'+pad(sct);
+    function tick(){if(!run)return;var el=Math.floor((Date.now()-t0)/1000),h=10+Math.floor(el/3600),m=Math.floor(el/60)%60,sct=el%60;if(clock)clock.textContent=pad(h)+':'+pad(m)+':'+pad(sct);
       if(state==='down'){data.push(0);data.shift();draw();return}
       vTpm=clamp(vTpm+Math.round((Math.random()-.5)*base[0]*.05),base[0]*.72,base[0]*1.28);vUsr=clamp(vUsr+Math.round((Math.random()-.5)*Math.max(2,base[1]*.03)),base[1]*.85,base[1]*1.15);tpm.textContent=nf(vTpm);usr.textContent=nf(vUsr);
       data.push(clamp((vTpm-base[0]*.72)/(base[0]*.56)*.8+.1+(Math.random()-.5)*.08,.05,.95));data.shift();draw();

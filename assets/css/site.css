@@ -634,8 +634,9 @@
     .stack-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(24px,4vw,64px);align-items:center;width:100%}
     .stack-copy .h2{margin-bottom:var(--s7)}
     .stack-steps{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2);border-left:1px solid var(--line-dark)}
-    .stack-steps li{display:grid;grid-template-columns:40px minmax(0,1fr);padding:var(--s4) var(--s5);position:relative;opacity:.72;transition:opacity .4s var(--ease);cursor:pointer}
-    .stack-steps li:hover{opacity:1}
+    .stack-steps li{display:grid;grid-template-columns:40px minmax(0,1fr);padding:var(--s4) var(--s5);position:relative;transition:opacity .4s var(--ease);cursor:pointer}
+    .js .stack-steps li{opacity:.72}
+    .js .stack-steps li:hover{opacity:1}
     .stack-steps h3 button{all:unset;cursor:pointer;color:inherit;font:inherit}
     .stack-steps h3 button:focus-visible{outline:2px solid #fff;outline-offset:3px}
     .stack-steps li::before{content:"";position:absolute;left:-1px;top:0;bottom:0;width:2px;background:#fff;transform:scaleY(0);transition:transform .4s var(--ease)}
@@ -643,9 +644,11 @@
     .stack-steps li.on::before{transform:scaleY(1)}
     .stack-steps .mono{font-size:12px;color:var(--blue-30);padding-top:4px}
     .stack-steps h3{font-size:20px;color:#fff}
-    .stack-steps p{color:var(--blue-20);font-size:15px;max-height:0;overflow:hidden;opacity:0;transition:max-height .5s var(--ease),opacity .4s,margin .4s}
+    .stack-steps p{color:var(--blue-20);font-size:15px;transition:max-height .5s var(--ease),opacity .4s,margin .4s}
+    .js .stack-steps p{max-height:0;overflow:hidden;opacity:0}
     .stack-steps li.on p{max-height:9em;opacity:1;margin-top:var(--s3)}
-    .stack-steps a{display:inline-block;margin-top:var(--s3);font-size:14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.4);max-height:0;overflow:hidden;opacity:0;transition:opacity .4s}
+    .stack-steps a{display:inline-block;margin-top:var(--s3);font-size:14px;color:#fff;border-bottom:1px solid rgba(255,255,255,.4);transition:opacity .4s}
+    .js .stack-steps a{max-height:0;overflow:hidden;opacity:0}
     .stack-steps li.on a{max-height:3em;opacity:1}
     .stack-vis{position:relative;height:min(78vh,720px)}
     #stack-cv{position:absolute;inset:0;width:100%;height:100%}
@@ -869,8 +872,8 @@
     .h4-top{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s5);padding-top:calc(72px + clamp(28px,6vh,64px));padding-bottom:clamp(24px,4vh,40px);justify-items:start;text-align:left}
     .h4-top>*{max-width:100%;min-width:0}
     .h4 h1{font-size:clamp(52px,8.6vw,124px);line-height:.9;letter-spacing:-.045em;color:#fff;margin:0;max-width:none;text-wrap:balance}
-    .kinetic .w{display:inline-block;animation:wordIn 1.1s var(--ease) both;animation-delay:calc(var(--i)*90ms + 80ms)}
-    .kinetic .shine{color:var(--blue-20);animation:wordIn 1.1s var(--ease) both;animation-delay:calc(var(--i)*90ms + 80ms)}
+    .js .kinetic .w{display:inline-block;animation:wordIn 1.1s var(--ease) both;animation-delay:calc(var(--i)*90ms + 80ms)}
+    .kinetic .shine{color:var(--blue-20)}
     .h4 h1 .shine{display:inline-block}
     .h4-sub{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:var(--s7);align-items:end;width:100%}
     .h4 .lede{margin:0;text-align:left;max-width:46ch}

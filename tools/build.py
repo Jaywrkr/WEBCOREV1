@@ -17,7 +17,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
         '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.10.3'
+VERSION = '2026.10.4'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:
@@ -406,7 +406,7 @@ def build_home():
         <span class="label">Respaldo · Ciberseguridad · Infraestructura · Ecuador</span>
         <h1 class="kinetic"><span class="w" style="--i:0">Apáguelo.</span><br><span class="w shine" style="--i:1">Su</span> <span class="w shine" style="--i:2">operación</span> <span class="w shine" style="--i:3">sigue.</span></h1>
         <div class="h4-sub">
-          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Cuenca y Guayaquil. Haga la prueba.</p>
+          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Ecuador. Haga la prueba.</p>
           <div class="cta"><a href="{r}contacto.html" class="btn wide magnet" id="hero-cta">Hablar con un especialista</a><a href="{r}herramientas.html#inactividad" class="textlink">¿Cuánto le cuesta una hora detenida? →</a></div>
         </div>
       </div>
@@ -447,7 +447,7 @@ def build_home():
         <div class="reveal">
           <span class="label">Continuidad a su medida</span>
           <h2 class="h2">Usted decide cuánto puede esperar.</h2>
-          <p class="lede" style="margin-top:var(--s5)">No todas las organizaciones necesitan lo mismo. Elija el nivel que se ajusta a su operación y a su presupuesto.</p>
+          <p class="lede" style="margin-top:var(--s5)">Elija el nivel que se ajusta a su operación y a su presupuesto.</p>
           <a class="textlink dark-l" href="{r}herramientas.html#continuidad">Calcular mi nivel de continuidad →</a>
         </div>
         <div class="rto reveal" role="group" aria-label="Niveles de continuidad">
@@ -488,24 +488,24 @@ def build_home():
     sect = """    <!-- SECTORES -->
     <section class="band band-gray" id="sectores">
       <div class="wrap">
-        <div class="head reveal"><div><span class="label">Para quién</span><h2 class="h2">Conocemos las reglas de su sector.</h2></div><p>Cooperativas, hospitales, plantas, instituciones públicas, comercios y universidades. Cada uno con sus propias exigencias.</p></div>
+        <div class="head reveal"><div><span class="label">Para quién</span><h2 class="h2">Conocemos las reglas de su sector.</h2></div></div>
         <div class="sec-grid">%s</div>
       </div>
     </section>
 """ % sectors
-    people = """    <!-- PERSONAS -->
-    <section class="band" id="personas">
-      <div class="wrap split">
-        <div class="reveal"><span class="label">Quiénes responden</span><h2 class="h2">Detrás de cada sistema hay personas.</h2><p class="lede" style="margin-top:var(--s5)">Las suyas, que necesitan trabajar sin interrupciones. Y las nuestras, que se encargan de que así sea, desde Cuenca y Guayaquil, hace más de 20 años.</p></div>
-        <div class="vows one">
-          <div class="vow reveal"><h3>Le hablamos claro.</h3><p>Cada decisión técnica explicada en términos de su negocio: qué riesgo resuelve, cuánto cuesta y qué pasa si no se hace.</p></div>
-          <div class="vow reveal"><h3>Conocemos su operación.</h3><p>El mismo equipo diseña, implementa y da soporte. No tiene que explicar todo de nuevo cada vez que nos llama.</p></div>
-          <div class="vow reveal"><h3>Estamos cerca.</h3><p>Equipo propio en Ecuador, en su idioma y en su horario.</p></div>
+    people = """    <!-- CÓMO EMPEZAMOS -->
+    <section class="band" id="camino">
+      <div class="wrap">
+        <div class="head reveal"><div><span class="label">Cómo empezamos</span><h2 class="h2">Tres pasos. Sin compromiso.</h2></div></div>
+        <div class="vows path">
+          <div class="vow reveal"><span class="mono">01</span><h3>Evaluación sin costo</h3><p>Una reunión técnica para entender su operación y sus riesgos.</p></div>
+          <div class="vow reveal"><span class="mono">02</span><h3>Propuesta con números</h3><p>Qué hacer primero, cuánto cuesta y cuánto tardaría en volver a operar.</p></div>
+          <div class="vow reveal"><span class="mono">03</span><h3>Implementación y soporte</h3><p>El mismo equipo que diseña, implementa y responde después.</p></div>
         </div>
       </div>
     </section>
 """
-    body = hero + rto + stack + sect + people + cta_band('¿Y si lo apagamos juntos?', 'Agende una evaluación: revisamos su operación y le decimos, con números, cuánto tardaría en volver.')
+    body = hero + rto + stack + sect + people + cta_band('¿Y si lo apagamos juntos?', 'Agende su evaluación sin costo. Le decimos, con números, cuánto tardaría en volver.')
     return page('index.html', 'Coresolutions · Apáguelo. Su operación sigue.',
                 'Respaldo, ciberseguridad e infraestructura con nube propia en Cuenca y Guayaquil. Cuando algo falla, sus sistemas siguen funcionando.',
                 body, active='', jsonld=[ORG, {'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'Coresolutions', 'url': SITE, 'inLanguage': 'es-EC'}])

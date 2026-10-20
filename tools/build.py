@@ -165,7 +165,7 @@ TOOLS = [('inactividad', 'Costo de inactividad', 'Cuánto le cuesta una hora sin
 TOOL_NAME = {t[0]: t[1] for t in TOOLS}
 
 PAGES = [('index.html', 'Inicio', ''), ('soluciones.html', 'Soluciones', 'soluciones'), ('coreoncloud.html', 'CoreOnCloud', 'coreoncloud'),
-         ('sectores.html', 'Sectores', 'sectores'), ('herramientas.html', 'Herramientas', 'herramientas'), ('nosotros.html', 'Nosotros', 'nosotros'),
+         ('sectores.html', 'Sectores', 'sectores'), ('herramientas.html', 'Herramientas', 'herramientas'), ('nosotros.html', 'Nosotros', 'nosotros'), ('casos.html', 'Casos', 'casos'),
          ('contacto.html', 'Contacto', 'contacto'), ('privacidad.html', 'Privacidad', 'privacidad')]
 
 # --------------------------------------------------------------------------- shell
@@ -186,6 +186,7 @@ def header(r, active):
         %(sec)s
         %(her)s
         %(nos)s
+        %(cas)s
       </div>
       <div class="nav-r">
         <button type="button" class="kbtn" data-cmdk aria-label="Buscar en el sitio (Ctrl K)">%(search)s<span>Buscar</span><kbd>⌘K</kbd></button>
@@ -197,7 +198,7 @@ def header(r, active):
   </header>
 ''' % dict(r=r, sol=a('soluciones.html', 'Soluciones', 'soluciones'), mega=mega, coc=a('coreoncloud.html', 'CoreOnCloud', 'coreoncloud'),
            sec=a('sectores.html', 'Sectores', 'sectores'), her=a('herramientas.html', 'Herramientas', 'herramientas'),
-           nos=a('nosotros.html', 'Nosotros', 'nosotros'), search=SEARCH, arrow=ARROW)
+           nos=a('nosotros.html', 'Nosotros', 'nosotros'), cas=a('casos.html', 'Casos', 'casos'), search=SEARCH, arrow=ARROW)
 
 def footer(r):
     sols = ''.join('<a href="%ssoluciones/%s.html">%s</a>' % (r, s['slug'], s['name']) for s in SOLS)
@@ -211,7 +212,7 @@ def footer(r):
           <p class="made">Cuenca · Guayaquil</p>
         </div>
         <div><h3 class="fh">Soluciones</h3>%(sols)s</div>
-        <div><h3 class="fh">Empresa</h3><a href="%(r)scoreoncloud.html">CoreOnCloud</a><a href="%(r)ssectores.html">Sectores</a><a href="%(r)snosotros.html">Nosotros</a><a href="%(r)scontacto.html">Contacto</a></div>
+        <div><h3 class="fh">Empresa</h3><a href="%(r)scoreoncloud.html">CoreOnCloud</a><a href="%(r)ssectores.html">Sectores</a><a href="%(r)snosotros.html">Nosotros</a><a href="%(r)scasos.html">Casos</a><a href="%(r)scontacto.html">Contacto</a></div>
         <div><h3 class="fh">Calculadoras</h3>%(tools)s</div>
         <div><h3 class="fh">Contacto</h3><a href="mailto:info@coresolutions.com.ec">info@coresolutions.com.ec</a><a href="tel:+593994021631">+593 99 402 1631</a><p>Av. 3 de Noviembre 21-176 y Juan Pablo I, Cuenca</p></div>
       </div>
@@ -245,7 +246,7 @@ def page(path, title, desc, body, active='', jsonld=None, drawer=False, canon=No
     full_title = title if title.startswith('Coresolutions') else '%s · Coresolutions' % title
     ld = ''.join('\n  <script type="application/ld+json">%s</script>' % json.dumps(x, ensure_ascii=False) for x in (jsonld or []))
     out = '''<!doctype html>
-<html lang="es">
+<html lang="es-EC">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -703,6 +704,23 @@ def build_privacidad():
     return page('privacidad.html', 'Política de privacidad', 'Política de privacidad de Coresolutions conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador.',
                 body, active='', jsonld=[ld])
 
+def build_casos():
+    c, ld = crumbs([('Inicio', '{r}index.html'), ('Casos', None)])
+    body = page_hero(c, 'Casos reales, resultados medidos.', 'Aquí publicaremos, con autorización de cada cliente, cómo resolvimos problemas concretos de continuidad, seguridad e infraestructura y qué resultado obtuvieron.')
+    body += '''    <section class="band">
+      <div class="wrap">
+        <div class="head reveal"><div><span class="label">Próximamente</span><h2 class="h2">Estamos pidiendo permiso a nuestros clientes.</h2></div><p>Publicamos un caso solo cuando la organización lo autoriza. Mientras tanto, estas son las historias que estamos documentando.</p></div>
+        <div class="cases">
+          <article class="case reveal"><span class="mono">COOPERATIVA DE AHORRO Y CRÉDITO · EN DOCUMENTACIÓN</span><h3>Core financiero con recuperación ante desastres en CoreOnCloud</h3><dl><div><dt>Problema</dt><dd>Un solo sitio, sin réplica, y un regulador que exige continuidad.</dd></div><div><dt>Solución</dt><dd>Réplica en CoreOnCloud y pruebas de conmutación programadas.</dd></div><div><dt>Resultado</dt><dd><span class="pending">Pendiente de autorización</span></dd></div></dl></article>
+          <article class="case reveal"><span class="mono">HOSPITAL · EN DOCUMENTACIÓN</span><h3>Red hospitalaria segmentada y respaldo de historias clínicas</h3><dl><div><dt>Problema</dt><dd>Red plana, caídas intermitentes y respaldos sin verificar.</dd></div><div><dt>Solución</dt><dd>Segmentación, nuevo core y respaldo gestionado con pruebas de restauración.</dd></div><div><dt>Resultado</dt><dd><span class="pending">Pendiente de autorización</span></dd></div></dl></article>
+          <article class="case reveal"><span class="mono">INDUSTRIA · EN DOCUMENTACIÓN</span><h3>Virtualización de servidores de planta</h3><dl><div><dt>Problema</dt><dd>Servidores físicos sin soporte del fabricante sosteniendo la producción.</dd></div><div><dt>Solución</dt><dd>Plataforma hiperconvergente y migración por etapas sin detener la línea.</dd></div><div><dt>Resultado</dt><dd><span class="pending">Pendiente de autorización</span></dd></div></dl></article>
+        </div>
+      </div>
+    </section>
+'''
+    body += cta_band('¿Quiere ser el primer caso publicado?', 'Si ya trabaja con nosotros y quiere contar su historia, escríbanos. Si aún no, empecemos por una evaluación.', 'Me interesa publicar o conocer un caso.')
+    return page('casos.html', 'Casos', 'Casos de continuidad, ciberseguridad e infraestructura resueltos por Coresolutions, publicados con autorización de cada cliente.', body, active='casos', jsonld=[ld])
+
 def build_404():
     body = '''    <section class="hero dark nf">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -750,7 +768,7 @@ def build_seo(paths):
 
 if __name__ == '__main__':
     out = [build_home(), build_solutions_index()] + [build_solution(s) for s in SOLS] + [
-        build_coreoncloud(), build_sectores(), build_herramientas(), build_nosotros(), build_contacto(), build_privacidad(), build_404()]
+        build_coreoncloud(), build_sectores(), build_herramientas(), build_nosotros(), build_casos(), build_contacto(), build_privacidad(), build_404()]
     build_data()
     build_seo(out)
     print('\n'.join(out))

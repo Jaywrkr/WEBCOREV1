@@ -11,7 +11,7 @@ Sitio estático, sin dependencias de ejecución, listo para Vercel.
 | `/coreoncloud` | Nube propia: mapa CUE/GYE, servicios, consola de demostración, FAQ |
 | `/sectores` | Explorador por sector (enlazable: `/sectores#salud`) |
 | `/herramientas` | Cinco calculadoras (enlazables: `/herramientas#inactividad`) |
-| `/nosotros`, `/contacto`, `/privacidad`, `404` | Empresa, formulario, política de privacidad, error |
+| `/nosotros`, `/casos`, `/contacto`, `/privacidad`, `404` | Empresa, casos (en espera de autorización de clientes), formulario, política de privacidad, error |
 
 Extras en todas las páginas: búsqueda rápida (`⌘K`, `Ctrl K` o `/`), menú de soluciones, barra de acciones en móvil, transiciones entre páginas, datos estructurados (Organization, Service, FAQPage, BreadcrumbList), `sitemap.xml`, `robots.txt`, manifest, imagen para redes (`og.png`).
 

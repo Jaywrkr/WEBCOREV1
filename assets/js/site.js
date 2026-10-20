@@ -23,6 +23,18 @@
     if(mbar&&first){var past=first.getBoundingClientRect().bottom<0,f=$('#form')||$('footer'),near=f&&f.getBoundingClientRect().top<window.innerHeight*.92;mbar.classList.toggle('show',past&&!near)}}
   window.addEventListener('scroll',ui,{passive:true});ui();
 
+  /* ---------- Hero in two beats: headline shrinks as the stage takes over ---------- */
+  (function(){var h=$('.h4');if(!h||reduce||!window.matchMedia('(min-width:901px)').matches)return;var top=$('.h4-top'),h1=$('.h4 h1'),sub=$('.h4-sub');var tick=false;
+    function upd(){var y=window.scrollY,r=top.offsetHeight||600,p=clamp(y/(r*.9),0,1);h1.style.transform='translateY('+(y*.35)+'px) scale('+(1-p*.18)+')';h1.style.opacity=String(1-p*.55);sub.style.transform='translateY('+(y*.2)+'px)';sub.style.opacity=String(1-p*.8)}
+    h1.style.transformOrigin='left top';h1.style.willChange='transform,opacity';
+    window.addEventListener('scroll',function(){if(tick)return;tick=true;requestAnimationFrame(function(){upd();tick=false})},{passive:true});upd()})();
+
+  /* ---------- Prefetch on hover + theme-color follows the band ---------- */
+  (function(){var done={};document.addEventListener('pointerover',function(e){var a=e.target.closest('a[href]');if(!a)return;var u=a.getAttribute('href');if(!u||/^(https?:|mailto:|tel:|#)/.test(u))return;var abs=new URL(u,location.href).href.split('#')[0];if(done[abs]||abs===location.href.split('#')[0])return;done[abs]=1;var l=document.createElement('link');l.rel='prefetch';l.href=abs;l.as='document';document.head.appendChild(l)});
+    var tc=document.querySelector('meta[name="theme-color"]');if(!tc||!('IntersectionObserver' in window))return;var bands=$$('header.site, main > section, main > div, footer');
+    var io=new IntersectionObserver(function(es){es.forEach(function(x){if(!x.isIntersecting)return;var el=x.target,dark=el.classList.contains('dark')||el.tagName==='FOOTER'||el.classList.contains('deep');tc.setAttribute('content',dark?(el.classList.contains('deep')||el.tagName==='FOOTER'?'#000440':'#01095C'):(el.classList.contains('band-gray')||el.classList.contains('sector-band')?'#F2F4F7':'#FFFFFF'))})},{rootMargin:'-1px 0px -99% 0px'});
+    bands.forEach(function(b){if(b.tagName!=='HEADER')io.observe(b)})})();
+
   /* ---------- Reveal (below the fold only) ---------- */
   if('IntersectionObserver' in window&&!reduce){
     var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.remove('pre');ro.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
@@ -418,6 +430,8 @@
     var SIMD=window.__SIM||{},cfg=SIMD.coop||['SU EMPRESA','Transacciones por minuto','Usuarios conectados',1248,312],base=[cfg[3],cfg[4]];
     var state='on',data=[],W,H,vTpm=base[0],vUsr=base[1],t0=Date.now(),timer=null,run=true,hint=true;
     window.__failover='on';
+    var favEl=document.querySelector('link[rel="icon"]'),favOk=favEl&&favEl.getAttribute('href'),favRed="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23DA1E28'/%3E%3Cpath d='M21.5 10.2A8 8 0 1 0 21.5 21.8' fill='none' stroke='%23ffffff' stroke-width='4'/%3E%3C/svg%3E";
+    function fav(red){if(favEl)favEl.setAttribute('href',red?favRed:favOk)}
     function applySec(k){cfg=SIMD[k]||cfg;base=[cfg[3],cfg[4]];$('#sim-org').textContent='· '+cfg[0];$('#sim-l1').textContent=cfg[1];$('#sim-l2').textContent=cfg[2];if(state!=='down'){vTpm=base[0];vUsr=base[1];tpm.textContent=nf(vTpm);usr.textContent=nf(vUsr)}var cta=$('#hero-cta');if(cta)cta.setAttribute('data-msg','Sector: '+($$('.sim-sec button[aria-checked="true"]')[0]||{}).textContent+'. ')}
     $$('.sim-sec button').forEach(function(b){b.addEventListener('click',function(){$$('.sim-sec button').forEach(function(x){x.setAttribute('aria-checked',String(x===b))});applySec(b.dataset.sec)})});
     for(var i=0;i<48;i++)data.push(.5+Math.random()*.3);
@@ -434,11 +448,16 @@
       data.push(clamp((vTpm-base[0]*.72)/(base[0]*.56)*.8+.1+(Math.random()-.5)*.08,.05,.95));data.shift();draw();
       if(state==='on'){var sv=parseInt(sync.textContent,10)+1;if(sv>20)sv=1;sync.textContent=sv}}
     setInterval(tick,1000);
-    function off(){state='down';hint=false;window.__failover='down';sim.classList.add('used');sim.classList.add('down');sim.classList.remove('over');main.classList.add('off');mst.textContent='Caída';mst.className='tag err';sys.textContent='0 / 12';tpm.textContent='0';usr.textContent='0';sw.setAttribute('aria-pressed','false');txt.textContent='Restaurar sitio principal';$('.sw-lbl small').textContent='Sitio principal · apagado';sw.setAttribute('aria-label','Interruptor del sitio principal: apagado. Pulse para restaurar.');
+    function off(){fav(true);state='down';hint=false;window.__failover='down';sim.classList.add('used');sim.classList.add('down');sim.classList.remove('over');main.classList.add('off');mst.textContent='Caída';mst.className='tag err';sys.textContent='0 / 12';tpm.textContent='0';usr.textContent='0';sw.setAttribute('aria-pressed','false');txt.textContent='Restaurar sitio principal';$('.sw-lbl small').textContent='Sitio principal · apagado';sw.setAttribute('aria-label','Interruptor del sitio principal: apagado. Pulse para restaurar.');
       say('<b>Sitio principal sin servicio.</b> CoreOnCloud está tomando el relevo…');var t1=Date.now();
-      timer=setTimeout(function(){if(state!=='down')return;state='over';window.__failover='over';sim.classList.remove('down');sim.classList.add('over');cst.textContent='Activo';cst.className='tag ok';cloud.classList.add('on');note.innerHTML='Sus sistemas ahora funcionan desde Cuenca y Guayaquil. Sus usuarios siguen trabajando.';
-        sys.textContent='12 / 12';var el=((Date.now()-t1)/1000).toFixed(1);var secName=($$('.sim-sec button[aria-checked="true"]')[0]||{}).textContent||'mi organización';say('<b>Recuperado en <span class="t">'+el+' s</span>.</b> Sus usuarios siguieron trabajando sin notarlo.<br><a class="sim-go" href="'+ROOT+'contacto.html" data-msg="Probé el simulador. Quiero esto para '+secName.toLowerCase()+'.">Quiero esto para '+secName.toLowerCase()+' →</a>');tick()},reduce?300:3200)}
-    function on(){clearTimeout(timer);state='on';window.__failover='on';sim.classList.remove('down','over');main.classList.remove('off');mst.textContent='Operando';mst.className='tag ok';cst.textContent='En espera';cst.className='tag';cloud.classList.remove('on');sys.textContent='12 / 12';sync.textContent='2';
+      timer=setTimeout(function(){if(state!=='down')return;fav(false);state='over';window.__failover='over';sim.classList.remove('down');sim.classList.add('over');cst.textContent='Activo';cst.className='tag ok';cloud.classList.add('on');note.innerHTML='Sus sistemas ahora funcionan desde Cuenca y Guayaquil. Sus usuarios siguen trabajando.';
+        sys.textContent='12 / 12';var el=((Date.now()-t1)/1000).toFixed(1);var secName=($$('.sim-sec button[aria-checked="true"]')[0]||{}).textContent||'mi organización';say('<b>Recuperado en <span class="t">'+el+' s</span>.</b> Sus usuarios siguieron trabajando sin notarlo.<br><span class="sim-acts"><a class="sim-go" href="'+ROOT+'contacto.html" data-msg="Probé el simulador. Quiero esto para '+secName.toLowerCase()+'.">Quiero esto para '+secName.toLowerCase()+' →</a><button type="button" class="sim-alt" id="sim-alt">¿Y sin CoreOnCloud?</button></span>');tick()},reduce?300:3200)}
+    var lossT=null,lossStart=0,PH=1442;
+    function altOff(){fav(true);clearTimeout(timer);state='down';window.__failover='down';sim.classList.remove('over');sim.classList.add('down','alt');cst.textContent='Sin contratar';cst.className='tag';cloud.classList.remove('on');note.innerHTML='Sin réplica no hay a dónde conmutar. Cada minuto detenido cuesta dinero.';sys.textContent='0 / 12';tpm.textContent='0';usr.textContent='0';main.classList.add('off');mst.textContent='Caída';mst.className='tag err';
+      lossStart=Date.now();say('<b>Sin CoreOnCloud.</b> Pérdida estimada: <span class="t loss" id="sim-loss">USD 0</span> <small>(a USD '+nf(PH)+' por hora, según la calculadora)</small><br><span class="sim-acts"><button type="button" class="sim-alt" id="sim-stop">Detener y volver a CoreOnCloud</button><a class="sim-go" href="'+ROOT+'herramientas.html#inactividad">Calcular con mis cifras →</a></span>');
+      lossT=setInterval(function(){var el=$('#sim-loss');if(!el){clearInterval(lossT);return}var h=(Date.now()-lossStart)/3600000*60;el.textContent='USD '+nf(Math.round(PH*h))},200)}
+    msg.addEventListener('click',function(e){if(e.target.closest('#sim-alt')){altOff()}else if(e.target.closest('#sim-stop')){clearInterval(lossT);sim.classList.remove('alt');on();say('<b>De vuelta con CoreOnCloud.</b> La diferencia entre perder minutos y perder el día.')}});
+    function on(){fav(false);clearTimeout(timer);clearInterval(lossT);sim.classList.remove('alt');state='on';window.__failover='on';sim.classList.remove('down','over');main.classList.remove('off');mst.textContent='Operando';mst.className='tag ok';cst.textContent='En espera';cst.className='tag';cloud.classList.remove('on');sys.textContent='12 / 12';sync.textContent='2';
       note.innerHTML='Copia sincronizada hace <span class="num" id="sim-sync">2</span> s. Lista para tomar el relevo.';sync=$('#sim-sync');sw.setAttribute('aria-pressed','true');txt.textContent='Probar una falla';$('.sw-lbl small').textContent='Sitio principal · encendido';sw.setAttribute('aria-label','Interruptor del sitio principal: encendido. Pulse para simular una falla.');
       say('<b>Sitio principal restaurado.</b> La réplica vuelve a sincronizarse. Pruébelo las veces que quiera.');tick()}
     var snd=$('#sim-snd'),actx=null;

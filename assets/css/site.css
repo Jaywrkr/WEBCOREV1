@@ -932,3 +932,15 @@
       @keyframes vtOut{to{opacity:0}}
       @keyframes vtIn{from{opacity:0;transform:translateY(8px)}}
     }
+
+    /* ===== v6 ===== */
+    .sim-acts{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);align-items:center;margin-top:var(--s3)}
+    .sim-acts .sim-go{margin-top:0}
+    .sim-alt{background:none;border:1px solid rgba(200,204,255,.4);color:#fff;font:inherit;font-size:13px;padding:6px 12px;cursor:pointer;border-radius:999px;transition:background .2s,border-color .2s}
+    .sim-alt:hover{background:rgba(255,255,255,.1);border-color:#fff}
+    .sim-msg .loss{color:#FFCC66;font-size:18px;font-weight:600}
+    .sim-msg small{color:var(--blue-30);font-size:12px}
+    .sim.alt{box-shadow:0 0 0 1px rgba(218,30,40,.6),0 30px 80px -30px rgba(218,30,40,.5)}
+    .sim.alt .sim-link::before{border-color:rgba(218,30,40,.5)}
+    .sim.alt .sim-link i{display:none}
+    .sim.alt .sim-site.cloud{opacity:.45}

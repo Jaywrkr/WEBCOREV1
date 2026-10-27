@@ -17,7 +17,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
         '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.10.5'
+VERSION = '2026.11.0'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:
@@ -396,114 +396,108 @@ ORG = {'@context': 'https://schema.org', '@type': 'Organization', 'name': 'Cores
 
 # --------------------------------------------------------------------------- pages
 def build_home():
-    chips = ''.join('<button type="button" role="radio" aria-checked="%s" data-sec="%s">%s</button>' % ('true' if i == 0 else 'false', x['k'], x['n'].split(' y ')[0]) for i, x in enumerate(SECTORS))
-    hero = """    <!-- HERO: el interruptor -->
-    <section class="hero dark h4" id="inicio">
-      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="gridlines" aria-hidden="true"></div>
-      <div class="spot" aria-hidden="true"></div>
-      <div class="wrap h4-top">
-        <span class="label">Respaldo · Ciberseguridad · Infraestructura · Ecuador</span>
-        <h1 class="kinetic"><span class="w" style="--i:0">Apáguelo.</span><br><span class="w shine" style="--i:1">Su</span> <span class="w shine" style="--i:2">operación</span> <span class="w shine" style="--i:3">sigue.</span></h1>
-        <div class="h4-sub">
-          <p class="lede">Cuando algo falla, sus sistemas siguen funcionando desde nuestra nube en Ecuador. Haga la prueba.</p>
-          <div class="cta"><a href="{r}contacto.html" class="btn wide magnet" id="hero-cta">Hablar con un especialista</a><a href="{r}herramientas.html#inactividad" class="textlink">¿Cuánto le cuesta una hora detenida? →</a></div>
+    """Home según el plan del equipo de referencia: austeridad, texto como imagen, la réplica como demostración."""
+    r = ''
+    SERV = [
+        ('respaldo-y-continuidad', 'Respaldo y continuidad', 'Si pierde sus datos, los recupera. Y sabe de antemano en cuántas horas.', 'Backup gestionado, réplica entre sitios y recuperación ante desastres.'),
+        ('ciberseguridad', 'Ciberseguridad', 'Que un ataque no detenga su operación ni exponga a sus clientes.', 'Firewall de nueva generación, protección de endpoints y acceso seguro.'),
+        ('redes-y-conectividad', 'Redes y conectividad', 'Que todas sus sedes sigan conectadas, aunque un enlace falle.', 'LAN, Wi-Fi, switching, segmentación y enlaces redundantes.'),
+        ('data-center', 'Data Center y sistemas', 'Servidores que no faltan cuando más carga hay.', 'Servidores, almacenamiento y alta disponibilidad.'),
+        ('virtualizacion-hci', 'Virtualización y HCI', 'Menos equipos, menos fallas, menos factura.', 'Consolidación de cargas y plataformas hiperconvergentes.'),
+        ('automatizacion-ia', 'Automatización e IA', 'Que las tareas repetitivas se hagan solas y sin errores.', 'Automatización de procesos e inteligencia artificial aplicada.'),
+    ]
+    SECT = [
+        ('coop', 'Cooperativas', 'Que la SEPS pida evidencia de su plan de continuidad y tenga que improvisar.', 'La evidencia está lista antes de que la pidan.'),
+        ('salud', 'Hospitales y clínicas', 'Que el sistema caiga con pacientes en urgencias y nadie vea una historia clínica.', 'Su información vuelve en minutos, no en días.'),
+        ('industria', 'Industria', 'Que una línea se detenga por un ataque y cada hora cueste más que el contrato.', 'Sabe de antemano cuánto tarda en recuperar.'),
+        ('publico', 'Sector público', 'Que un incidente termine en un informe de contraloría con su nombre.', 'Cada respaldo queda documentado y verificable.'),
+        ('comercio', 'Comercio multisede', 'Que diez locales dejen de facturar a la vez un sábado.', 'Sus datos y su conectividad tienen respaldo en dos centros distintos.'),
+        ('educacion', 'Universidades', 'Que en matrículas el sistema no responda y las quejas lleguen al rectorado.', 'La plataforma aguanta el pico y usted lo sabe desde antes.'),
+    ]
+    serv = ''.join('<li><a href="%ssoluciones/%s.html"><span class="mono r-n">%02d</span><span class="r-name">%s</span><span class="r-g">%s</span><span class="r-t">%s</span>%s</a></li>' % (r, sl, i + 1, n, g, t, ARROW) for i, (sl, n, g, t) in enumerate(SERV))
+    sect = ''.join('<li><a href="%ssectores.html#%s"><span class="r-sname">%s</span><span class="r-fear">%s</span><span class="r-calm">%s</span></a></li>' % (r, k, n, f, c) for k, n, f, c in SECT)
+    body = """    <!-- HERO -->
+    <section class="dark r-hero" id="inicio">
+      <div class="wrap r-hero-in">
+        <p class="mono r-status" aria-live="off"><span>CUENCA</span> <span aria-hidden="true">&#8596;</span> <span>GUAYAQUIL</span> <span class="r-sep">&middot;</span> RÉPLICA ACTIVA <span class="r-sep">&middot;</span> <span id="r-clock">00:00:00</span></p>
+        <h1 class="r-h1">Si mañana <span class="r-flash">se cae</span> su sistema, hoy ya sabe cuánto tarda en volver.</h1>
+        <div class="r-hero-foot">
+          <p class="r-lede">Respaldo, continuidad y ciberseguridad para empresas que no pueden parar. Desde Cuenca y Guayaquil, con sus datos en dos centros de datos en Ecuador, replicados entre sí.</p>
+          <a href="%(r)scontacto.html" class="btn r-btn" id="hero-cta">Solicitar una evaluación de continuidad %(arrow)s</a>
         </div>
+        <p class="mono r-proof">MÁS DE 20 AÑOS CON COOPERATIVAS REGULADAS POR LA SEPS, HOSPITALES, INDUSTRIAS Y ENTIDADES PÚBLICAS EN ECUADOR</p>
       </div>
+      <div class="r-blackout" aria-hidden="true"></div>
+    </section>
+    <!-- LA RÉPLICA -->
+    <section class="band r-rep" id="replica">
       <div class="wrap">
-        <div class="sim" id="sim" aria-live="polite">
-          <div class="sim-body">
-            <div class="sim-site" id="sim-main">
-              <div class="sim-h"><span>Sitio principal <em class="mono" id="sim-org">· SU ORGANIZACIÓN</em></span><span class="tag ok" id="sim-main-st">Operando</span></div>
-              <div class="sim-m">
-                <div><span id="sim-l1">Operaciones por minuto</span><b class="num" id="sim-tpm">1,248</b></div>
-                <div><span id="sim-l2">Socios atendidos ahora</span><b class="num" id="sim-usr">312</b></div>
-                <div><span>Sistemas en línea</span><b class="num" id="sim-sys">12 / 12</b></div>
-              </div>
-              <canvas class="sim-spark" id="sim-spark" aria-hidden="true"></canvas>
+        <p class="mono r-tag">01 / DOS CIUDADES, UN SISTEMA</p>
+        <div class="r-rep-grid">
+          <div class="r-rep-copy">
+            <h2 class="r-h2">Apáguelo. Sigue funcionando.</h2>
+            <p class="r-p">Sus datos viven en dos lugares a la vez. Si el centro de datos de Cuenca deja de responder, el de Guayaquil ya tiene todo y sigue atendiendo a sus sucursales, su cajero o su quirófano.</p>
+            <div class="r-rep-ctl">
+              <button type="button" class="btn r-btn-navy" id="r-fail" aria-pressed="false">Simular falla en Cuenca</button>
+              <button type="button" class="r-link" id="r-reset" hidden>Restablecer</button>
             </div>
-            <div class="sim-ctl">
-              <button type="button" class="switch" id="sim-switch" aria-pressed="true" aria-label="Interruptor del sitio principal: encendido. Pulse para simular una falla."><span class="sw-ring" aria-hidden="true"></span><span class="sw-track"><span class="sw-knob"></span></span><span class="sw-lbl"><b id="sw-txt">Probar una falla</b><small>Sitio principal · encendido</small></span></button>
-              <p class="sim-msg" id="sim-msg"><span class="hint">Apague el sitio principal y observe qué pasa.</span></p><noscript><p class="sim-msg">La simulación necesita JavaScript. Lo que muestra: cuando su sitio principal falla, CoreOnCloud toma el relevo en segundos.</p></noscript>
-            </div>
-            <div class="sim-site cloud" id="sim-cloud">
-              <div class="sim-h"><span>CoreOnCloud <em class="mono">· CUE / GYE</em></span><span class="tag" id="sim-cloud-st">En espera</span></div>
-              <div class="sim-link" id="sim-link" aria-hidden="true"><i></i><i></i><i></i><span class="mono">réplica</span></div>
-              <p class="sim-note" id="sim-note">Copia sincronizada hace <span class="num" id="sim-sync">14</span> s. Lista para tomar el relevo.</p>
-            </div>
+            <p class="r-live" id="r-live" aria-live="polite">Los dos centros de datos operan. Cada copia viaja de Cuenca a Guayaquil.</p>
+            <p class="mono r-count" aria-hidden="true"><span id="r-sec">0</span> s SIN INTERRUPCIÓN</p>
           </div>
-          <p class="sim-foot mono">Simulación ilustrativa</p>
+          <div class="r-rep-vis" role="img" aria-label="Dos centros de datos, Cuenca y Guayaquil, unidos por un flujo de datos que alimenta una fila de sucursales. Si uno se apaga, el otro sigue alimentándolas."><canvas id="r-cv"></canvas><noscript><p class="r-p">Ilustración: dos centros de datos replicados; si uno falla, el otro sigue atendiendo.</p></noscript></div>
         </div>
       </div>
     </section>
-"""
-    rto = """    <!-- RTO -->
-    <section class="band" id="espera">
-      <div class="wrap split">
-        <div class="reveal">
-          <span class="label">Continuidad a su medida</span>
-          <h2 class="h2">Usted decide cuánto puede esperar.</h2>
-          <p class="lede" style="margin-top:var(--s5)">Elija el nivel que se ajusta a su operación y a su presupuesto.</p>
-          <a class="textlink dark-l" href="{r}herramientas.html#continuidad">Calcular mi nivel de continuidad →</a>
-        </div>
-        <div class="rto reveal" role="group" aria-label="Niveles de continuidad">
-          <button type="button" class="rto-row" aria-pressed="false" data-rto="horas"><span class="rto-n">Respaldo gestionado</span><span class="rto-bar"><i style="--w:100%"></i></span><span class="rto-v mono">horas</span><p>Copias automáticas fuera de su sitio, con pruebas de restauración. Recupera sus datos y vuelve a operar en horas.</p></button>
-          <button type="button" class="rto-row" aria-pressed="true" data-rto="1-4 h"><span class="rto-n">Recuperación ante desastres</span><span class="rto-bar"><i style="--w:34%"></i></span><span class="rto-v mono">1 – 4 h</span><p>Sus servidores críticos replicados en CoreOnCloud y listos para encenderse en el sitio alterno.</p></button>
-          <button type="button" class="rto-row" aria-pressed="false" data-rto="minutos"><span class="rto-n">Alta disponibilidad</span><span class="rto-bar"><i style="--w:6%"></i></span><span class="rto-v mono">minutos</span><p>Réplica continua entre Cuenca y Guayaquil con conmutación automática. Sus usuarios no lo notan.</p></button>
-          <p class="note">Tiempo estimado hasta volver a operar (RTO). Lo definimos juntos según cada sistema.</p>
-        </div>
-      </div>
-    </section>
-"""
-    layers = [('Conectividad', 'La red que une sus sedes, equipos y personas: estable, segmentada y monitoreada.', 'redes-y-conectividad', 'Ver redes y conectividad'),
-              ('Infraestructura', 'Servidores, almacenamiento y virtualización dimensionados para sus cargas críticas.', 'data-center', 'Ver Data Center y sistemas'),
-              ('Datos', 'Respaldos automáticos, copias inmutables y pruebas de restauración.', 'respaldo-y-continuidad', 'Ver respaldo y continuidad'),
-              ('Seguridad', 'Firewall, endpoints y accesos: cada capa protegida frente a amenazas.', 'ciberseguridad', 'Ver ciberseguridad'),
-              ('CoreOnCloud', 'Nuestra nube en Cuenca y Guayaquil, con réplica entre ambos sitios.', None, 'Conocer CoreOnCloud')]
-    lis = ''.join('<li><span class="mono">0%d</span><div><h3>%s</h3><p>%s</p><a href="{r}%s">%s →</a></div></li>' % (
-        i + 1, n, d, ('soluciones/%s.html' % sl) if sl else 'coreoncloud.html', lk) for i, (n, d, sl, lk) in enumerate(layers))
-    stack = """    <!-- CAPAS -->
-    <section class="band dark stack deep" id="capas">
-      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="stack-sticky">
-        <div class="stack-prog" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-        <div class="wrap stack-grid">
-          <div class="stack-copy">
-            <span class="label">Cómo lo hacemos posible</span>
-            <h2 class="h2">Cinco capas. Un solo equipo responsable.</h2>
-            <ol class="stack-steps">%s</ol>
-          </div>
-          <div class="stack-vis" role="img" aria-label="Ilustración de cinco capas apiladas: conectividad, infraestructura, datos, seguridad y CoreOnCloud"><canvas id="stack-cv"></canvas></div>
-        </div>
-      </div>
-    </section>
-""" % lis
-    SIMC = {'coop': 'Transacciones de socios: 1,248/min', 'salud': 'Historias clínicas: 420/min', 'industria': 'Órdenes de producción: 96/h', 'publico': 'Trámites ciudadanos: 530/min', 'comercio': 'Ventas: 860/min', 'educacion': 'Sesiones de aula: 1,120/min'}
-    sectors = ''.join('<a class="sec-tile reveal" href="{r}sectores.html#%s"><b>%s</b><em class="peek mono">%s</em>%s</a>' % (
-        x['k'], x['n'], SIMC[x['k']], ARROW) for i, x in enumerate(SECTORS))
-    sect = """    <!-- SECTORES -->
-    <section class="band band-gray" id="sectores">
+    <!-- SERVICIOS -->
+    <section class="band r-serv" id="servicios">
       <div class="wrap">
-        <div class="head reveal"><div><span class="label">Para quién</span><h2 class="h2">Conocemos las reglas de su sector.</h2></div></div>
-        <div class="sec-grid">%s</div>
+        <div class="r-head"><p class="mono r-tag">02 / LO QUE PROTEGEMOS</p><div class="r-toggle" role="group" aria-label="Lenguaje"><span class="mono">HABLAR COMO</span><button type="button" class="mono" data-lang="g" aria-pressed="true">GERENTE</button><button type="button" class="mono" data-lang="t" aria-pressed="false">TÉCNICO</button></div></div>
+        <ul class="r-list" id="r-serv">%(serv)s</ul>
       </div>
     </section>
-""" % sectors
-    people = """    <!-- CÓMO EMPEZAMOS -->
-    <section class="band" id="camino">
+    <!-- CIFRAS -->
+    <section class="band r-fig" id="cifras">
       <div class="wrap">
-        <div class="head reveal"><div><span class="label">Cómo empezamos</span><h2 class="h2">Tres pasos. Sin compromiso.</h2></div></div>
-        <div class="vows path">
-          <div class="vow reveal"><span class="mono">01</span><h3>Evaluación sin costo</h3><p>Una reunión técnica para entender su operación y sus riesgos.</p></div>
-          <div class="vow reveal"><span class="mono">02</span><h3>Propuesta con números</h3><p>Qué hacer primero, cuánto cuesta y cuánto tardaría en volver a operar.</p></div>
-          <div class="vow reveal"><span class="mono">03</span><h3>Implementación y soporte</h3><p>El mismo equipo que diseña, implementa y responde después.</p></div>
+        <p class="mono r-tag">03 / EN NÚMEROS</p>
+        <div class="r-figs">
+          <div class="r-f"><b class="r-big" data-n="20">20</b><span class="mono">AÑOS<br>EN ECUADOR</span></div>
+          <div class="r-f"><b class="r-big" data-n="2">2</b><span class="mono">CENTROS DE DATOS<br>REPLICADOS</span></div>
+          <div class="r-f"><b class="r-big" data-n="6">6</b><span class="mono">SECTORES<br>REGULADOS Y CRÍTICOS</span></div>
         </div>
       </div>
     </section>
-"""
-    body = hero + stack + sect + people + cta_band('¿Y si lo apagamos juntos?', 'Agende su evaluación sin costo. Le decimos, con números, cuánto tardaría en volver.')
-    return page('index.html', 'Coresolutions · Apáguelo. Su operación sigue.',
-                'Respaldo, ciberseguridad e infraestructura con nube propia en Cuenca y Guayaquil. Cuando algo falla, sus sistemas siguen funcionando.',
+    <!-- SECTORES -->
+    <section class="band r-sect" id="sectores">
+      <div class="wrap">
+        <p class="mono r-tag">04 / QUIÉN CONFÍA</p>
+        <h2 class="r-h2">Lo que no puede permitirse que falle, según su sector.</h2>
+        <ul class="r-slist">%(sect)s</ul>
+      </div>
+    </section>
+    <!-- DIAGNÓSTICO -->
+    <section class="dark r-diag" id="diagnostico">
+      <div class="wrap r-diag-grid">
+        <div>
+          <p class="mono r-tag">05 / DIAGNÓSTICO SIN COMPROMISO</p>
+          <h2 class="r-h2">Le decimos qué pasaría si mañana falla.</h2>
+          <p class="r-p">Cuarenta y cinco minutos con un especialista y un informe por escrito de sus brechas de respaldo y recuperación. No necesita saber qué tecnología necesita; necesita contarnos qué no puede permitirse que falle.</p>
+          <p class="mono r-proof">RESPUESTA EN 24 HORAS HÁBILES · UN RESPONSABLE, NO UN FORMULARIO AUTOMÁTICO</p>
+        </div>
+        <form class="r-form" id="form" novalidate>
+          <div class="field"><label for="f-name">Nombre y apellido</label><input id="f-name" name="nombre" autocomplete="name" required></div>
+          <div class="field"><label for="f-company">Empresa</label><input id="f-company" name="empresa" autocomplete="organization"></div>
+          <div class="field"><label for="f-email">Correo corporativo</label><input id="f-email" name="correo" type="email" autocomplete="email" required></div>
+          <div class="field"><label for="f-cargo">Cargo</label><select id="f-cargo" name="cargo"><option value="">Elija una opción</option><option>Gerencia general</option><option>Gerencia de TI</option><option>Gerencia financiera</option><option>Otro</option></select></div>
+          <div class="hp" aria-hidden="true"><label for="f-web">Sitio web</label><input id="f-web" name="web" tabindex="-1" autocomplete="off"></div>
+          <p class="err" id="err" hidden>Ingrese su nombre y un correo válido para continuar.</p>
+          <button class="btn r-btn" type="submit" id="f-send">Quiero que me contacten %(arrow)s</button>
+          <div class="notice" id="done" hidden role="status">Recibimos su solicitud. Le escribiremos a su correo en horario laboral.</div>
+        </form>
+      </div>
+    </section>
+""" % dict(r=r, arrow=ARROW, serv=serv, sect=sect)
+    return page('index.html', 'Coresolutions · Si mañana se cae su sistema, hoy ya sabe cuánto tarda en volver.',
+                'Respaldo, continuidad y ciberseguridad para empresas que no pueden parar. Dos centros de datos en Ecuador, replicados entre sí.',
                 body, active='', jsonld=[ORG, {'@context': 'https://schema.org', '@type': 'WebSite', 'name': 'Coresolutions', 'url': SITE, 'inLanguage': 'es-EC'}])
 
 def build_solutions_index():

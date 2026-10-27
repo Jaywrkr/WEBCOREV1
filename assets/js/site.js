@@ -46,7 +46,7 @@
 
   /* ---------- Contact: form + hand-off from other pages ---------- */
   var form=$('#form');
-  function fill(msg,interest){if(!form)return;var ta=$('#f-msg');if(msg){ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+msg;ta.classList.remove('flash');void ta.offsetWidth;ta.classList.add('flash')}if(interest)$$('.chips input',form).forEach(function(c){if(c.value===interest)c.checked=true})}
+  function fill(msg,interest){if(!form)return;var ta=$('#f-msg');if(msg&&ta){ta.value=(ta.value.trim()?ta.value.trim()+'\n':'')+msg;ta.classList.remove('flash');void ta.offsetWidth;ta.classList.add('flash')}if(interest)$$('.chips input',form).forEach(function(c){if(c.value===interest)c.checked=true})}
   function toContact(msg,interest){if(form){fill(msg,interest);$('#contacto').scrollIntoView({behavior:reduce?'auto':'smooth'});setTimeout(function(){$('#f-name').focus({preventScroll:true})},reduce?0:600);return true}if(msg)store('cs-msg',msg);if(interest)store('cs-int',interest);return false}
   document.addEventListener('click',function(e){var a=e.target.closest('[data-msg],[data-interest]');if(!a||a.closest('#form'))return;if(toContact(a.dataset.msg,a.dataset.interest))e.preventDefault()});
   if(form){
@@ -55,7 +55,7 @@
       var okMail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);form.nombre.setAttribute('aria-invalid',String(!name));form.correo.setAttribute('aria-invalid',String(!okMail));
       if(!name||!okMail){err.textContent='Ingrese su nombre y un correo válido para continuar.';err.hidden=false;(name?form.correo:form.nombre).focus();return}err.hidden=true;
       var ints=$$('.chips input:checked',form).map(function(i){return i.value}).join(', ');
-      var co=form.empresa.value.trim(),msg=form.mensaje.value.trim(),btn=$('#f-send'),done=$('#done');
+      var co=form.empresa.value.trim(),msg=form.mensaje?form.mensaje.value.trim():'',btn=$('#f-send'),done=$('#done');if(!ints&&form.cargo&&form.cargo.value)ints='Cargo: '+form.cargo.value;
       function mailFallback(){var body='Nombre: '+name+'\nEmpresa: '+co+'\nCorreo: '+mail+'\nÁreas de interés: '+(ints||'-')+'\n\n'+msg;
         var a=document.createElement('a');a.href='mailto:info@coresolutions.com.ec?subject='+encodeURIComponent('Solicitud de evaluación: '+(co||name))+'&body='+encodeURIComponent(body);a.click();
         done.textContent='Abrimos su aplicación de correo con el mensaje listo. Si no se abrió, escríbanos a info@coresolutions.com.ec.';done.hidden=false}
@@ -539,4 +539,52 @@
     q.addEventListener('input',function(){sel=0;render()});
     box.addEventListener('keydown',function(e){if(e.key==='Escape'){e.preventDefault();close()}else if(e.key==='ArrowDown'){e.preventDefault();sel=Math.min(items.length-1,sel+1);render()}else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(0,sel-1);render()}else if(e.key==='Enter'){e.preventDefault();go(items[sel])}else if(e.key==='Tab'){e.preventDefault();q.focus()}});
   })();
+})();
+
+/* ---------- Home de referencia ---------- */
+(function(){
+  var hero=document.querySelector('.r-hero');if(!hero)return;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  /* reloj de réplica desde la carga */
+  var ck=$('#r-clock'),t0=Date.now();function pad(n){return (n<10?'0':'')+n}
+  if(ck)setInterval(function(){var s=Math.floor((Date.now()-t0)/1000);ck.textContent=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60)},1000);
+  /* el apagón: 200 ms de gris, el reloj no se detiene */
+  var fl=$('.r-flash');if(fl&&!reduce){fl.addEventListener('pointerenter',function(){hero.classList.add('off');setTimeout(function(){hero.classList.remove('off')},200)})}
+  /* traductor gerente / técnico */
+  var list=$('#r-serv');$$('.r-toggle button').forEach(function(b){b.addEventListener('click',function(){$$('.r-toggle button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});list.classList.toggle('t',b.dataset.lang==='t')})});
+  /* cifras que cuentan una sola vez */
+  var figs=$$('.r-big');if(figs.length){if(!reduce)figs.forEach(function(el){el.textContent='0'});var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;var el=e.target,n=+el.dataset.n;io.unobserve(el);if(reduce){el.textContent=n;return}var st=performance.now();(function f(now){var p=Math.min(1,(now-st)/600);p=1-Math.pow(1-p,3);el.textContent=Math.round(n*p);if(p<1)requestAnimationFrame(f)})(st)})},{threshold:.4});figs.forEach(function(el){io.observe(el)})}
+  /* la réplica: dos centros, un cauce de datos, una fila de sucursales */
+  var cv=$('#r-cv');if(!cv)return;var ctx=cv.getContext('2d'),W,H,dpr=1,parts=[],down=false,t1=0,sec=$('#r-sec'),live=$('#r-live'),bf=$('#r-fail'),br=$('#r-reset'),run=false,last=0,secT;
+  var NAVY='#01095C',GRAY='#C8CCD3',LINE='#E1E4E9',N=reduce?0:48;
+  function size(){var r=cv.getBoundingClientRect();dpr=Math.min(2,window.devicePixelRatio||1);W=r.width;H=r.height;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0)}
+  function A(){return {x:W*.22,y:H*.3}}function B(){return {x:W*.78,y:H*.3}}
+  function seed(){parts=[];for(var i=0;i<N;i++)parts.push({p:Math.random(),v:.0025+Math.random()*.002,o:(Math.random()-.5)*10,row:i%2===0})}
+  function box(c,on,label){var s=Math.min(W,H)*.14;ctx.lineWidth=on?2:1;ctx.strokeStyle=on?NAVY:GRAY;ctx.fillStyle=on?NAVY:'#fff';ctx.fillRect(c.x-s/2,c.y-s/2,s,s);ctx.strokeRect(c.x-s/2,c.y-s/2,s,s);
+    ctx.font='11px "IBM Plex Mono",monospace';ctx.textAlign='center';ctx.fillStyle=on?NAVY:GRAY;ctx.fillText(label,c.x,c.y+s/2+18);if(!on){ctx.fillStyle='#fff';ctx.fillRect(c.x-s/2+1,c.y-s/2+1,s-2,s-2);ctx.strokeStyle=GRAY;ctx.beginPath();ctx.moveTo(c.x-s/2,c.y-s/2);ctx.lineTo(c.x+s/2,c.y+s/2);ctx.moveTo(c.x+s/2,c.y-s/2);ctx.lineTo(c.x-s/2,c.y+s/2);ctx.stroke()}}
+  function draw(now){var a=A(),b=B(),y2=H*.78,n=10,src=down?b:a;ctx.clearRect(0,0,W,H);
+    /* cauce A→B */
+    ctx.strokeStyle=LINE;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    /* ramas hacia la fila */
+    for(var i=0;i<n;i++){var x=W*.1+i*(W*.8/(n-1));ctx.strokeStyle=LINE;ctx.beginPath();ctx.moveTo(src.x,src.y+Math.min(W,H)*.07);ctx.lineTo(x,y2-8);ctx.stroke()}
+    /* partículas */
+    var ph=(now/1000)%1;
+    parts.forEach(function(q){if(!reduce){q.p+=q.v*(now-last)/16;if(q.p>1)q.p-=1}
+      if(q.row){var k=Math.floor(q.p*n*7)%n,x=W*.1+k*(W*.8/(n-1)),f=(q.p*n*7)%1;var sx=src.x,sy=src.y+Math.min(W,H)*.07;ctx.fillStyle=NAVY;ctx.globalAlpha=.7;ctx.beginPath();ctx.arc(sx+(x-sx)*f,sy+(y2-8-sy)*f,1.6,0,7);ctx.fill();ctx.globalAlpha=1}
+      else if(!down){ctx.fillStyle=NAVY;ctx.beginPath();ctx.arc(a.x+(b.x-a.x)*q.p,a.y+q.o*Math.sin(q.p*Math.PI),2,0,7);ctx.fill()}});
+    /* fila de sucursales: nunca se apagan */
+    for(var j=0;j<n;j++){var xx=W*.1+j*(W*.8/(n-1)),on=reduce?1:(.55+.45*Math.sin(now/600+j));ctx.strokeStyle=NAVY;ctx.lineWidth=1;ctx.globalAlpha=on;ctx.beginPath();ctx.arc(xx,y2,6,0,7);ctx.stroke();ctx.globalAlpha=1}
+    ctx.font='11px "IBM Plex Mono",monospace';ctx.textAlign='left';ctx.fillStyle='#6B707C';ctx.fillText('SUS SUCURSALES · CAJEROS · QUIRÓFANOS',W*.1,y2+28);
+    box(a,!down,'CUENCA');box(b,true,'GUAYAQUIL');
+    if(down){var pu=reduce?1:.6+.4*Math.sin(now/300);ctx.strokeStyle=NAVY;ctx.globalAlpha=pu*.5;ctx.lineWidth=1;var s=Math.min(W,H)*.14+10;ctx.strokeRect(b.x-s/2,b.y-s/2,s,s);ctx.globalAlpha=1}
+    last=now;if(run&&!reduce)requestAnimationFrame(draw)}
+  function start(){if(run)return;run=true;last=performance.now();requestAnimationFrame(draw)}function stop(){run=false}
+  function setDown(v){down=v;bf.setAttribute('aria-pressed',String(v));bf.textContent=v?'Cuenca fuera de línea':'Simular falla en Cuenca';bf.disabled=v;br.hidden=!v;clearInterval(secT);
+    if(v){t1=Date.now();live.textContent='Cuenca fuera de línea. Guayaquil asumió los servicios en 0 segundos. Datos intactos: sus sucursales siguen atendidas.';secT=setInterval(function(){sec.textContent=Math.floor((Date.now()-t1)/1000)},250)}
+    else{sec.textContent='0';live.textContent='Cuenca de vuelta. Los dos centros vuelven a replicarse entre sí.'}
+    if(reduce)draw(performance.now())}
+  bf.addEventListener('click',function(){setDown(true)});br.addEventListener('click',function(){setDown(false)});
+  size();seed();var vis=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(reduce)draw(performance.now());else start()}else stop()})},{threshold:.1});vis.observe(cv);
+  var rt;window.addEventListener('resize',function(){clearTimeout(rt);rt=setTimeout(function(){size();if(reduce)draw(performance.now())},120)});
 })();

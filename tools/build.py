@@ -17,7 +17,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
         '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.11.0'
+VERSION = '2026.11.1'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:
@@ -419,15 +419,14 @@ def build_home():
     body = """    <!-- HERO -->
     <section class="dark r-hero" id="inicio">
       <div class="wrap r-hero-in">
-        <p class="mono r-status" aria-live="off"><span>CUENCA</span> <span aria-hidden="true">&#8596;</span> <span>GUAYAQUIL</span> <span class="r-sep">&middot;</span> RÉPLICA ACTIVA <span class="r-sep">&middot;</span> <span id="r-clock">00:00:00</span></p>
-        <h1 class="r-h1">Si mañana <span class="r-flash">se cae</span> su sistema, hoy ya sabe cuánto tarda en volver.</h1>
+        <p class="mono r-status" aria-live="off"><span>CUENCA</span> <span aria-hidden="true">&#8596;</span> <span>GUAYAQUIL</span> <span class="r-sep">&middot;</span> <span id="r-state">RÉPLICA ACTIVA</span> <span class="r-sep">&middot;</span> <span id="r-clock">00:00:00</span></p>
+        <h1 class="r-h1">Si mañana <span class="r-fall" id="r-fall">se cae</span> su sistema, hoy ya sabe cuánto tarda en volver.</h1>
         <div class="r-hero-foot">
           <p class="r-lede">Respaldo, continuidad y ciberseguridad para empresas que no pueden parar. Desde Cuenca y Guayaquil, con sus datos en dos centros de datos en Ecuador, replicados entre sí.</p>
           <a href="%(r)scontacto.html" class="btn r-btn" id="hero-cta">Solicitar una evaluación de continuidad %(arrow)s</a>
         </div>
         <p class="mono r-proof">MÁS DE 20 AÑOS CON COOPERATIVAS REGULADAS POR LA SEPS, HOSPITALES, INDUSTRIAS Y ENTIDADES PÚBLICAS EN ECUADOR</p>
       </div>
-      <div class="r-blackout" aria-hidden="true"></div>
     </section>
     <!-- LA RÉPLICA -->
     <section class="band r-rep" id="replica">

@@ -550,7 +550,10 @@
   var ck=$('#r-clock'),t0=Date.now();function pad(n){return (n<10?'0':'')+n}
   if(ck)setInterval(function(){var s=Math.floor((Date.now()-t0)/1000);ck.textContent=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60)},1000);
   /* el apagón: 200 ms de gris, el reloj no se detiene */
-  var fl=$('.r-flash');if(fl&&!reduce){fl.addEventListener('pointerenter',function(){hero.classList.add('off');setTimeout(function(){hero.classList.remove('off')},200)})}
+  /* el titular actúa la promesa: "se cae" cae y se apaga, el estado cambia, el reloj sigue, y vuelve */
+  var fl=$('#r-fall'),st=$('#r-state'),falling=false;
+  function fall(){if(falling||reduce)return;falling=true;hero.classList.add('fall');st.textContent='CUENCA FUERA DE LÍNEA · GUAYAQUIL ACTIVO';setTimeout(function(){hero.classList.remove('fall');st.textContent='RÉPLICA ACTIVA';setTimeout(function(){falling=false},600)},2400)}
+  if(fl){setTimeout(fall,1800);fl.addEventListener('pointerenter',fall);fl.addEventListener('click',fall)}
   /* traductor gerente / técnico */
   var list=$('#r-serv');$$('.r-toggle button').forEach(function(b){b.addEventListener('click',function(){$$('.r-toggle button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});list.classList.toggle('t',b.dataset.lang==='t')})});
   /* cifras que cuentan una sola vez */

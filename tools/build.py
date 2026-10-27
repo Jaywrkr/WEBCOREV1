@@ -17,7 +17,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
         '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.11.10'
+VERSION = '2026.11.11'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:

@@ -1149,3 +1149,5 @@
     .r-commit .r-sname{grid-row:auto}
     @media (max-width:900px){.r-steps{grid-template-columns:1fr 1fr;row-gap:var(--s6)}.r-rr-grid,.r-commit li{grid-template-columns:1fr}.r-head .r-link{align-self:flex-start}}
     @media (max-width:640px){.r-steps{grid-template-columns:1fr}}
+    .r-rr-list li{display:grid;grid-template-columns:80px minmax(0,1fr);gap:var(--s3) var(--s6);padding:var(--s6) 0;border-bottom:1px solid var(--line)}
+    .r-rr-list li .r-sname{grid-row:span 2}

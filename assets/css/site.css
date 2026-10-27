@@ -1114,3 +1114,6 @@
     @media (max-width:900px){.pain{border-right:0}}
     .sol-grid{background:transparent;border:0;gap:0 var(--s7);border-top:1px solid var(--line)}
     .sol{border-top:0;border-bottom:1px solid var(--line)}
+    .cells{background:transparent;border:0;gap:0 var(--s7);border-top:1px solid var(--line)}
+    .cell{background:transparent;padding:0}
+    .cell.sol{border-bottom:1px solid var(--line)}

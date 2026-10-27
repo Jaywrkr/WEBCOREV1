@@ -550,9 +550,38 @@
   var ck=$('#r-clock'),t0=Date.now();function pad(n){return (n<10?'0':'')+n}
   if(ck)setInterval(function(){var s=Math.floor((Date.now()-t0)/1000);ck.textContent=pad(Math.floor(s/3600))+':'+pad(Math.floor(s/60)%60)+':'+pad(s%60)},1000);
   /* el apagón: 200 ms de gris, el reloj no se detiene */
-  /* el titular actúa la promesa: "se cae" cae y se apaga, el estado cambia, el reloj sigue, y vuelve */
-  var fl=$('#r-fall'),st=$('#r-state'),falling=false;
-  function fall(){if(falling||reduce)return;falling=true;hero.classList.add('fall');st.textContent='CUENCA FUERA DE LÍNEA · GUAYAQUIL ACTIVO';setTimeout(function(){hero.classList.remove('fall');st.textContent='RÉPLICA ACTIVA';setTimeout(function(){falling=false},600)},2400)}
+  /* el titular actúa la promesa: "se cae" cae, el home se atenúa y detrás la red se levanta desde Guayaquil */
+  var fl=$('#r-fall'),st=$('#r-state'),falling=false,net=$('#r-net'),cap=$('#r-net-cap'),nctx=net&&net.getContext('2d'),NW,NH,nodes=[],links=[],hubs=[],ns=0,nrun=false,DUR=4600;
+  function nsize(){var r=hero.getBoundingClientRect(),d=Math.min(2,window.devicePixelRatio||1);NW=r.width;NH=r.height;net.width=NW*d;net.height=NH*d;nctx.setTransform(d,0,0,d,0,0);
+    nodes=[];links=[];var cols=NW<700?6:12,rows=NW<700?9:6,gx=NW/(cols+1),gy=NH/(rows+1),k=0;
+    for(var r2=1;r2<=rows;r2++)for(var c=1;c<=cols;c++){var jx=(Math.sin(k*12.9898)*43758.5453)%1,jy=(Math.sin(k*78.233)*43758.5453)%1;nodes.push({x:gx*c+(jx-.5)*gx*.7,y:gy*r2+(jy-.5)*gy*.6,on:1,hub:0});k++}
+    var A=nodes[Math.floor(nodes.length*.35)],B=nodes[Math.floor(nodes.length*.62)];A.hub=1;A.name='CUE';B.hub=2;B.name='GYE';hubs=[A,B];
+    nodes.forEach(function(n,i){if(n.hub)return;var dA=Math.hypot(n.x-A.x,n.y-A.y),dB=Math.hypot(n.x-B.x,n.y-B.y);n.home=dA<dB?1:2;n.dist=Math.hypot(n.x-B.x,n.y-B.y);
+      var near=nodes.map(function(m,j){return {j:j,d:Math.hypot(n.x-m.x,n.y-m.y)}}).filter(function(o){return o.j!==i&&o.d>0}).sort(function(a,b){return a.d-b.d}).slice(0,2);
+      near.forEach(function(o){links.push([i,o.j])});links.push([i,nodes.indexOf(n.home===1?A:B)])});
+    var far=nodes.filter(function(n){return !n.hub&&n.home===1}).map(function(n){return n.dist});ns=Math.max.apply(null,far.concat([1]))}
+  function ndraw(now){var t=now-nt0,p=t/DUR;nctx.clearRect(0,0,NW,NH);var A=hubs[0],B=hubs[1];
+    var cueDown=t>250&&t<DUR-700;
+    /* enlaces */
+    links.forEach(function(l){var a=nodes[l[0]],b=nodes[l[1]];var dead=cueDown&&((a.hub===1&&!b.lit)||(b.hub===1&&!a.lit));nctx.strokeStyle=dead?'rgba(200,204,255,.07)':'rgba(200,204,255,.3)';nctx.lineWidth=1;nctx.beginPath();nctx.moveTo(a.x,a.y);nctx.lineTo(b.x,b.y);nctx.stroke()});
+    /* levantada: paquetes desde GYE a cada nodo huérfano, por distancia */
+    var lit=0,total=0;
+    nodes.forEach(function(n){if(n.hub)return;if(n.home===1){total++;var start=700+(n.dist/ns)*2600,end=start+500;n.lit=cueDown?t>end:false;var tr=(t-start)/(end-start);
+        if(cueDown&&tr>0&&tr<1){var x=B.x+(n.x-B.x)*tr,y=B.y+(n.y-B.y)*tr;nctx.strokeStyle='rgba(255,255,255,.5)';nctx.beginPath();nctx.moveTo(B.x,B.y);nctx.lineTo(x,y);nctx.stroke();nctx.fillStyle='#fff';nctx.beginPath();nctx.arc(x,y,3,0,7);nctx.fill()}
+        if(n.lit)lit++}});
+    /* nodos */
+    nodes.forEach(function(n){if(n.hub)return;var dim=cueDown&&n.home===1&&!n.lit;var s=dim?3:5;nctx.fillStyle=dim?'rgba(200,204,255,.22)':(n.lit&&cueDown?'#fff':'rgba(200,204,255,.9)');nctx.fillRect(n.x-s/2,n.y-s/2,s,s);
+      if(n.lit&&cueDown){var age=t-(700+(n.dist/ns)*2600+500);if(age<500){nctx.strokeStyle='rgba(255,255,255,'+(1-age/500)*.6+')';nctx.beginPath();nctx.arc(n.x,n.y,4+age/25,0,7);nctx.stroke()}}});
+    /* centros */
+    hubs.forEach(function(h){var s=14,down=h.hub===1&&cueDown;nctx.lineWidth=down?1:1.5;nctx.strokeStyle=down?'rgba(200,204,255,.35)':'#fff';nctx.fillStyle=down?'transparent':'rgba(255,255,255,.12)';nctx.strokeRect(h.x-s/2,h.y-s/2,s,s);if(!down)nctx.fillRect(h.x-s/2,h.y-s/2,s,s);
+      if(down){nctx.beginPath();nctx.moveTo(h.x-s/2,h.y-s/2);nctx.lineTo(h.x+s/2,h.y+s/2);nctx.moveTo(h.x+s/2,h.y-s/2);nctx.lineTo(h.x-s/2,h.y+s/2);nctx.stroke()}
+      if(h.hub===2&&cueDown){var pu=.5+.5*Math.sin(now/180);nctx.strokeStyle='rgba(255,255,255,'+pu*.6+')';nctx.strokeRect(h.x-s/2-5,h.y-s/2-5,s+10,s+10)}
+      nctx.font='10px "IBM Plex Mono",monospace';nctx.textAlign='center';nctx.fillStyle=down?'rgba(200,204,255,.5)':'#fff';nctx.fillText(h.name,h.x,h.y+s/2+14)});
+    cap.textContent=cueDown?(lit<total?'LEVANTANDO SERVICIOS DESDE GUAYAQUIL · '+lit+' / '+total:'SERVICIOS RESTABLECIDOS · '+total+' / '+total+' · 0 DATOS PERDIDOS'):'';
+    if(nrun)requestAnimationFrame(ndraw)}
+  var nt0=0;
+  function fall(){if(falling||reduce||!nctx)return;falling=true;nsize();hero.classList.add('fall');st.textContent='CUENCA FUERA DE LÍNEA · GUAYAQUIL ACTIVO';nt0=performance.now();nrun=true;requestAnimationFrame(ndraw);
+    setTimeout(function(){hero.classList.remove('fall');st.textContent='RÉPLICA ACTIVA';setTimeout(function(){nrun=false;falling=false},700)},DUR)}
   if(fl){setTimeout(fall,1800);fl.addEventListener('pointerenter',fall);fl.addEventListener('click',fall)}
   /* traductor gerente / técnico */
   var list=$('#r-serv');$$('.r-toggle button').forEach(function(b){b.addEventListener('click',function(){$$('.r-toggle button').forEach(function(x){x.setAttribute('aria-pressed',String(x===b))});list.classList.toggle('t',b.dataset.lang==='t')})});

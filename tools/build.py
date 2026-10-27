@@ -17,7 +17,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
         '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.11.1'
+VERSION = '2026.11.2'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:
@@ -418,6 +418,8 @@ def build_home():
     sect = ''.join('<li><a href="%ssectores.html#%s"><span class="r-sname">%s</span><span class="r-fear">%s</span><span class="r-calm">%s</span></a></li>' % (r, k, n, f, c) for k, n, f, c in SECT)
     body = """    <!-- HERO -->
     <section class="dark r-hero" id="inicio">
+      <canvas class="r-net" id="r-net" aria-hidden="true"></canvas>
+      <p class="mono r-net-cap" id="r-net-cap" aria-hidden="true"></p>
       <div class="wrap r-hero-in">
         <p class="mono r-status" aria-live="off"><span>CUENCA</span> <span aria-hidden="true">&#8596;</span> <span>GUAYAQUIL</span> <span class="r-sep">&middot;</span> <span id="r-state">RÉPLICA ACTIVA</span> <span class="r-sep">&middot;</span> <span id="r-clock">00:00:00</span></p>
         <h1 class="r-h1">Si mañana <span class="r-fall" id="r-fall">se cae</span> su sistema, hoy ya sabe cuánto tarda en volver.</h1>

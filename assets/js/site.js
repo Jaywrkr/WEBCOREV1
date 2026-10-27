@@ -562,35 +562,73 @@
   function setSt(s){if(s===lastSt)return;lastSt=s;st.textContent=s}
   function stepN(t,start,step,n){return t<start?0:Math.min(n,Math.floor((t-start)/step)+1)}
   function fmt(ms){return '00:0'+(ms/1000).toFixed(1).replace('.',',')}
-  function ndraw(now){var t=now-nt0;nctx.clearRect(0,0,NW,NH);
-    var ROWS=mob?6:8,SEG=mob?3:4,bx=NW*(mob?.06:.07),bw=NW*(mob?.3:.2),by=NH*(mob?.56:.2),bh=NH*(mob?.22:.42),gx=NW-bx-bw,rowH=bh/(ROWS+1),segW=(bw-16)/SEG;
-    var busY=mob?NH*.86:NH*.74,dotY=mob?NH*.93:NH*.86,ND=mob?8:14;
-    /* fases: 0 arranque Cuenca · 1 réplica · 2 falla · 3 levantada · 4 reposo */
-    var cueRows=stepN(t,300,160,ROWS),gyeCopy=t>1500,down=t>3400,gyeRows=down?stepN(t,3800,160,ROWS):0,rec=gyeRows>=ROWS,flick=t>3200&&t<3400&&Math.floor(t/80)%2===0;
-    /* edificios */
-    if(t>0)rect(bx,by,bw,bh,.3);if(t>1300)rect(gx,by,bw,bh,.3);
-    nctx.font='10px "IBM Plex Mono",monospace';nctx.textAlign='left';nctx.fillStyle=col(.6);if(t>0)nctx.fillText('CUE',bx,by-8);if(t>1300)nctx.fillText('GYE',gx,by-8);
-    /* filas de servicios */
-    for(var r2=0;r2<ROWS;r2++){var y=by+rowH*(r2+1);
-      for(var sg=0;sg<SEG;sg++){var x=bx+8+sg*segW,on=r2<cueRows;var a=on?(down?.1:.6):.08;if(flick&&on)a=.2;if(rec&&t>6500)a=.22;line(x,y,x+segW-6,y,a,on&&!down?2:1);
-        var x2=gx+8+sg*segW,a2=!gyeCopy?0:(r2<gyeRows?.6:.2);if(a2)line(x2,y,x2+segW-6,y,a2,r2<gyeRows?2:1)}}
-    /* canal de réplica: dos líneas y copias viajando */
-    if(t>1300){var cy1=by+rowH*2,cy2=by+rowH*3,x1=bx+bw,x2=gx;line(x1,cy1,x2,cy1,.2);line(x1,cy2,x2,cy2,.2);
-      var dir=rec&&t>6500?-1:1,flow=!down||(rec&&t>6500);
-      if(flow)for(var k=0;k<6;k++){var f=((t/1400)+k/6)%1;if(dir<0)f=1-f;var px=x1+(x2-x1)*f;dot(px,k%2?cy1:cy2,1.6,.7)}}
-    /* bus y sucursales */
-    var src=down?(gyeRows>0?gx+bw/2:null):bx+bw/2;if(t>1500&&src!==null){var nd=stepN(t,1500,60,ND);
-      line(NW*.08,busY,NW*.92,busY,.2);line(src,by+bh,src,busY,.28);
-      for(var i=0;i<nd;i++){var dx=NW*.08+i*(NW*.84/(ND-1)),lit=!down||gyeRows>Math.floor(i*ROWS/ND);line(dx,busY,dx,dotY-5,lit?.22:.08);dot(dx,dotY,2.2,lit?.65:.15);
-        if(lit&&ph>=4&&!reduce){var pu=.3+.2*Math.sin(now/900+i);dot(dx,dotY,2.2,pu)}}}
-    /* estado y texto */
-    if(t<1500)setSt('CUENCA ACTIVO · ARRANQUE');else if(!down)setSt('RÉPLICA ACTIVA · COPIANDO A GUAYAQUIL');else if(!rec)setSt('FALLA EN CUENCA · CONMUTANDO A GUAYAQUIL');else setSt('RECUPERADO EN '+fmt(recAt-fallAt)+' · GUAYAQUIL ACTIVO · 0 DATOS PERDIDOS');
+  /* topología: usuarios → WAN → firewall → sitio principal; réplica a CoreOnCloud; monitoreo; conmutación y arranque de VMs */
+  function L(){var m=mob;if(!m){var c1=NW*.73,c2=NW*.9,bw=NW*.13;return {
+    usr:{x:(c1+c2)/2,y:NH*.15,w:NW*.09,h:NH*.07,l:'USUARIOS · SUCURSALES'},
+    wan:{x:(c1+c2)/2,y:NH*.26,w:NW*.07,h:NH*.07,l:'WAN · INTERNET'},
+    fw1:{x:c1,y:NH*.40,w:NW*.05,h:NH*.06,l:'FIREWALL'},
+    fw2:{x:c2,y:NH*.40,w:NW*.05,h:NH*.06,l:'FIREWALL'},
+    mon:{x:(c1+c2)/2,y:NH*.40,w:NW*.06,h:NH*.05,l:'MONITOREO'},
+    cue:{x:c1,y:NH*.63,w:bw,h:NH*.24,l:'SITIO PRINCIPAL · CUE',vms:['WEB','APP','BD']},
+    gye:{x:c2,y:NH*.63,w:bw,h:NH*.24,l:'COREONCLOUD · GYE',vms:['WEB','APP','BD']}}}
+    var bt=NH-236,r1=bt+34,r2=bt+150;return {
+    usr:{x:NW*.13,y:r1,w:NW*.18,h:30,l:'USUARIOS'},
+    wan:{x:NW*.38,y:r1,w:NW*.16,h:30,l:'WAN'},
+    fw1:{x:NW*.6,y:r1,w:NW*.12,h:30,l:'FW'},
+    cue:{x:NW*.84,y:r1,w:NW*.26,h:66,l:'SITIO PRINCIPAL',vms:['WEB','APP','BD']},
+    mon:{x:NW*.13,y:r2,w:NW*.2,h:26,l:'MONITOREO'},
+    fw2:{x:NW*.6,y:r2,w:NW*.12,h:30,l:'FW'},
+    gye:{x:NW*.84,y:r2,w:NW*.26,h:66,l:'COREONCLOUD',vms:['WEB','APP','BD']}}}
+  function P(n){return n}
+  function nbox(n,a,label,dead){var p=P(n);nctx.strokeStyle=col(a*ex(p.x,p.y));nctx.lineWidth=1;nctx.strokeRect(p.x-p.w/2,p.y-p.h/2,p.w,p.h);
+    if(dead){nctx.beginPath();nctx.moveTo(p.x-p.w/2,p.y-p.h/2);nctx.lineTo(p.x+p.w/2,p.y+p.h/2);nctx.moveTo(p.x+p.w/2,p.y-p.h/2);nctx.lineTo(p.x-p.w/2,p.y+p.h/2);nctx.stroke()}
+    if(label!==false){nctx.font='9px "IBM Plex Mono",monospace';nctx.textAlign='center';nctx.fillStyle=col(Math.min(.8,a+.2)*ex(p.x,p.y));nctx.fillText(n.l,p.x,p.y-p.h/2-6)}}
+  function vmRows(n,states){var p=P(n),rh=p.h/(n.vms.length+1);n.vms.forEach(function(v,i){var y=p.y-p.h/2+rh*(i+1),s=states[i],a=s==='on'?.7:(s==='boot'?.35+.3*Math.abs(Math.sin(performance.now()/120)):(s==='dead'?.1:.18));
+      nctx.strokeStyle=col(a*ex(p.x,y));nctx.lineWidth=s==='on'?2:1;nctx.beginPath();nctx.moveTo(p.x-p.w/2+8,y);nctx.lineTo(p.x+p.w/2-8-(mob?26:34),y);nctx.stroke();
+      nctx.font='8px "IBM Plex Mono",monospace';nctx.textAlign='right';nctx.fillStyle=col((s==='on'?.75:.3)*ex(p.x,y));nctx.fillText(v+(s==='boot'?' …':''),p.x+p.w/2-6,y+3)})}
+  function seg(a,b,alpha,dash){var pa=P(a),pb=P(b);nctx.setLineDash(dash?[3,4]:[]);line(pa.x,pa.y,pb.x,pb.y,alpha);nctx.setLineDash([])}
+  function along(pts,f){var tot=0,ls=[];for(var i=1;i<pts.length;i++){var d=Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y);ls.push(d);tot+=d}var d2=f*tot;for(var k=1;k<pts.length;k++){if(d2<=ls[k-1]){var u=d2/ls[k-1];return {x:pts[k-1].x+(pts[k].x-pts[k-1].x)*u,y:pts[k-1].y+(pts[k].y-pts[k-1].y)*u}}d2-=ls[k-1]}return pts[pts.length-1]}
+  function packets(pts,t,n,speed,alpha){for(var k=0;k<n;k++){var f=((t/speed)+k/n)%1,q=along(pts,f);dot(q.x,q.y,1.8,alpha)}}
+  function ndraw(now){var t=now-nt0;nctx.clearRect(0,0,NW,NH);var n=L();
+    /* fases */
+    var boot=stepN(t,200,220,7),repl=t>1800,down=t>3600,det=t>4000,route=t>4500,vmB=down?stepN(t,4800,450,3):0,rec=vmB>=3&&t>6300,flick=t>3400&&t<3600&&Math.floor(t/80)%2===0;
+    var m=mob;
+    /* enlaces de red (ortogonales) */
+    var pu=P(n.usr),pw=P(n.wan),pf1=P(n.fw1),pc=P(n.cue),pf2=P(n.fw2),pg=P(n.gye),pm=P(n.mon);
+    var mainOn=boot>=4&&!down,altOn=route;
+    seg(n.usr,n.wan,boot>=2?.3:.08);
+    var mainPts=m?[{x:pw.x,y:pw.y},{x:pf1.x,y:pf1.y}]:[{x:pw.x,y:pw.y},{x:pw.x,y:(pw.y+pf1.y)/2},{x:pf1.x,y:(pw.y+pf1.y)/2},{x:pf1.x,y:pf1.y}];for(var i=1;i<mainPts.length;i++)line(mainPts[i-1].x,mainPts[i-1].y,mainPts[i].x,mainPts[i].y,boot>=3?(down?.1:.3):.08);seg(n.fw1,n.cue,boot>=4?(down?.1:.3):.08);
+    /* ruta alterna: WAN → FW GYE → CoreOnCloud */
+    var altPts=m?[{x:pw.x,y:pw.y},{x:pw.x,y:pf2.y},{x:pf2.x,y:pf2.y}]:[{x:pw.x,y:pw.y},{x:pw.x,y:(pw.y+pf2.y)/2},{x:pf2.x,y:(pw.y+pf2.y)/2},{x:pf2.x,y:pf2.y}];
+    nctx.setLineDash(altOn?[]:[3,4]);for(var i=1;i<altPts.length;i++)line(altPts[i-1].x,altPts[i-1].y,altPts[i].x,altPts[i].y,altOn?.3:.08);nctx.setLineDash([]);
+    seg(n.fw2,n.gye,altOn?.3:.08);
+    /* réplica CUE → GYE (punteada) */
+    var rp=m?[{x:pc.x,y:pc.y+pc.h/2},{x:pc.x,y:pg.y-pg.h/2}]:[{x:pc.x+pc.w/2,y:pc.y},{x:pg.x-pg.w/2,y:pg.y}];
+    nctx.setLineDash([2,5]);for(i=1;i<rp.length;i++)line(rp[i-1].x,rp[i-1].y,rp[i].x,rp[i].y,repl?.22:.06);nctx.setLineDash([]);
+    if(!m){nctx.font='8px "IBM Plex Mono",monospace';nctx.textAlign='center';nctx.fillStyle=col((repl?.45:.12)*ex((pc.x+pg.x)/2,pc.y));nctx.fillText(rec&&t>9000?'RÉPLICA INVERSA':'RÉPLICA CONTINUA',(pc.x+pg.x)/2,pc.y-6)}
+    /* monitoreo */
+    nctx.setLineDash([1,4]);seg(n.mon,n.cue,boot>=5?.15:.05);seg(n.mon,n.gye,boot>=5?.15:.05);nctx.setLineDash([]);
+    /* cajas */
+    nbox(n.usr,boot>=1?.5:.1);nbox(n.wan,boot>=2?.5:.1);nbox(n.fw1,boot>=3?(down?.15:.5):.1,true,down);
+    nbox(n.cue,boot>=4?(down?.15:.5):.1,true,down);vmRows(n.cue,n.vms?[]:[].concat(n.cue.vms.map(function(_,i){return down?'dead':(boot>=5+i?'on':'off')})));
+    var monA=boot>=7?(det&&!rec?.4+.4*Math.abs(Math.sin(now/160)):.45):.1;nbox(n.mon,monA);
+    nbox(n.fw2,altOn?.5:(repl?.2:.1));nbox(n.gye,repl?(altOn?.5:.22):.1);
+    vmRows(n.gye,n.gye.vms.map(function(_,i){var k=2-i;if(!down)return repl?'off':'off';return vmB>k?'on':(vmB===k?'boot':'off')}));
+    /* tráfico */
+    if(mainOn){packets([{x:pu.x,y:pu.y}].concat(mainPts).concat([{x:pc.x,y:pc.y-pc.h/2}]),t,5,1600,.75)}
+    else if(down&&!rec){packets([{x:pu.x,y:pu.y},{x:pw.x,y:pw.y}],t,3,1600,.35)}
+    if(rec){packets([{x:pu.x,y:pu.y}].concat(altPts).concat([{x:pg.x,y:pg.y-pg.h/2}]),t,6,2200,.75)}
+    if(repl&&!down)packets(rp,t,3,2400,.5);if(rec&&t>9000)packets(rp.slice().reverse(),t,2,2400,.35);
+    /* etiquetas de estado de la conmutación */
+    if(det&&!rec&&!m){nctx.font='8px "IBM Plex Mono",monospace';nctx.textAlign='center';nctx.fillStyle=col(.6);nctx.fillText(route?'RUTA CONMUTADA':'PLAN DR',pm.x,pm.y+pm.h/2+12)}
+    /* estado */
     if(down&&!fallAt){fallAt=t;hero.classList.add('fall')}if(rec&&!recAt){recAt=t;setTimeout(function(){hero.classList.remove('fall')},400)}
-    ph=rec?4:(down?3:(gyeCopy?1:0));
+    if(t<1800)setSt('ARRANQUE DEL SITIO PRINCIPAL · CUENCA');else if(!down)setSt('SITIO PRINCIPAL ACTIVO · RÉPLICA A COREONCLOUD');else if(!det)setSt('FALLA EN EL SITIO PRINCIPAL');else if(!rec)setSt(route?'RUTA CONMUTADA · ENCENDIENDO VMs EN COREONCLOUD':'FALLA DETECTADA · INICIANDO PLAN DR');else setSt('RECUPERADO EN '+fmt(recAt-fallAt)+' · OPERANDO DESDE COREONCLOUD');
+    ph=rec?4:(down?3:(repl?1:0));
     if(nrun)requestAnimationFrame(ndraw)}
   function nstart(from){if(!nctx)return;nsize();fallAt=0;recAt=0;nt0=performance.now()-(from||0);if(!nrun){nrun=true;requestAnimationFrame(ndraw)}}
   if(nctx&&!reduce){nstart(0);
-    if(fl){var replay=function(){if(ph>=4)nstart(3100)};fl.addEventListener('pointerenter',replay);fl.addEventListener('click',replay)}
+    if(fl){var replay=function(){if(ph>=4)nstart(3300)};fl.addEventListener('pointerenter',replay);fl.addEventListener('click',replay)}
     var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!nrun){nrun=true;requestAnimationFrame(ndraw)}}else nrun=false})},{threshold:.05});io2.observe(net);
     document.addEventListener('visibilitychange',function(){if(document.hidden)nrun=false;else if(!nrun){nrun=true;requestAnimationFrame(ndraw)}});
     var rt2;window.addEventListener('resize',function(){clearTimeout(rt2);rt2=setTimeout(nsize,120)})}

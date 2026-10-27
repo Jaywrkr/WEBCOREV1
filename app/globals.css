@@ -5,6 +5,7 @@
 @import "../styles/kinetic-v4.css";
 @import "../styles/living-v5.css";
 @import "../styles/reference-v6.css";
+@import "../styles/home-v7.css";
 @theme inline { --font-sans:var(--font-plex-sans); --font-mono:var(--font-plex-mono); --font-serif:var(--font-plex-serif); --color-brand:var(--brand); --color-accent:var(--accent-blue); }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}

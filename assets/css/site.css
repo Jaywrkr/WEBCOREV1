@@ -1117,3 +1117,5 @@
     .cells{background:transparent;border:0;gap:0 var(--s7);border-top:1px solid var(--line)}
     .cell{background:transparent;padding:0}
     .cell.sol{border-bottom:1px solid var(--line)}
+    .grid.grid-3{background:transparent;border:0;gap:0 var(--s7);border-top:1px solid var(--line)}
+    .grid .cell{background:transparent;padding:var(--s6) 0;border-bottom:1px solid var(--line)}

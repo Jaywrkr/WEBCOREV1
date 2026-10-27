@@ -980,14 +980,8 @@
     .r-h1{margin:0;align-self:center;font-weight:400;font-size:clamp(44px,8.2vw,124px);line-height:.98;letter-spacing:-.035em;color:#fff;max-width:14ch;text-wrap:balance}
     .r-fall{display:inline-block;transition:transform .5s cubic-bezier(.2,0,0,1),opacity .5s;will-change:transform}
     .r-hero.fall .r-fall{transform:translateY(.17em);opacity:.25;transition:transform .32s cubic-bezier(.5,0,1,1),opacity .32s}
-    .r-net{position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:0;transition:opacity .6s;pointer-events:none}
-    .r-hero.fall .r-net{opacity:1}
-    .r-net-cap{position:absolute;left:var(--gl);right:var(--gr);bottom:clamp(24px,4vh,40px);z-index:3;margin:0;font-size:11px;letter-spacing:.1em;color:#fff;opacity:0;transition:opacity .4s;pointer-events:none}
-    .r-hero.fall .r-proof{opacity:0}
-    .r-proof{transition:opacity .4s}
-    .r-hero.fall .r-net-cap{opacity:1}
-    .r-hero-in{transition:opacity .5s}
-    .r-hero.fall .r-hero-in{opacity:.3}
+    .r-net{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+    .r-hero .wrap{z-index:2}
     #r-state{display:inline-block;transition:opacity .2s}
     .r-hero.fall #r-state{color:#fff}
     @media (prefers-reduced-motion:reduce){.r-fall,.r-hero.fall .r-fall{transition:none;transform:none;opacity:1}}

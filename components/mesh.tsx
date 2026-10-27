@@ -1,1 +1,0 @@
-export function Mesh({grid=false}:{grid?:boolean}){return <div aria-hidden="true" className="mesh">{grid&&<div className="blueprint"/>}<div className="blob"/><div className="blob"/><div className="blob"/><div className="blob"/><div className="noise"/></div>}

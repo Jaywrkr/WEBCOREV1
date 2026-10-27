@@ -1,5 +1,6 @@
-/* Portada según la dirección 2026: hero estático, selector único, bloques compactos.
-   Convive con las hojas anteriores hasta la consolidación de estilos. */
+/* Portada según la dirección 2026: hero estático, señales de rigor, selector
+   único de soluciones, demostración conceptual, método compacto, tecnologías
+   y cierre. Las primitivas compartidas están en app/globals.css. */
 
 /* Hero */
 .sh{background:var(--brand);color:#fff;padding:clamp(56px,9vw,120px) 0 clamp(48px,7vw,88px);border-bottom:1px solid rgba(255,255,255,.14)}
@@ -61,55 +62,32 @@
   .sol-a{margin:0 0 16px;border-top:0}
 }
 
-/* Método compacto */
-.met{padding:clamp(72px,9vw,120px) 0}
-.met-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 48px;border-top:1px solid var(--gray-20);margin-top:40px}
-.met-step{padding:28px 0;border-bottom:1px solid var(--gray-20)}
-.met-step .n{font:12px var(--font-plex-mono),monospace;color:var(--gray-60);display:block;margin-bottom:14px}
-.met-step h3{font-size:22px;font-weight:500;margin:0 0 10px;color:var(--brand)}
-.met-step p{margin:0;color:var(--gray-70);line-height:1.6}
-.met-link{display:inline-flex;align-items:center;gap:10px;margin-top:32px;min-height:44px;color:var(--accent-blue);font-weight:600}
-@media (max-width:760px){.met-grid{grid-template-columns:1fr}}
-
-/* Tecnologías: cuadrícula estática */
-.tec{padding:clamp(56px,7vw,88px) 0;border-top:1px solid var(--gray-20)}
-.tec h2{font-size:clamp(24px,2.6vw,34px);font-weight:500;letter-spacing:-.02em;margin:0 0 8px;color:var(--brand)}
-.tec p{margin:0 0 28px;color:var(--gray-70)}
-.tec ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--gray-20);border:1px solid var(--gray-20)}
-.tec li{background:#fff;padding:22px 20px;font-weight:600;color:var(--gray-80)}
-@media (max-width:760px){.tec ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
-
-/* Cierre */
-.cie{background:var(--brand);color:#fff;padding:clamp(72px,9vw,120px) 0}
-.cie h2{font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-.025em;line-height:1.05;margin:0 0 16px;max-width:18ch}
-.cie p{margin:0 0 32px;color:#dfe3ff;max-width:56ch;font-size:17px;line-height:1.6}
-
-/* Formulario de contacto: estados (vacío, edición, error por campo, envío,
-   éxito y fallo de recepción). */
-.cf-note{margin:0;font-size:14px;color:var(--gray-70)}
-.cf-opt{font-weight:400;color:var(--gray-60)}
-.cf-hint{margin:-2px 0 8px;font-size:14px;line-height:1.5;color:var(--gray-70)}
-.cf-error{margin:8px 0 0;font-size:14px;line-height:1.5;color:#a01822}
-.cf .input[aria-invalid="true"]{border-color:#da1e28;box-shadow:inset 0 0 0 1px #da1e28}
-.cf-summary{border:1px solid #da1e28;border-left-width:4px;background:#fdf3f4;padding:16px 20px;color:var(--gray-100)}
-.cf-summary:focus{outline:2px solid var(--accent-blue);outline-offset:2px}
-.cf-summary p{margin:0;font-weight:600}
-.cf-summary ul{margin:8px 0 0;padding-left:20px}
-.cf-summary li{margin:4px 0;font-size:14px}
-.cf-summary a{color:#a01822;text-decoration:underline}
-.cf-trap{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
-.cf .btn[aria-busy="true"]{opacity:.7;cursor:progress}
-.cf-privacy{margin:20px 0 0;font-size:13px;line-height:1.6;color:var(--gray-70);max-width:60ch}
-.cf-done{border:1px solid var(--brand);border-left-width:4px;background:#eef0fb;padding:28px 32px;align-self:start}
-.cf-done:focus{outline:2px solid var(--accent-blue);outline-offset:2px}
-.cf-done-title{margin:0 0 10px;font-size:22px;font-weight:600;color:var(--brand)}
-.cf-done p{margin:0 0 20px;line-height:1.6;color:var(--gray-80);max-width:60ch}
-.cf-done p:last-of-type{margin-bottom:24px}
-.btn-ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
-
-/* Demostración: nota y ajustes */
+/* Demostración conceptual: encabezado, topología (escritorio) y control */
+.sys-section{padding:110px 0;background:#f0f2f8;color:#121720}
+.sys-overline{border-top:1px solid #bfc5d2;padding-top:20px;display:flex;justify-content:space-between;gap:16px;color:#536075;font:11px var(--font-plex-mono),monospace;letter-spacing:.08em}
+.sys-heading{display:grid;grid-template-columns:1.15fr .7fr;gap:7%;align-items:end;margin:65px 0 55px}
+.sys-heading h2{font-size:clamp(44px,5.9vw,85px);line-height:1.04;letter-spacing:-.065em;margin:19px 0}
+.sys-heading h2 em{font-family:var(--font-plex-serif),serif;font-weight:400;color:#01095c}
+.sys-heading>p{font-size:15px;line-height:1.8;color:#586476}
+.sys-kicker{font-size:11px;color:#3042ae;letter-spacing:.15em;font-weight:600}
+.sys-layout{display:grid;grid-template-columns:1.4fr .6fr;gap:0;border:1px solid #cbd1dc}
+.sys-diagram{background:white;min-width:0}
+.sys-diagram>svg{display:block;width:100%;height:auto;aspect-ratio:800/470}
+.sys-diagram-top,.sys-diagram-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:18px 23px;font:10px var(--font-plex-mono),monospace;letter-spacing:.06em;color:#637082}
+.sys-diagram-top{border-bottom:1px solid #dde2ec}
+.sys-diagram-foot{border-top:1px solid #dde2ec}
+.sys-control{border-left:1px solid #cbd1dc;background:#f9fafd;padding:33px;display:flex;flex-direction:column}
+.sys-control h3{font-size:30px;letter-spacing:-.04em;line-height:1.13;margin:21px 0}
+.sys-control-desc{color:#596677;font-size:14px;line-height:1.75;min-height:80px}
+.sys-options{margin-top:18px;border-top:1px solid #c8cfda}
+.sys-options button{display:grid;grid-template-columns:35px 1fr 20px;gap:10px;align-items:center;padding:18px 5px;border:0;border-bottom:1px solid #c8cfda;text-align:left;background:none;width:100%;color:#283246;font-size:13px}
+.sys-options button.selected{background:#e6eafa;color:#01095c;padding-left:14px}
+.sys-options button .mono{color:#687483;font-size:11px}
+.sys-reset{background:transparent;color:#2d43e7;border:0;border-top:1px solid #c8cfda;margin-top:26px;padding:20px 0 0;display:flex;gap:9px;align-items:center;font-size:12px;font-weight:600}
 .sys-note{margin:24px 0 0;font-size:14px;line-height:1.6;color:var(--gray-70)}
 .sys-note a{display:inline-block;margin-top:8px}
+@media(max-width:950px){.sys-layout{grid-template-columns:1fr}.sys-control{border-left:0;border-top:1px solid #cbd1dc;min-height:470px}}
+@media(max-width:650px){.sys-section{padding:65px 0}.sys-heading{grid-template-columns:1fr;margin:45px 0 35px;gap:12px}.sys-control{padding:23px}.sys-diagram-top,.sys-diagram-foot{padding:13px;font-size:8px}.sys-heading h2{font-size:clamp(42px,10vw,62px)}}
 
 /* Demostración en móvil: tarjetas conectadas verticalmente (mismas piezas y
    relaciones que el SVG de escritorio). Solo una de las dos representaciones
@@ -143,3 +121,26 @@
      y no obliga a volver arriba para ver qué cambió. */
   .sys-control{order:-1;min-height:0;border-top:0;border-bottom:1px solid #cbd1dc}
 }
+
+/* Método compacto */
+.met{padding:clamp(72px,9vw,120px) 0}
+.met-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 48px;border-top:1px solid var(--gray-20);margin-top:40px}
+.met-step{padding:28px 0;border-bottom:1px solid var(--gray-20)}
+.met-step .n{font:12px var(--font-plex-mono),monospace;color:var(--gray-60);display:block;margin-bottom:14px}
+.met-step h3{font-size:22px;font-weight:500;margin:0 0 10px;color:var(--brand)}
+.met-step p{margin:0;color:var(--gray-70);line-height:1.6}
+.met-link{display:inline-flex;align-items:center;gap:10px;margin-top:32px;min-height:44px;color:var(--accent-blue);font-weight:600}
+@media (max-width:760px){.met-grid{grid-template-columns:1fr}}
+
+/* Tecnologías: cuadrícula estática */
+.tec{padding:clamp(56px,7vw,88px) 0;border-top:1px solid var(--gray-20)}
+.tec h2{font-size:clamp(24px,2.6vw,34px);font-weight:500;letter-spacing:-.02em;margin:0 0 8px;color:var(--brand)}
+.tec p{margin:0 0 28px;color:var(--gray-70)}
+.tec ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--gray-20);border:1px solid var(--gray-20)}
+.tec li{background:#fff;padding:22px 20px;font-weight:600;color:var(--gray-80)}
+@media (max-width:760px){.tec ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Cierre */
+.cie{background:var(--brand);color:#fff;padding:clamp(72px,9vw,120px) 0}
+.cie h2{font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-.025em;line-height:1.05;margin:0 0 16px;max-width:18ch}
+.cie p{margin:0 0 32px;color:#dfe3ff;max-width:56ch;font-size:17px;line-height:1.6}

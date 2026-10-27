@@ -17,7 +17,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
         '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.11.4'
+VERSION = '2026.11.6'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:
@@ -307,8 +307,6 @@ def crumbs(items):
 
 def page_hero(crumb_html, h1, lede, cta='', vis=''):
     return '''    <section class="hero dark page-hero%(wv)s">
-      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
-      <div class="gridlines" aria-hidden="true"></div>
       <div class="wrap">
         %(c)s
         <h1>%(h)s</h1>
@@ -330,14 +328,14 @@ def faq_html(faq, title='Preguntas frecuentes'):
     </section>
 ''' % (title, items), ld
 
-def cta_band(h='Hablemos de su operación.', p='Una persona de nuestro equipo técnico revisará su caso y le escribirá.', msg=''):
+def cta_band(h='Le decimos qué pasaría si mañana falla.', p='Cuarenta y cinco minutos con un especialista y un informe por escrito de sus brechas de respaldo y recuperación. Sin costo y sin compromiso.', msg=''):
     dm = ' data-msg="%s"' % e(msg) if msg else ''
-    return '''    <section class="band dark cta-band dots">
-      <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    return '''    <section class="band dark cta-band">
       <div class="wrap">
+        <p class="mono r-tag">DIAGNÓSTICO SIN COMPROMISO</p>
         <h2>%s</h2>
         <p>%s</p>
-        <div class="cta"><a href="{r}contacto.html" class="btn wide magnet"%s>Hablar con un especialista</a><a href="{r}herramientas.html" class="btn btn-sec wide">Usar las calculadoras</a></div>
+        <div class="cta"><a href="{r}contacto.html" class="btn wide magnet"%s>Solicitar una evaluación de continuidad</a><a href="{r}herramientas.html" class="btn btn-sec wide">Usar las calculadoras</a></div>
       </div>
     </section>
 ''' % (h, p, dm)

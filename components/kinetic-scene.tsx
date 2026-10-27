@@ -1,6 +1,6 @@
 "use client";
 import {Canvas,useFrame} from "@react-three/fiber";
-import {Float,Line} from "@react-three/drei";
+import {Line} from "@react-three/drei";
 import {useRef,useMemo} from "react";
 import * as THREE from "three";
 function DataCore({reduced}:{reduced:boolean}){const group=useRef<THREE.Group>(null);const orbit=useRef<THREE.Group>(null);

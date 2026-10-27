@@ -1,5 +1,5 @@
 "use client";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {motion, useReducedMotion} from "motion/react";
 import Link from "next/link";
 import {RotateCcw, ArrowRight, ArrowDown} from "lucide-react";
@@ -51,6 +51,11 @@ const routeNote: Record<Mode, string> = {
 export function SystemSimulator() {
   const [mode, setMode] = useState<Mode>("normal");
   const reduced = useReducedMotion();
+  /* La preferencia de movimiento solo se conoce en el navegador. El punto
+     animado se añade tras montar para que el HTML del servidor y el del
+     cliente coincidan (evita el error de hidratación con reduced-motion). */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
   const current = modes.find(m => m.id === mode) ?? modes[0];
 
   return (
@@ -94,7 +99,7 @@ export function SystemSimulator() {
                 <rect x="578" y="320" width="155" height="60" fill={mode === "recovery" ? "#01095c" : "white"} stroke="#01095c"/>
                 <text x="595" y="356" fill={mode === "recovery" ? "white" : "#01095c"}>RESPALDO</text>
               </g>
-              {!reduced && mode !== "incident" && (
+              {mounted && !reduced && mode !== "incident" && (
                 <motion.circle r="5" fill="#2d43e7" initial={{offsetDistance: "0%"}} animate={{offsetDistance: "100%"}}
                   transition={{duration: 3, repeat: Infinity, ease: "linear"}}
                   style={{offsetPath: mode === "recovery" ? 'path("M 120 216 L 274 216 L 413 350 L 590 350")' : 'path("M 120 216 L 274 216 L 413 123 L 590 123")'}}/>

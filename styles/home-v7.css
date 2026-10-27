@@ -87,3 +87,36 @@
 /* Demostración: nota y ajustes */
 .sys-note{margin:24px 0 0;font-size:14px;line-height:1.6;color:var(--gray-70)}
 .sys-note a{display:inline-block;margin-top:8px}
+
+/* Demostración en móvil: tarjetas conectadas verticalmente (mismas piezas y
+   relaciones que el SVG de escritorio). Solo una de las dos representaciones
+   existe en el árbol de accesibilidad a la vez. */
+.sys-cards{display:none;padding:20px 23px 24px;background:#fff}
+.sys-cards-note{margin:0 0 20px;font-size:14px;line-height:1.6;color:var(--gray-80)}
+.sys-chain{list-style:none;margin:0;padding:0}
+.sys-chain+.sys-chain{margin-top:24px;padding-top:20px;border-top:1px dashed #bfc6d5}
+.sys-chain-title{font:600 11px var(--font-plex-mono),monospace;letter-spacing:.12em;color:#536075;margin-bottom:10px}
+.sys-card{position:relative;border:1px solid #929cae;background:#fff;padding:14px 16px 16px;margin-bottom:28px;transition:background-color .25s,border-color .25s,color .25s}
+.sys-card:last-child{margin-bottom:0}
+.sys-card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:6px}
+.sys-card-label{font:600 13px var(--font-plex-mono),monospace;letter-spacing:.06em;color:var(--brand)}
+.sys-card-state{font:500 11px var(--font-plex-mono),monospace;letter-spacing:.08em;padding:4px 8px;border:1px solid currentColor;color:#536075}
+.sys-card p{margin:0;font-size:14px;line-height:1.55;color:var(--gray-70)}
+.sys-card-link{position:absolute;left:16px;bottom:-24px;height:20px;display:flex;align-items:center;color:#929cae}
+.sys-card[data-state="activo"]{border-color:var(--brand);background:var(--brand)}
+.sys-card[data-state="activo"] .sys-card-label,.sys-card[data-state="activo"] p{color:#fff}
+.sys-card[data-state="activo"] .sys-card-state{color:#dfe3ff}
+.sys-card[data-state="afectado"]{border-color:#da1e28;background:#f8e7e8}
+.sys-card[data-state="afectado"] .sys-card-label{color:#a01822}
+.sys-card[data-state="afectado"] .sys-card-state{color:#a01822}
+.sys-card[data-state="en-uso"]{border-color:#2d43e7;background:#e6eafa}
+.sys-card[data-state="en-uso"] .sys-card-state{color:#2d43e7}
+.sys-cards[data-mode="recovery"] .sys-chain-alterna .sys-card-link{color:#2d43e7}
+@media (prefers-reduced-motion:reduce){.sys-card{transition:none}}
+@media (max-width:650px){
+  .sys-diagram>.sys-svg{display:none}
+  .sys-cards{display:block}
+  /* El control va antes que las tarjetas: la respuesta queda debajo de la acción
+     y no obliga a volver arriba para ver qué cambió. */
+  .sys-control{order:-1;min-height:0;border-top:0;border-bottom:1px solid #cbd1dc}
+}

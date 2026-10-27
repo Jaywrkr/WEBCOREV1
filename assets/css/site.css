@@ -1112,3 +1112,5 @@
     .head{justify-items:start;text-align:left;margin-left:0;max-width:none}
     .head p{color:var(--gray-70)}
     @media (max-width:900px){.pain{border-right:0}}
+    .sol-grid{background:transparent;border:0;gap:0 var(--s7);border-top:1px solid var(--line)}
+    .sol{border-top:0;border-bottom:1px solid var(--line)}

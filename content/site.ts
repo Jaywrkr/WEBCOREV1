@@ -2,7 +2,7 @@ export const site = {
  name:"Coresolutions", url:process.env.NEXT_PUBLIC_SITE_URL || "https://www.coresolutions.com.ec",
  email:"{{PLACEHOLDER_EMAIL}}", phone:"{{PLACEHOLDER_TELÉFONO}}",
  address:"Quito, Ecuador", socials:[{label:"LinkedIn",href:"{{PLACEHOLDER_LINKEDIN}}"}],
- hero:{eyebrow:"INFRAESTRUCTURA · NUBE · CIBERSEGURIDAD",title:"Infraestructura que no se detiene.",description:"Diseñamos, implementamos y damos soporte a su infraestructura. Nuestro objetivo es fortalecer la continuidad operativa de su organización.",cta:"Agendar evaluación"},
+ hero:{eyebrow:"INFRAESTRUCTURA · NUBE · CIBERSEGURIDAD",title:"Infraestructura que no se detiene.",description:"Diseñamos, implementamos y damos soporte a su infraestructura. Nuestro objetivo es fortalecer la continuidad operativa de su organización.",cta:"Solicitar evaluación"},
  stats:[{label:"Años en el mercado",value:"{{PLACEHOLDER}}"}, {label:"Proyectos ejecutados",value:"{{PLACEHOLDER}}"}, {label:"Clientes",value:"{{PLACEHOLDER}}"}, {label:"SLA contractual",value:"{{PLACEHOLDER}}"}],
  monitoring:[{label:"Disponibilidad referencial",value:"99.97%"},{label:"Incidentes resueltos",value:"{{PLACEHOLDER}}"},{label:"SLA aplicable",value:"{{PLACEHOLDER}}"}],
  partners:["IBM","Lenovo","VMware","Veeam","Check Point","HPE","Aruba","Synology"],

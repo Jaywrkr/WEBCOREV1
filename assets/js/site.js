@@ -563,14 +563,14 @@
   function stepN(t,start,step,n){return t<start?0:Math.min(n,Math.floor((t-start)/step)+1)}
   function fmt(ms){return '00:0'+(ms/1000).toFixed(1).replace('.',',')}
   /* topología: usuarios → WAN → firewall → sitio principal; réplica a CoreOnCloud; monitoreo; conmutación y arranque de VMs */
-  function L(){var m=mob;if(!m){var c1=NW*.73,c2=NW*.9,bw=NW*.13;return {
-    usr:{x:(c1+c2)/2,y:NH*.15,w:NW*.09,h:NH*.07,l:'USUARIOS · SUCURSALES'},
-    wan:{x:(c1+c2)/2,y:NH*.26,w:NW*.07,h:NH*.07,l:'WAN · INTERNET'},
-    fw1:{x:c1,y:NH*.40,w:NW*.05,h:NH*.06,l:'FIREWALL'},
-    fw2:{x:c2,y:NH*.40,w:NW*.05,h:NH*.06,l:'FIREWALL'},
-    mon:{x:(c1+c2)/2,y:NH*.40,w:NW*.06,h:NH*.05,l:'MONITOREO'},
-    cue:{x:c1,y:NH*.63,w:bw,h:NH*.24,l:'SITIO PRINCIPAL · CUE',vms:['WEB','APP','BD']},
-    gye:{x:c2,y:NH*.63,w:bw,h:NH*.24,l:'COREONCLOUD · GYE',vms:['WEB','APP','BD']}}}
+  function L(){var m=mob;if(!m){var c1=NW*.705,c2=NW*.905,bw=NW*.165;return {
+    usr:{x:(c1+c2)/2,y:NH*.14,w:NW*.11,h:NH*.075,l:'USUARIOS · SUCURSALES'},
+    wan:{x:(c1+c2)/2,y:NH*.26,w:NW*.08,h:NH*.075,l:'WAN · INTERNET'},
+    fw1:{x:c1,y:NH*.40,w:NW*.06,h:NH*.065,l:'FIREWALL'},
+    fw2:{x:c2,y:NH*.40,w:NW*.06,h:NH*.065,l:'FIREWALL'},
+    mon:{x:(c1+c2)/2,y:NH*.40,w:NW*.07,h:NH*.055,l:'MONITOREO DR'},
+    cue:{x:c1,y:NH*.64,w:bw,h:NH*.28,l:'SITIO PRINCIPAL · CUE',vms:['WEB','APP','BD']},
+    gye:{x:c2,y:NH*.64,w:bw,h:NH*.28,l:'COREONCLOUD · GYE',vms:['WEB','APP','BD']}}}
     var bt=NH-236,r1=bt+34,r2=bt+150;return {
     usr:{x:NW*.13,y:r1,w:NW*.18,h:30,l:'USUARIOS'},
     wan:{x:NW*.38,y:r1,w:NW*.16,h:30,l:'WAN'},
@@ -582,10 +582,10 @@
   function P(n){return n}
   function nbox(n,a,label,dead){var p=P(n);nctx.strokeStyle=col(a*ex(p.x,p.y));nctx.lineWidth=1;nctx.strokeRect(p.x-p.w/2,p.y-p.h/2,p.w,p.h);
     if(dead){nctx.beginPath();nctx.moveTo(p.x-p.w/2,p.y-p.h/2);nctx.lineTo(p.x+p.w/2,p.y+p.h/2);nctx.moveTo(p.x+p.w/2,p.y-p.h/2);nctx.lineTo(p.x-p.w/2,p.y+p.h/2);nctx.stroke()}
-    if(label!==false){nctx.font='9px "IBM Plex Mono",monospace';nctx.textAlign='center';nctx.fillStyle=col(Math.min(.8,a+.2)*ex(p.x,p.y));nctx.fillText(n.l,p.x,p.y-p.h/2-6)}}
+    if(label!==false){nctx.font=(mob?'9px':'11px')+' "IBM Plex Mono",monospace';nctx.textAlign='center';nctx.fillStyle=col(Math.min(.85,a+.25)*ex(p.x,p.y));nctx.fillText(n.l,p.x,p.y-p.h/2-7)}}
   function vmRows(n,states){var p=P(n),rh=p.h/(n.vms.length+1);n.vms.forEach(function(v,i){var y=p.y-p.h/2+rh*(i+1),s=states[i],a=s==='on'?.7:(s==='boot'?.35+.3*Math.abs(Math.sin(performance.now()/120)):(s==='dead'?.1:.18));
-      nctx.strokeStyle=col(a*ex(p.x,y));nctx.lineWidth=s==='on'?2:1;nctx.beginPath();nctx.moveTo(p.x-p.w/2+8,y);nctx.lineTo(p.x+p.w/2-8-(mob?26:34),y);nctx.stroke();
-      nctx.font='8px "IBM Plex Mono",monospace';nctx.textAlign='right';nctx.fillStyle=col((s==='on'?.75:.3)*ex(p.x,y));nctx.fillText(v+(s==='boot'?' …':''),p.x+p.w/2-6,y+3)})}
+      nctx.strokeStyle=col(a*ex(p.x,y));nctx.lineWidth=s==='on'?2:1;nctx.beginPath();nctx.moveTo(p.x-p.w/2+8,y);nctx.lineTo(p.x+p.w/2-8-(mob?26:44),y);nctx.stroke();
+      nctx.font=(mob?'8px':'10px')+' "IBM Plex Mono",monospace';nctx.textAlign='right';nctx.fillStyle=col((s==='on'?.8:.32)*ex(p.x,y));nctx.fillText(v+(s==='boot'?' …':''),p.x+p.w/2-6,y+3)})}
   function seg(a,b,alpha,dash){var pa=P(a),pb=P(b);nctx.setLineDash(dash?[3,4]:[]);line(pa.x,pa.y,pb.x,pb.y,alpha);nctx.setLineDash([])}
   function along(pts,f){var tot=0,ls=[];for(var i=1;i<pts.length;i++){var d=Math.hypot(pts[i].x-pts[i-1].x,pts[i].y-pts[i-1].y);ls.push(d);tot+=d}var d2=f*tot;for(var k=1;k<pts.length;k++){if(d2<=ls[k-1]){var u=d2/ls[k-1];return {x:pts[k-1].x+(pts[k].x-pts[k-1].x)*u,y:pts[k-1].y+(pts[k].y-pts[k-1].y)*u}}d2-=ls[k-1]}return pts[pts.length-1]}
   function packets(pts,t,n,speed,alpha){for(var k=0;k<n;k++){var f=((t/speed)+k/n)%1,q=along(pts,f);dot(q.x,q.y,1.8,alpha)}}
@@ -628,7 +628,8 @@
     if(nrun)requestAnimationFrame(ndraw)}
   function nstart(from){if(!nctx)return;nsize();fallAt=0;recAt=0;nt0=performance.now()-(from||0);if(!nrun){nrun=true;requestAnimationFrame(ndraw)}}
   if(nctx&&!reduce){nstart(0);
-    if(fl){var replay=function(){if(ph>=4)nstart(3300)};fl.addEventListener('pointerenter',replay);fl.addEventListener('click',replay)}
+    var replay=function(){if(ph>=4)nstart(3300)};if(fl){fl.addEventListener('pointerenter',replay);fl.addEventListener('click',replay)}
+    $$('[data-replay]').forEach(function(b){b.addEventListener('click',function(){window.scrollTo({top:0,behavior:reduce?'auto':'smooth'});setTimeout(function(){nstart(3300)},reduce?0:500)})})
     var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!nrun){nrun=true;requestAnimationFrame(ndraw)}}else nrun=false})},{threshold:.05});io2.observe(net);
     document.addEventListener('visibilitychange',function(){if(document.hidden)nrun=false;else if(!nrun){nrun=true;requestAnimationFrame(ndraw)}});
     var rt2;window.addEventListener('resize',function(){clearTimeout(rt2);rt2=setTimeout(nsize,120)})}

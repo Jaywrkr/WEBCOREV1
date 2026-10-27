@@ -17,7 +17,7 @@ PART = os.path.join(ROOT, 'tools', 'partials')
 LOGO = ('<img class="logo logo-navy" src="%(r)sassets/brand/coresolutions-navy.png" width="1276" height="138" alt="" decoding="async">'
         '<img class="logo logo-white" src="%(r)sassets/brand/coresolutions-white.png" width="1276" height="138" alt="" decoding="async">')
 SITE = 'https://coresolutions.com.ec'
-VERSION = '2026.11.9'
+VERSION = '2026.11.10'
 
 def part(name):
     with open(os.path.join(PART, name), encoding='utf-8') as f:
@@ -328,6 +328,34 @@ def faq_html(faq, title='Preguntas frecuentes'):
     </section>
 ''' % (title, items), ld
 
+
+def rpo_rto(r=''):
+    ticks = ''.join('<line x1="%d" y1="118" x2="%d" y2="142" class="tk"/>' % (x, x) for x in (90, 170, 250, 330))
+    svg = ('<svg class="rr" viewBox="0 0 800 230" role="img" aria-label="Línea de tiempo: copias periódicas, una falla y la vuelta a operar. El tiempo entre la última copia y la falla es el RPO; el tiempo entre la falla y la vuelta a operar es el RTO.">'
+           '<line x1="40" y1="130" x2="760" y2="130" class="ax"/>' + ticks +
+           '<text x="90" y="104" class="lb c">COPIA</text><text x="170" y="104" class="lb c">COPIA</text><text x="250" y="104" class="lb c">COPIA</text><text x="330" y="104" class="lb c">ÚLTIMA COPIA</text>'
+           '<line x1="420" y1="40" x2="420" y2="200" class="fl"/><text x="420" y="30" class="lb c">FALLA</text>'
+           '<rect x="420" y="124" width="250" height="12" class="dn"/>'
+           '<line x1="670" y1="112" x2="670" y2="148" class="tk on"/><text x="670" y="104" class="lb c on">OPERANDO DE NUEVO</text>'
+           '<path d="M330 70 v-10 h90 v10" class="br"/><text x="375" y="52" class="lb c">RPO · LO QUE PUEDE PERDER</text>'
+           '<path d="M420 190 v10 h250 v-10" class="br"/><text x="545" y="216" class="lb c">RTO · LO QUE TARDA EN VOLVER</text>'
+           '</svg>')
+    return """    <section class="band r-rr" id="rpo-rto">
+      <div class="wrap">
+        <p class="mono r-tag">DOS NÚMEROS</p>
+        <h2 class="r-h2">Cuánto puede perder y cuánto tarda en volver.</h2>
+        <div class="r-rr-grid">
+          <div class="r-rr-vis reveal">%s</div>
+          <ul class="r-slist r-rr-list">
+            <li><span class="r-sname">RPO</span><span class="r-fear">Es el tiempo entre su última copia y la falla: las ventas, historias o trámites de esos minutos son lo único que podría perder.</span><span class="r-calm">Con réplica continua a CoreOnCloud se mide en minutos.</span></li>
+            <li><span class="r-sname">RTO</span><span class="r-fear">Es el tiempo desde la falla hasta que sus usuarios vuelven a trabajar.</span><span class="r-calm">Con el sitio alterno listo se mide en minutos u horas, y queda por escrito antes de que ocurra.</span></li>
+          </ul>
+        </div>
+        <p class="r-p"><a class="textlink dark-l" href="%sherramientas.html#continuidad">Calcular mi nivel de continuidad →</a></p>
+      </div>
+    </section>
+""" % (svg, r)
+
 def cta_band(h='Le decimos qué pasaría si mañana falla.', p='Cuarenta y cinco minutos con un especialista y un informe por escrito de sus brechas de respaldo y recuperación. Sin costo y sin compromiso.', msg=''):
     dm = ' data-msg="%s"' % e(msg) if msg else ''
     return '''    <section class="band dark cta-band">
@@ -427,23 +455,18 @@ def build_home():
         <p class="mono r-proof">MÁS DE 20 AÑOS CON COOPERATIVAS REGULADAS POR LA SEPS, HOSPITALES, INDUSTRIAS Y ENTIDADES PÚBLICAS EN ECUADOR</p>
       </div>
     </section>
-    <!-- LA RÉPLICA -->
-    <section class="band r-rep" id="replica">
+    <!-- ASÍ OCURRE UNA CONMUTACIÓN -->
+    <section class="band r-how" id="conmutacion">
       <div class="wrap">
-        <p class="mono r-tag">01 / DOS CIUDADES, UN SISTEMA</p>
-        <div class="r-rep-grid">
-          <div class="r-rep-copy">
-            <h2 class="r-h2">Apáguelo. Sigue funcionando.</h2>
-            <p class="r-p">Sus datos viven en dos lugares a la vez. Si el centro de datos de Cuenca deja de responder, el de Guayaquil ya tiene todo y sigue atendiendo a sus sucursales, su cajero o su quirófano.</p>
-            <div class="r-rep-ctl">
-              <button type="button" class="btn r-btn-navy" id="r-fail" aria-pressed="false">Simular falla en Cuenca</button>
-              <button type="button" class="r-link" id="r-reset" hidden>Restablecer</button>
-            </div>
-            <p class="r-live" id="r-live" aria-live="polite">Los dos centros de datos operan. Cada copia viaja de Cuenca a Guayaquil.</p>
-            <p class="mono r-count" aria-hidden="true"><span id="r-sec">0</span> s SIN INTERRUPCIÓN</p>
-          </div>
-          <div class="r-rep-vis" role="img" aria-label="Dos centros de datos, Cuenca y Guayaquil, unidos por un flujo de datos que alimenta una fila de sucursales. Si uno se apaga, el otro sigue alimentándolas."><canvas id="r-cv"></canvas><noscript><p class="r-p">Ilustración: dos centros de datos replicados; si uno falla, el otro sigue atendiendo.</p></noscript></div>
-        </div>
+        <div class="r-head"><div><p class="mono r-tag">01 / ASÍ OCURRE UNA CONMUTACIÓN</p><h2 class="r-h2">Lo que acaba de ver arriba, paso a paso.</h2></div><button type="button" class="r-link" data-replay>Ver la simulación de nuevo ↑</button></div>
+        <ol class="steps-h r-steps">
+          <li><span class="mono">01 · RÉPLICA</span><b>Antes de la falla</b><span>Sus máquinas virtuales y datos se copian de forma continua desde su sitio a CoreOnCloud.</span></li>
+          <li><span class="mono">02 · DETECCIÓN</span><b>El monitoreo detecta la falla</b><span>Enlaces, servidores y servicios se comprueban cada pocos segundos. Si el sitio no responde, se activa el plan.</span></li>
+          <li><span class="mono">03 · RUTA</span><b>El tráfico cambia de camino</b><span>La WAN y el firewall del sitio alterno reciben a sus usuarios y sucursales. Ellos no cambian nada.</span></li>
+          <li><span class="mono">04 · ARRANQUE</span><b>Se encienden las VMs, en orden</b><span>Primero la base de datos, luego la aplicación, luego el acceso. El orden está definido y probado.</span></li>
+          <li><span class="mono">05 · VALIDACIÓN</span><b>Se verifica cada servicio</b><span>Un responsable confirma que se opera con normalidad y le avisa con el tiempo real de recuperación.</span></li>
+          <li><span class="mono">06 · RETORNO</span><b>Vuelta a su sitio, cuando usted decida</b><span>Mientras tanto la réplica corre al revés, hacia su sitio, para no perder lo trabajado en la nube.</span></li>
+        </ol>
       </div>
     </section>
     <!-- SERVICIOS -->
@@ -479,6 +502,7 @@ def build_home():
           <p class="mono r-tag">05 / DIAGNÓSTICO SIN COMPROMISO</p>
           <h2 class="r-h2">Le decimos qué pasaría si mañana falla.</h2>
           <p class="r-p">Cuarenta y cinco minutos con un especialista y un informe por escrito de sus brechas de respaldo y recuperación. No necesita saber qué tecnología necesita; necesita contarnos qué no puede permitirse que falle.</p>
+          <ul class="r-get"><li><span class="mono">01</span>Inventario de lo crítico: qué sistemas no pueden parar y de qué dependen.</li><li><span class="mono">02</span>Su RPO y RTO de hoy frente al que su operación necesita.</li><li><span class="mono">03</span>Un plan priorizado, con qué hacer primero y cuánto cuesta.</li></ul>
           <p class="mono r-proof">RESPUESTA EN 24 HORAS HÁBILES · UN RESPONSABLE, NO UN FORMULARIO AUTOMÁTICO</p>
         </div>
         <form class="r-form" id="form" novalidate>
@@ -537,6 +561,8 @@ def build_solution(s):
       </div>
     </section>
 ''' % ''.join('<div class="pain reveal"><span class="mono">0%d</span><h3>%s</h3><p>%s</p></div>' % (i + 1, a, b) for i, (a, b) in enumerate(s['pains']))
+    if s['slug'] == 'respaldo-y-continuidad':
+        body += rpo_rto('../')
     body += '''    <section class="band band-gray">
       <div class="wrap split">
         <div class="reveal"><span class="label">Qué incluye</span><h2 class="h2">Una solución completa, no piezas sueltas.</h2><p class="lede" style="margin-top:var(--s5)">Lo adaptamos a su operación: puede empezar por una parte y crecer.</p></div>
@@ -591,6 +617,7 @@ def build_coreoncloud():
       </div>
     </section>
 ''' % ''.join('<li><div><b>%s</b><span>%s</span></div></li>' % (a, b) for a, b in services)
+    body += rpo_rto()
     body += '''    <section class="band dark">
       <div class="mesh" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       <div class="wrap">

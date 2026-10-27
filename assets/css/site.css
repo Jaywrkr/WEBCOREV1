@@ -1119,3 +1119,33 @@
     .cell.sol{border-bottom:1px solid var(--line)}
     .grid.grid-3{background:transparent;border:0;gap:0 var(--s7);border-top:1px solid var(--line)}
     .grid .cell{background:transparent;padding:var(--s6) 0;border-bottom:1px solid var(--line)}
+    /* ===== Refinamientos: conmutación, RPO/RTO, evaluación, compromisos ===== */
+    .band.r-how{padding-block:clamp(72px,9vw,120px);border-top:1px solid var(--line)}
+    .r-steps{grid-template-columns:repeat(6,minmax(0,1fr));margin-top:var(--s9);gap:0 var(--s6)}
+    .r-steps li{padding-right:var(--s5)}
+    .r-steps b{font-size:18px}
+    .r-steps span:last-child{font-size:14px}
+    .r-head .r-link{align-self:flex-end;white-space:nowrap}
+    .r-get{list-style:none;margin:var(--s7) 0 0;padding:0;display:grid;gap:var(--s3);max-width:52ch}
+    .r-get li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:var(--s3);font-size:15px;line-height:1.5;color:var(--blue-20);padding:var(--s3) 0;border-top:1px solid var(--line-dark)}
+    .r-get .mono{font-size:11px;color:var(--blue-30);padding-top:4px}
+    .band.r-rr{padding-block:clamp(72px,9vw,120px);border-top:1px solid var(--line)}
+    .r-rr-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:center;margin-top:var(--s9)}
+    .rr{width:100%;height:auto;display:block;color:var(--navy);font-family:var(--f-mono)}
+    .rr .ax{stroke:var(--gray-30);stroke-width:1}
+    .rr .tk{stroke:var(--navy);stroke-width:2}
+    .rr .tk.on{stroke:var(--navy);stroke-width:3}
+    .rr .fl{stroke:var(--navy);stroke-width:1;stroke-dasharray:3 4}
+    .rr .dn{fill:var(--gray-20)}
+    .rr .br{fill:none;stroke:var(--navy);stroke-width:1}
+    .rr .lb{font-size:10px;letter-spacing:.08em;fill:var(--gray-70)}
+    .rr .lb.c{text-anchor:middle;fill:var(--navy)}
+    .rr .lb.on{fill:var(--navy)}
+    .r-rr-list{margin-top:0}
+    .r-rr-list .r-sname{font-family:var(--f-mono);font-size:22px}
+    .r-rr .r-p{margin-top:var(--s7)}
+    .r-commit{margin-top:var(--s9)}
+    .r-commit a,.r-commit li{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:var(--s4) var(--s7);padding:clamp(18px,2.2vw,28px) 0}
+    .r-commit .r-sname{grid-row:auto}
+    @media (max-width:900px){.r-steps{grid-template-columns:1fr 1fr;row-gap:var(--s6)}.r-rr-grid,.r-commit li{grid-template-columns:1fr}.r-head .r-link{align-self:flex-start}}
+    @media (max-width:640px){.r-steps{grid-template-columns:1fr}}

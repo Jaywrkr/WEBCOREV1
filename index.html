@@ -21,8 +21,8 @@
   <link rel="manifest" href="site.webmanifest">
   <link rel="preload" href="assets/fonts/ibmplexsans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/ibmplexmono-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/css/fonts.css?v=2026.11.9">
-  <link rel="stylesheet" href="assets/css/site.css?v=2026.11.9">
+  <link rel="stylesheet" href="assets/css/fonts.css?v=2026.11.10">
+  <link rel="stylesheet" href="assets/css/site.css?v=2026.11.10">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Coresolutions", "url": "https://coresolutions.com.ec", "logo": "https://coresolutions.com.ec/icon-512.png", "email": "info@coresolutions.com.ec", "telephone": "+593994021631", "address": {"@type": "PostalAddress", "streetAddress": "Av. 3 de Noviembre 21-176 y Juan Pablo I", "addressLocality": "Cuenca", "addressCountry": "EC"}, "areaServed": "EC"}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Coresolutions", "url": "https://coresolutions.com.ec", "inLanguage": "es-EC"}</script>
 </head>
@@ -61,23 +61,18 @@
         <p class="mono r-proof">MÁS DE 20 AÑOS CON COOPERATIVAS REGULADAS POR LA SEPS, HOSPITALES, INDUSTRIAS Y ENTIDADES PÚBLICAS EN ECUADOR</p>
       </div>
     </section>
-    <!-- LA RÉPLICA -->
-    <section class="band r-rep" id="replica">
+    <!-- ASÍ OCURRE UNA CONMUTACIÓN -->
+    <section class="band r-how" id="conmutacion">
       <div class="wrap">
-        <p class="mono r-tag">01 / DOS CIUDADES, UN SISTEMA</p>
-        <div class="r-rep-grid">
-          <div class="r-rep-copy">
-            <h2 class="r-h2">Apáguelo. Sigue funcionando.</h2>
-            <p class="r-p">Sus datos viven en dos lugares a la vez. Si el centro de datos de Cuenca deja de responder, el de Guayaquil ya tiene todo y sigue atendiendo a sus sucursales, su cajero o su quirófano.</p>
-            <div class="r-rep-ctl">
-              <button type="button" class="btn r-btn-navy" id="r-fail" aria-pressed="false">Simular falla en Cuenca</button>
-              <button type="button" class="r-link" id="r-reset" hidden>Restablecer</button>
-            </div>
-            <p class="r-live" id="r-live" aria-live="polite">Los dos centros de datos operan. Cada copia viaja de Cuenca a Guayaquil.</p>
-            <p class="mono r-count" aria-hidden="true"><span id="r-sec">0</span> s SIN INTERRUPCIÓN</p>
-          </div>
-          <div class="r-rep-vis" role="img" aria-label="Dos centros de datos, Cuenca y Guayaquil, unidos por un flujo de datos que alimenta una fila de sucursales. Si uno se apaga, el otro sigue alimentándolas."><canvas id="r-cv"></canvas><noscript><p class="r-p">Ilustración: dos centros de datos replicados; si uno falla, el otro sigue atendiendo.</p></noscript></div>
-        </div>
+        <div class="r-head"><div><p class="mono r-tag">01 / ASÍ OCURRE UNA CONMUTACIÓN</p><h2 class="r-h2">Lo que acaba de ver arriba, paso a paso.</h2></div><button type="button" class="r-link" data-replay>Ver la simulación de nuevo ↑</button></div>
+        <ol class="steps-h r-steps">
+          <li><span class="mono">01 · RÉPLICA</span><b>Antes de la falla</b><span>Sus máquinas virtuales y datos se copian de forma continua desde su sitio a CoreOnCloud.</span></li>
+          <li><span class="mono">02 · DETECCIÓN</span><b>El monitoreo detecta la falla</b><span>Enlaces, servidores y servicios se comprueban cada pocos segundos. Si el sitio no responde, se activa el plan.</span></li>
+          <li><span class="mono">03 · RUTA</span><b>El tráfico cambia de camino</b><span>La WAN y el firewall del sitio alterno reciben a sus usuarios y sucursales. Ellos no cambian nada.</span></li>
+          <li><span class="mono">04 · ARRANQUE</span><b>Se encienden las VMs, en orden</b><span>Primero la base de datos, luego la aplicación, luego el acceso. El orden está definido y probado.</span></li>
+          <li><span class="mono">05 · VALIDACIÓN</span><b>Se verifica cada servicio</b><span>Un responsable confirma que se opera con normalidad y le avisa con el tiempo real de recuperación.</span></li>
+          <li><span class="mono">06 · RETORNO</span><b>Vuelta a su sitio, cuando usted decida</b><span>Mientras tanto la réplica corre al revés, hacia su sitio, para no perder lo trabajado en la nube.</span></li>
+        </ol>
       </div>
     </section>
     <!-- SERVICIOS -->
@@ -113,6 +108,7 @@
           <p class="mono r-tag">05 / DIAGNÓSTICO SIN COMPROMISO</p>
           <h2 class="r-h2">Le decimos qué pasaría si mañana falla.</h2>
           <p class="r-p">Cuarenta y cinco minutos con un especialista y un informe por escrito de sus brechas de respaldo y recuperación. No necesita saber qué tecnología necesita; necesita contarnos qué no puede permitirse que falle.</p>
+          <ul class="r-get"><li><span class="mono">01</span>Inventario de lo crítico: qué sistemas no pueden parar y de qué dependen.</li><li><span class="mono">02</span>Su RPO y RTO de hoy frente al que su operación necesita.</li><li><span class="mono">03</span>Un plan priorizado, con qué hacer primero y cuánto cuesta.</li></ul>
           <p class="mono r-proof">RESPUESTA EN 24 HORAS HÁBILES · UN RESPONSABLE, NO UN FORMULARIO AUTOMÁTICO</p>
         </div>
         <form class="r-form" id="form" novalidate>
@@ -157,7 +153,7 @@
     <a href="herramientas.html" class="btn btn-sec">Calculadoras</a>
     <a href="contacto.html" class="btn">Hablar con un especialista</a>
   </div>
-  <script src="assets/js/data.js?v=2026.11.9"></script>
-  <script src="assets/js/site.js?v=2026.11.9"></script>
+  <script src="assets/js/data.js?v=2026.11.10"></script>
+  <script src="assets/js/site.js?v=2026.11.10"></script>
 </body>
 </html>

@@ -21,8 +21,8 @@
   <link rel="manifest" href="../site.webmanifest">
   <link rel="preload" href="../assets/fonts/ibmplexsans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="../assets/fonts/ibmplexmono-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../assets/css/fonts.css?v=2026.11.9">
-  <link rel="stylesheet" href="../assets/css/site.css?v=2026.11.9">
+  <link rel="stylesheet" href="../assets/css/fonts.css?v=2026.11.10">
+  <link rel="stylesheet" href="../assets/css/site.css?v=2026.11.10">
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio"}, {"@type": "ListItem", "position": 2, "name": "Soluciones"}, {"@type": "ListItem", "position": 3, "name": "Respaldo y continuidad"}]}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Service", "name": "Respaldo y continuidad", "description": "Sus datos respaldados, verificados y listos para recuperarse. Si algo falla, su operación vuelve a funcionar en el tiempo que usted definió.", "provider": {"@type": "Organization", "name": "Coresolutions", "url": "https://coresolutions.com.ec"}, "areaServed": "EC"}</script>
   <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué diferencia hay entre respaldo y DRaaS?", "acceptedAnswer": {"@type": "Answer", "text": "El respaldo guarda copias de sus datos para recuperarlos cuando los necesite. DRaaS mantiene sus servidores replicados y listos para encenderse en otro sitio, de modo que la operación se reanuda en mucho menos tiempo."}}, {"@type": "Question", "name": "¿Dónde se guardan mis copias?", "acceptedAnswer": {"@type": "Answer", "text": "En su sitio, en CoreOnCloud o en ambos. CoreOnCloud opera con recursos propios en Ecuador, en Cuenca y Guayaquil."}}, {"@type": "Question", "name": "¿Cada cuánto se prueban los respaldos?", "acceptedAnswer": {"@type": "Answer", "text": "Definimos la frecuencia con usted según la criticidad de cada sistema, y documentamos el resultado de cada prueba."}}]}</script>
@@ -61,6 +61,20 @@
       <div class="wrap">
         <div class="head reveal"><div><span class="label">El problema</span><h2 class="h2">Lo que suele frenar a las organizaciones.</h2></div></div>
         <div class="pains"><div class="pain reveal"><span class="mono">01</span><h3>Respaldos que nadie prueba</h3><p>Un respaldo que nunca se ha restaurado es una suposición, no una garantía.</p></div><div class="pain reveal"><span class="mono">02</span><h3>Ransomware</h3><p>Si un atacante cifra también las copias de seguridad, no hay a dónde volver.</p></div><div class="pain reveal"><span class="mono">03</span><h3>Recuperación sin plan</h3><p>Cuando ocurre el incidente, cada minuto se pierde decidiendo qué restaurar primero.</p></div></div>
+      </div>
+    </section>
+    <section class="band r-rr" id="rpo-rto">
+      <div class="wrap">
+        <p class="mono r-tag">DOS NÚMEROS</p>
+        <h2 class="r-h2">Cuánto puede perder y cuánto tarda en volver.</h2>
+        <div class="r-rr-grid">
+          <div class="r-rr-vis reveal"><svg class="rr" viewBox="0 0 800 230" role="img" aria-label="Línea de tiempo: copias periódicas, una falla y la vuelta a operar. El tiempo entre la última copia y la falla es el RPO; el tiempo entre la falla y la vuelta a operar es el RTO."><line x1="40" y1="130" x2="760" y2="130" class="ax"/><line x1="90" y1="118" x2="90" y2="142" class="tk"/><line x1="170" y1="118" x2="170" y2="142" class="tk"/><line x1="250" y1="118" x2="250" y2="142" class="tk"/><line x1="330" y1="118" x2="330" y2="142" class="tk"/><text x="90" y="104" class="lb c">COPIA</text><text x="170" y="104" class="lb c">COPIA</text><text x="250" y="104" class="lb c">COPIA</text><text x="330" y="104" class="lb c">ÚLTIMA COPIA</text><line x1="420" y1="40" x2="420" y2="200" class="fl"/><text x="420" y="30" class="lb c">FALLA</text><rect x="420" y="124" width="250" height="12" class="dn"/><line x1="670" y1="112" x2="670" y2="148" class="tk on"/><text x="670" y="104" class="lb c on">OPERANDO DE NUEVO</text><path d="M330 70 v-10 h90 v10" class="br"/><text x="375" y="52" class="lb c">RPO · LO QUE PUEDE PERDER</text><path d="M420 190 v10 h250 v-10" class="br"/><text x="545" y="216" class="lb c">RTO · LO QUE TARDA EN VOLVER</text></svg></div>
+          <ul class="r-slist r-rr-list">
+            <li><span class="r-sname">RPO</span><span class="r-fear">Es el tiempo entre su última copia y la falla: las ventas, historias o trámites de esos minutos son lo único que podría perder.</span><span class="r-calm">Con réplica continua a CoreOnCloud se mide en minutos.</span></li>
+            <li><span class="r-sname">RTO</span><span class="r-fear">Es el tiempo desde la falla hasta que sus usuarios vuelven a trabajar.</span><span class="r-calm">Con el sitio alterno listo se mide en minutos u horas, y queda por escrito antes de que ocurra.</span></li>
+          </ul>
+        </div>
+        <p class="r-p"><a class="textlink dark-l" href="../herramientas.html#continuidad">Calcular mi nivel de continuidad →</a></p>
       </div>
     </section>
     <section class="band band-gray">
@@ -125,7 +139,7 @@
     <a href="../herramientas.html" class="btn btn-sec">Calculadoras</a>
     <a href="../contacto.html" class="btn">Hablar con un especialista</a>
   </div>
-  <script src="../assets/js/data.js?v=2026.11.9"></script>
-  <script src="../assets/js/site.js?v=2026.11.9"></script>
+  <script src="../assets/js/data.js?v=2026.11.10"></script>
+  <script src="../assets/js/site.js?v=2026.11.10"></script>
 </body>
 </html>

@@ -100,6 +100,36 @@ export function NeedGlyph({id}: {id: string}) {
       </figure>
     );
   }
+  if (id === "consolidar") {
+    return (
+      <figure className="mt-need" aria-hidden="true">
+        <svg viewBox="0 0 240 132">
+          <path className="mt-draw mt-perim" pathLength={1} d="M66 14H174V118H66Z"/>
+          {scatter.slice(0, 6).map(([dx, dy, r], i) => (
+            <rect key={i} className="mt-sq" x={78 + (i % 3) * 30} y={30 + Math.floor(i / 3) * 40} width={24} height={30}
+              style={v({"--dx": dx * 1.6 + "px", "--dy": dy + "px", "--r": r + "deg", "--i": i})}/>
+          ))}
+        </svg>
+        <figcaption>DISPERSO → CONSOLIDADO</figcaption>
+      </figure>
+    );
+  }
+  if (id === "ia") {
+    const pts = [[90, 34], [150, 30], [176, 66], [148, 102], [92, 100], [66, 66]];
+    return (
+      <figure className="mt-need" aria-hidden="true">
+        <svg viewBox="0 0 240 132">
+          <path className="mt-draw mt-perim" pathLength={1} d="M46 12H194V120H46Z"/>
+          {pts.map(([x, y], i) => (
+            <path key={"l" + i} className="mt-draw mt-link" pathLength={1} d={`M${x} ${y}L120 66`} style={v({"--i": i})}/>
+          ))}
+          {pts.map(([x, y], i) => <circle key={i} className="mt-datum" cx={x} cy={y} r="5" style={v({"--i": i})}/>)}
+          <rect className="mt-core mt-node" x="108" y="54" width="24" height="24"/>
+        </svg>
+        <figcaption>SUS DATOS, BAJO SU CONTROL</figcaption>
+      </figure>
+    );
+  }
   if (id === "riesgos") {
     return (
       <figure className="mt-need" aria-hidden="true">
@@ -123,6 +153,33 @@ export function NeedGlyph({id}: {id: string}) {
       </svg>
       <figcaption>REACTIVO → MONITOREADO</figcaption>
     </figure>
+  );
+}
+
+/* CoreOnCloud: dos centros de datos en Ecuador, replicados entre sí. Sobre
+   fondo oscuro. Un pulso recorre la réplica en ambos sentidos, una vez. */
+export function TwoSites() {
+  return (
+    <svg viewBox="0 0 560 300" className="mt-sites" role="img" aria-labelledby="sites-t">
+      <title id="sites-t">Dos centros de datos en Ecuador, Cuenca y Guayaquil, replicados entre sí.</title>
+      <g className="mt-site" style={v({"--i": 0})}>
+        <rect x="40" y="80" width="150" height="150"/>
+        <text x="115" y="150" textAnchor="middle" className="mt-site-code">CUE</text>
+        <text x="115" y="176" textAnchor="middle" className="mt-lbl">CUENCA</text>
+      </g>
+      <g className="mt-site" style={v({"--i": 1})}>
+        <rect x="370" y="80" width="150" height="150"/>
+        <text x="445" y="150" textAnchor="middle" className="mt-site-code">GYE</text>
+        <text x="445" y="176" textAnchor="middle" className="mt-lbl">GUAYAQUIL</text>
+      </g>
+      <path className="mt-draw mt-sync" pathLength={1} d="M190 136H370"/>
+      <path className="mt-draw mt-sync mt-sync-b" pathLength={1} d="M370 174H190"/>
+      <path className="mt-sync-head" d="M360 130L370 136L360 142M200 168L190 174L200 180"/>
+      <circle className="mt-sync-dot" cx="190" cy="136" r="4"/>
+      <circle className="mt-sync-dot mt-sync-dot-b" cx="370" cy="174" r="4"/>
+      <text x="280" y="120" textAnchor="middle" className="mt-lbl mt-sync-l">RÉPLICA</text>
+      <text x="280" y="272" textAnchor="middle" className="mt-lbl">COREONCLOUD · ECUADOR</text>
+    </svg>
   );
 }
 

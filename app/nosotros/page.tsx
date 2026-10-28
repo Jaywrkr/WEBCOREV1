@@ -80,13 +80,21 @@ export default function About() {
       </section>
 
       <section className="section section-muted">
-        <div className="container flex justify-between gap-8 items-center flex-wrap">
+        <div className="container svc-split">
           <div>
             <Eyebrow>DÓNDE ESTAMOS</Eyebrow>
-            <h2 className="section-title">{site.address}.</h2>
-            <p className="muted mt-4">Dirección, teléfono y correo públicos pendientes de confirmación por la empresa.</p>
+            <h2 className="section-title">Cuenca y Guayaquil.</h2>
+            <p className="muted mt-4">Oficina principal en Cuenca y centros de datos de <Link className="text-link" href="/coreoncloud">CoreOnCloud</Link> en ambas ciudades.</p>
+            <Link className="btn mt-8" href="/contacto">Solicitar evaluación <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true"/></Link>
           </div>
-          <Link className="btn" href="/contacto">Solicitar evaluación <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true"/></Link>
+          <ul className="coc-sites">
+            {site.sites.map(x => (
+              <li key={x.code}>
+                <span className="code">{x.code}</span>
+                <div><h3>{x.city}</h3><p>{x.detail}</p></div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
     </>

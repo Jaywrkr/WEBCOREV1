@@ -1,6 +1,19 @@
 "use client";
 import {useEffect, useRef, useState, type FormEvent} from "react";
-import {services} from "@/content/services";
+import Link from "next/link";
+import {interests as services} from "@/content/services";
+import {site} from "@/content/site";
+
+/* Si el envío automático falla, se ofrece el mismo mensaje ya redactado para
+   la aplicación de correo del visitante: la solicitud nunca queda sin salida. */
+function mailtoFrom(d: Record<string, string>) {
+  const service = services.find(s => s.slug === d.service)?.title ?? "No indicado";
+  const body = [
+    `Nombre: ${d.name}`, `Empresa: ${d.company}`, `Correo: ${d.email}`, `Servicio de interés: ${service}`,
+    d.role ? `Cargo: ${d.role}` : "", d.phone ? `Teléfono: ${d.phone}` : "", "", d.message,
+  ].filter((l, i) => l !== "" || i === 6).join("\n");
+  return `mailto:${site.email}?subject=${encodeURIComponent("Solicitud de evaluación: " + d.company)}&body=${encodeURIComponent(body)}`;
+}
 
 /* Formulario de solicitud de evaluación (dirección, sección 10).
    Campos base: nombre, correo, empresa y descripción de la necesidad.
@@ -37,6 +50,7 @@ export function ContactForm({defaultService = ""}: {defaultService?: string}) {
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Errors>({});
   const [serverMessage, setServerMessage] = useState("");
+  const [fallback, setFallback] = useState("");
   const summaryRef = useRef<HTMLDivElement>(null);
   const validService = services.some(s => s.slug === defaultService) ? defaultService : "";
 
@@ -54,6 +68,7 @@ export function ContactForm({defaultService = ""}: {defaultService?: string}) {
     const found = validate(data);
     setErrors(found);
     setServerMessage("");
+    setFallback("");
     if (Object.keys(found).length) {
       setStatus("error");
       requestAnimationFrame(() => summaryRef.current?.focus());
@@ -63,12 +78,17 @@ export function ContactForm({defaultService = ""}: {defaultService?: string}) {
     try {
       const response = await fetch("/api/contact", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(data)});
       const body = await response.json().catch(() => ({}));
-      if (!response.ok) throw Error(body.error || "No fue posible enviar la solicitud.");
+      if (!response.ok) {
+        /* 400 es un error de datos; cualquier otro fallo es del canal de envío. */
+        if (response.status !== 400) setFallback(mailtoFrom(data));
+        throw Error(body.error || "No fue posible enviar la solicitud.");
+      }
       setStatus("sent");
       form.reset();
     } catch (error) {
       setStatus("error");
-      setServerMessage(error instanceof Error && error.message ? error.message : "No fue posible enviar la solicitud. Sus datos se conservan; inténtelo nuevamente.");
+      if (!(error instanceof Error) || error.name === "TypeError") setFallback(mailtoFrom(data));
+      setServerMessage(error instanceof Error && error.message && error.name !== "TypeError" ? error.message : "No fue posible conectar con el servidor.");
       requestAnimationFrame(() => summaryRef.current?.focus());
     }
   }
@@ -93,7 +113,18 @@ export function ContactForm({defaultService = ""}: {defaultService?: string}) {
       {(errorList.length > 0 || serverMessage) && (
         <div ref={summaryRef} tabIndex={-1} className="cf-summary field-full" role="alert">
           {serverMessage ? (
-            <p>{serverMessage}</p>
+            <>
+              <p>{serverMessage}</p>
+              {fallback ? (
+                <div className="cf-fallback">
+                  <p>Sus datos se conservan en el formulario. Puede enviarnos la misma solicitud por correo, ya redactada, o llamarnos.</p>
+                  <div className="cf-fallback-actions">
+                    <a className="btn" href={fallback}>Enviar por correo</a>
+                    <a className="btn btn-ghost" href={"tel:" + site.phone.replace(/\s/g, "")}>Llamar al {site.phone}</a>
+                  </div>
+                </div>
+              ) : <p className="cf-sub">Sus datos se conservan en el formulario.</p>}
+            </>
           ) : (
             <>
               <p>Revise {errorList.length === 1 ? "el siguiente campo" : "los siguientes campos"}:</p>
@@ -152,7 +183,7 @@ export function ContactForm({defaultService = ""}: {defaultService?: string}) {
         <button className="btn" type="submit" disabled={status === "sending"} aria-busy={status === "sending"}>
           {status === "sending" ? "Enviando…" : "Enviar solicitud"}
         </button>
-        <p className="cf-privacy">Los datos que envíe se usan únicamente para responder a su solicitud y conversar sobre el alcance de una evaluación. No se comparten con terceros ajenos a la atención de la consulta. El plazo de conservación y el contacto para ejercer sus derechos están pendientes de confirmación por la empresa.</p>
+        <p className="cf-privacy">Los datos que envíe se usan únicamente para responder a su solicitud y conversar sobre el alcance de una evaluación. No se comparten con terceros ajenos a la atención de la consulta. Más detalles en la <Link className="text-link" href="/privacidad">política de privacidad</Link>.</p>
       </div>
     </form>
   );

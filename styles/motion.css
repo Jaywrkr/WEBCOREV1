@@ -1,0 +1,122 @@
+/* Metáforas y movimiento de la portada.
+   Regla: el estado por defecto es el estado final y comunica lo mismo que la
+   animación. El movimiento solo existe con prefers-reduced-motion:
+   no-preference; lo que depende de visibilidad, además, solo con JavaScript
+   (scripting: enabled), para que sin JS nada quede oculto. Todo se ejecuta
+   una vez; no hay movimiento ambiental continuo. */
+
+/* ---------- Estado final (siempre) ---------- */
+.mt-lbl{font:500 11px var(--font-plex-mono),monospace;letter-spacing:.1em;fill:#aeb5ec}
+.mt-lbl-in{fill:#fff}
+.mt-lbl-dark{fill:var(--gray-60)}
+.mt-draw{fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:square}
+
+/* Hero: iceberg */
+.mt-ice{display:block;width:100%;height:auto;color:#fff;overflow:visible}
+.mt-ice-water{stroke:rgba(255,255,255,.6)}
+.mt-ice-cap{fill:#c8ccff}
+.mt-ice-spine{stroke:rgba(255,255,255,.45)}
+.mt-ice-layer rect{transition:fill .25s var(--ease)}
+.mt-ice-layer:hover rect{fill:rgba(255,255,255,.16)}
+.mt-ice-guard{stroke:#8b97ff}
+.mt-ice-guard-l{fill:#8b97ff}
+.mt-ice-pulse{fill:#fff;opacity:0}
+
+/* Rigor */
+.mt-rig{display:block;width:44px;height:44px;margin-bottom:18px;color:var(--brand)}
+.mt-faint{opacity:.4}
+.mt-strong{stroke:var(--accent-blue);stroke-width:2.5}
+
+/* Necesidades */
+.mt-need{margin:0 0 22px;border:1px solid var(--gray-20);background:linear-gradient(180deg,#f4f6fd 0%,#fff 100%)}
+.mt-need svg{display:block;width:100%;height:auto;max-height:150px;color:var(--brand)}
+.mt-need figcaption{padding:8px 12px;border-top:1px solid var(--gray-20);font:500 11px var(--font-plex-mono),monospace;letter-spacing:.1em;color:var(--gray-60)}
+.mt-sq{fill:var(--brand);stroke:var(--brand);stroke-width:1.5;transform-box:fill-box;transform-origin:center}
+.mt-orig{fill:transparent;stroke:var(--gray-40);stroke-width:1.5;stroke-dasharray:4 4}
+.mt-copy{fill:var(--brand);stroke:var(--brand);stroke-width:1.5}
+.mt-arrow{stroke:var(--accent-blue)}
+.mt-core{fill:var(--brand)}
+.mt-perim{stroke:var(--accent-blue);stroke-width:2}
+.mt-threat{fill:var(--danger)}
+.mt-noise{fill:none;stroke:var(--gray-30);stroke-width:1.5;opacity:.5}
+.mt-steady{stroke:var(--brand);stroke-width:2.5}
+.mt-dot{fill:var(--accent-blue);transform-box:fill-box;transform-origin:center}
+
+/* Método */
+.mt-method{display:block;width:100%;height:auto;margin:40px 0 8px;color:var(--brand);overflow:visible}
+.mt-tangle{stroke-width:2}
+.mt-mark circle{fill:#fff;stroke:var(--accent-blue);stroke-width:2.5}
+.mt-mark{transform-box:fill-box;transform-origin:center}
+
+/* Cierre */
+.mt-venn{display:block;width:100%;max-width:520px;height:auto;margin-inline:auto;overflow:visible}
+.mt-venn-a circle,.mt-venn-b circle{fill:rgba(255,255,255,.04);stroke:rgba(255,255,255,.7);stroke-width:1.5}
+.mt-venn-l{fill:#dfe3ff}
+.mt-venn-k{fill:#fff;font-weight:600;letter-spacing:.14em}
+
+/* ---------- Movimiento ---------- */
+@keyframes mt-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes mt-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@keyframes mt-fade{from{opacity:0}to{opacity:1}}
+@keyframes mt-pop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
+@keyframes mt-pulse{0%{opacity:0;transform:translateY(0)}10%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translateY(262px)}}
+@keyframes mt-flash{0%,100%{fill:rgba(255,255,255,.06)}40%{fill:rgba(139,151,255,.45)}}
+@keyframes mt-settle{from{transform:translate(var(--dx),var(--dy)) rotate(var(--r));fill:transparent;opacity:.5}to{transform:none;fill:var(--brand);opacity:1}}
+@keyframes mt-fall{0%,35%{fill:var(--brand);stroke:var(--brand)}100%{fill:transparent;stroke:var(--gray-40)}}
+@keyframes mt-takeover{0%,45%{fill:transparent}100%{fill:var(--brand)}}
+@keyframes mt-arrive{from{transform:translate(var(--fx),var(--fy));opacity:0}to{transform:none;opacity:1}}
+@keyframes mt-calm{from{opacity:1;stroke:var(--gray-60)}to{opacity:.5;stroke:var(--gray-30)}}
+@keyframes mt-venn-a{from{transform:translateX(-70px);opacity:0}to{transform:none;opacity:1}}
+@keyframes mt-venn-b{from{transform:translateX(70px);opacity:0}to{transform:none;opacity:1}}
+
+/* Al cargar: hero (no depende de JavaScript) y paneles del selector */
+@media (prefers-reduced-motion:no-preference){
+  .mt-rise{animation:mt-rise .7s var(--ease) both;animation-delay:var(--d,0ms)}
+  .mt-ice .mt-draw{stroke-dasharray:1}
+  .mt-ice-top{transform-box:fill-box;transform-origin:center;animation:mt-pop .6s var(--ease) .35s both}
+  .mt-ice-water{animation:mt-draw .8s var(--ease) .75s both}
+  .mt-ice-cap{animation:mt-fade .6s 1.2s both}
+  .mt-ice-spine{animation:mt-draw .7s var(--ease) 1.25s both}
+  .mt-ice-layer{animation:mt-rise .6s var(--ease) both;animation-delay:calc(1.55s + var(--i) * 140ms)}
+  .mt-ice-layer rect{animation:mt-flash .7s var(--ease) backwards;animation-delay:calc(3.35s + var(--i) * 230ms)}
+  .mt-ice-guard{animation:mt-draw 1.1s var(--ease) 2.2s both}
+  .mt-ice-guard-l{animation:mt-fade .5s 3s both}
+  .mt-ice-pulse{animation:mt-pulse 1.3s var(--ease) 3.2s both}
+
+  /* Se reproducen cada vez que un panel pasa de oculto a visible */
+  .mt-need .mt-draw{stroke-dasharray:1}
+  .mt-sq{animation:mt-settle .8s var(--ease) both;animation-delay:calc(var(--i) * 45ms)}
+  .mt-orig{animation:mt-fall 1.2s var(--ease) both}
+  .mt-copy{animation:mt-takeover 1.2s var(--ease) both}
+  .mt-arrow{animation:mt-draw .6s var(--ease) .7s both}
+  .mt-perim{animation:mt-draw .9s var(--ease) .1s both}
+  .mt-threat{animation:mt-arrive .7s var(--ease) both;animation-delay:calc(.5s + var(--i) * 100ms)}
+  .mt-noise{animation:mt-calm .9s var(--ease) both}
+  .mt-steady{animation:mt-draw .9s var(--ease) .25s both}
+  .mt-dot{animation:mt-pop .4s var(--ease) 1.1s both}
+  .sol-a:not([hidden]) > *:not(.mt-need){animation:mt-rise .5s var(--ease) both;animation-delay:.12s}
+}
+
+/* Al entrar en pantalla (requiere JavaScript) */
+@media (prefers-reduced-motion:no-preference) and (scripting:enabled){
+  [data-io]:not([data-in]) .mt-up{opacity:0}
+  [data-io][data-in] .mt-up{animation:mt-rise .65s var(--ease) both;animation-delay:calc(var(--i,0) * 90ms)}
+
+  .mt-rig .mt-draw,.mt-method .mt-draw{stroke-dasharray:1}
+  [data-io]:not([data-in]) .mt-rig .mt-draw{stroke-dashoffset:1}
+  [data-io][data-in] .mt-rig .mt-draw{animation:mt-draw .9s var(--ease) both;animation-delay:calc(var(--i,0) * 90ms + 250ms + var(--dd,0ms))}
+  .mt-d1{--dd:150ms}.mt-d2{--dd:300ms}.mt-d3{--dd:450ms}
+
+  [data-io]:not([data-in]) .mt-tangle{stroke-dashoffset:1}
+  [data-io][data-in] .mt-tangle{animation:mt-draw 2.2s var(--ease) .35s both}
+  [data-io]:not([data-in]) .mt-mark,[data-io]:not([data-in]) .mt-mark-end{opacity:0}
+  [data-io][data-in] .mt-mark{animation:mt-pop .45s var(--ease) both;animation-delay:calc(1.3s + var(--i) * 420ms)}
+  [data-io][data-in] .mt-mark-end{animation:mt-fade .6s 2.5s both}
+
+  [data-io]:not([data-in]) .mt-venn-a,[data-io]:not([data-in]) .mt-venn-b,[data-io]:not([data-in]) .mt-venn-x,[data-io]:not([data-in]) .mt-venn text{opacity:0}
+  [data-io][data-in] .mt-venn-a{animation:mt-venn-a 1s var(--ease) .2s both}
+  [data-io][data-in] .mt-venn-b{animation:mt-venn-b 1s var(--ease) .2s both}
+  [data-io][data-in] .mt-venn-l{animation:mt-fade .6s .7s both}
+  [data-io][data-in] .mt-venn-x{animation:mt-fade .8s 1.1s both}
+  [data-io][data-in] .mt-venn-k{animation:mt-pop .5s var(--ease) 1.5s both;transform-box:fill-box;transform-origin:center}
+}

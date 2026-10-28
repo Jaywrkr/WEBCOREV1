@@ -3,6 +3,7 @@ import {useId, useState} from "react";
 import Link from "next/link";
 import {ArrowRight, ArrowUpRight} from "lucide-react";
 import {services, getService} from "@/content/services";
+import {NeedGlyph} from "@/components/metaphors";
 
 /* Un solo selector por necesidad. La respuesta describe el alcance de un servicio
    y enlaza a su ficha; no es un diagnóstico ni una recomendación personalizada.
@@ -43,6 +44,7 @@ export function Solutions() {
                   <ArrowRight size={20} strokeWidth={1.75} aria-hidden="true"/>
                 </button>
                 <div className="sol-a" id={panelId} role="region" aria-labelledby={btnId} hidden={!open}>
+                  <NeedGlyph id={n.id}/>
                   <p className="focus">{n.focus.toUpperCase()}</p>
                   <h3>{service?.title}</h3>
                   <p>{n.answer}</p>

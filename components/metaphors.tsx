@@ -86,7 +86,7 @@ export function StageDiagram({stage}: {stage: "plan" | "build" | "doc"}) {
       {stage === "plan" && <>
         <defs>
           <pattern id="sd-grid" width="14" height="14" patternUnits="userSpaceOnUse">
-            <path d="M14 0H0V14" fill="none" stroke="#d3d9ff" strokeWidth="1"/>
+            <path d="M14 0H0V14" fill="none" stroke="rgba(255,255,255,.16)" strokeWidth="1"/>
           </pattern>
         </defs>
         <rect className="sd-bg" width="280" height="190" fill="url(#sd-grid)"/>

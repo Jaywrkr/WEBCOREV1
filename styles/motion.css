@@ -21,8 +21,8 @@
 .mt-ice-box{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.75)}
 .mt-ice-guard{stroke:#8b97ff}
 .mt-ice-guard-l{fill:#8b97ff}
-.mt-ice-pulse{fill:var(--signal);opacity:0}
-.mt-ice-ping{fill:none;stroke:var(--signal);stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center}
+.mt-ice-pulse{fill:#fff;opacity:0}
+.mt-ice-ping{fill:none;stroke:#fff;stroke-width:1.5;opacity:0;transform-box:fill-box;transform-origin:center}
 .mt-ice-packet{fill:#c8ccff;opacity:.7}
 .mt-ice-scan{fill:none;stroke:rgba(207,213,255,.75);stroke-width:1.5;stroke-dasharray:2 18;opacity:0}
 .mt-ice-shine{opacity:0}
@@ -81,7 +81,7 @@
 @keyframes mt-pop{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:none}}
 @keyframes mt-pulse{0%{opacity:0;transform:translateY(0)}10%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translateY(262px)}}
 @keyframes mt-pulse-loop{0%{opacity:0;transform:none}6%,94%{opacity:1}100%{opacity:0;transform:translateY(262px)}}
-@keyframes mt-flash-loop{0%{fill:rgba(255,122,69,.38)}20%,100%{fill:rgba(255,255,255,.06)}}
+@keyframes mt-flash-loop{0%{fill:rgba(139,151,255,.42)}20%,100%{fill:rgba(255,255,255,.06)}}
 @keyframes mt-ping{0%{opacity:.6;transform:scale(1)}70%,100%{opacity:0;transform:scale(1.7)}}
 @keyframes mt-packet{0%{opacity:0;transform:translateX(0)}12%,88%{opacity:.9}100%{opacity:0;transform:translateX(var(--len))}}
 @keyframes mt-grow-x{from{transform:scaleX(0)}to{transform:none}}

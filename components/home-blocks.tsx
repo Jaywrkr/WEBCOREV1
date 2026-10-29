@@ -3,7 +3,7 @@ import Link from "next/link";
 import {ArrowUpRight} from "lucide-react";
 import {site} from "@/content/site";
 import {InView, PointerGlow} from "@/components/motion";
-import {MethodLine, RigorGlyph, ScopeVenn, TwoSites} from "@/components/metaphors";
+import {MethodLine, ScopeVenn, StageDiagram, TwoSites} from "@/components/metaphors";
 
 /* Bloques estáticos de la portada. Textos preliminares de la dirección:
    la empresa debe confirmarlos antes de publicar. Sin cifras ni certificaciones.
@@ -13,22 +13,34 @@ import {MethodLine, RigorGlyph, ScopeVenn, TwoSites} from "@/components/metaphor
 const i = (n: number) => ({"--i": n}) as CSSProperties;
 
 const rigor = [
-  {kind: "fit" as const, title: "Arquitectura según su entorno", body: "Partimos de las cargas, dependencias y objetivos de su organización."},
-  {kind: "check" as const, title: "Implementación con criterios definidos", body: "Acordamos alcance, pruebas y condiciones de entrega."},
-  {kind: "docs" as const, title: "Documentación para operar", body: "La solución incluye información útil para su administración y continuidad."},
+  {stage: "plan" as const, label: "ARQUITECTURA", title: "Arquitectura según su entorno", body: "Partimos de las cargas, dependencias y objetivos de su organización para dibujar la solución antes de construirla."},
+  {stage: "build" as const, label: "IMPLEMENTACIÓN", title: "Implementación con criterios definidos", body: "Construimos sobre ese plano y validamos con las pruebas y condiciones de entrega acordadas."},
+  {stage: "doc" as const, label: "DOCUMENTACIÓN", title: "Documentación para operar", body: "Cuando el alcance lo incluye, dejamos la solución documentada para su administración y continuidad."},
 ];
 
+/* Sección 1: el mismo sistema en tres momentos, de plano a documento. */
 export function Rigor() {
   return (
-    <section className="rig" aria-label="Cómo trabajamos, en resumen">
-      <InView className="container rig-grid">
-        {rigor.map((r, n) => (
-          <article className="rig-item mt-up" style={i(n)} key={r.title}>
-            <RigorGlyph kind={r.kind}/>
-            <h2>{r.title}</h2>
-            <p>{r.body}</p>
-          </article>
-        ))}
+    <section className="rig" aria-labelledby="rig-h">
+      <InView className="container" threshold={0.2}>
+        <div className="rig-head">
+          <p className="svc-eyebrow mt-up">CÓMO ENTREGAMOS</p>
+          <h2 id="rig-h" className="mt-up" style={i(1)}>Primero se dibuja. Luego se construye. Después se documenta.</h2>
+          <p className="mt-up" style={i(2)}>El mismo sistema en tres momentos, para que sepa qué recibe en cada etapa.</p>
+        </div>
+        <ol className="rig-flow">
+          {rigor.map((r, n) => (
+            <li className="rig-card" style={{"--s": n * 0.7 + "s"} as CSSProperties} key={r.title}>
+              <div className="rig-fig"><StageDiagram stage={r.stage}/></div>
+              <div className="rig-body">
+                <span className="rig-step">0{n + 1} · {r.label}</span>
+                <h3>{r.title}</h3>
+                <p>{r.body}</p>
+              </div>
+              {n < rigor.length - 1 && <span className="rig-link" aria-hidden="true"/>}
+            </li>
+          ))}
+        </ol>
       </InView>
     </section>
   );

@@ -3,7 +3,7 @@ import Link from "next/link";
 import {ArrowUpRight, ArrowDown} from "lucide-react";
 import {site} from "@/content/site";
 import {HeroIceberg} from "@/components/metaphors";
-import {PointerGlow} from "@/components/motion";
+import {MotionToggle, PointerGlow} from "@/components/motion";
 
 /* Hero: el texto domina; a la derecha, la metáfora del iceberg explica que lo
    que el usuario ve depende de capas que no se ven. Entrada en secuencia al
@@ -30,7 +30,7 @@ export function StaticHero() {
         </div>
         <figure className="sh-figure">
           <HeroIceberg/>
-          <figcaption className="sh-caption">Modelo conceptual. Lo que el usuario ve depende de capas que no se ven.</figcaption>
+          <figcaption className="sh-caption">Modelo conceptual. Lo que el usuario ve depende de capas que no se ven. <MotionToggle/></figcaption>
         </figure>
       </div>
     </section>

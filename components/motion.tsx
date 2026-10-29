@@ -1,5 +1,5 @@
 "use client";
-import {useEffect, useRef, type CSSProperties, type ReactNode} from "react";
+import {useEffect, useRef, useState, type CSSProperties, type ReactNode} from "react";
 
 /* Disparador de animaciones por visibilidad. Marca el elemento con data-in
    la primera vez que entra en pantalla; las animaciones viven en CSS
@@ -18,6 +18,32 @@ export function InView({className, children, threshold = 0.3, style}: {className
     return () => io.disconnect();
   }, [threshold]);
   return <div ref={ref} data-io="" className={className} style={style}>{children}</div>;
+}
+
+/* Control del movimiento continuo de una figura: pausa con un botón y pausa
+   sola cuando la figura sale de pantalla (no consume recursos sin verse). */
+export function MotionToggle() {
+  const ref = useRef<HTMLButtonElement>(null);
+  const [paused, setPaused] = useState(false);
+  useEffect(() => {
+    const fig = ref.current?.closest("figure");
+    if (!fig || !("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) delete fig.dataset.offscreen; else fig.dataset.offscreen = "true";
+    });
+    io.observe(fig);
+    return () => io.disconnect();
+  }, []);
+  useEffect(() => {
+    const fig = ref.current?.closest("figure");
+    if (!fig) return;
+    if (paused) fig.dataset.paused = "true"; else delete fig.dataset.paused;
+  }, [paused]);
+  return (
+    <button ref={ref} type="button" className="sh-motion" aria-pressed={paused} onClick={() => setPaused(p => !p)}>
+      {paused ? "Reanudar animación" : "Pausar animación"}
+    </button>
+  );
 }
 
 /* Brillo que sigue al puntero dentro de su contenedor. Solo con puntero fino y

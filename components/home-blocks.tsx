@@ -3,7 +3,7 @@ import Link from "next/link";
 import {ArrowUpRight} from "lucide-react";
 import {site} from "@/content/site";
 import {InView, PointerGlow} from "@/components/motion";
-import {MethodLine, RigorGlyph, ScopeVenn} from "@/components/metaphors";
+import {MethodLine, RigorGlyph, ScopeVenn, TwoSites} from "@/components/metaphors";
 
 /* Bloques estáticos de la portada. Textos preliminares de la dirección:
    la empresa debe confirmarlos antes de publicar. Sin cifras ni certificaciones.
@@ -74,7 +74,32 @@ export function Technologies() {
   );
 }
 
-export function Closing() {
+/* CoreOnCloud: la nube propia de la empresa, su principal diferenciador. */
+export function CoreOnCloudBand() {
+  return (
+    <section className="coc" aria-labelledby="coc-h">
+      <PointerGlow className="cie-glow"/>
+      <InView className="container coc-grid">
+        <div>
+          <p className="sh-eyebrow mt-up">NUBE PROPIA EN ECUADOR</p>
+          <h2 id="coc-h" className="mt-up" style={i(1)}>CoreOnCloud: su sitio alterno, en Ecuador.</h2>
+          <p className="mt-up" style={i(2)}>Nuestra nube propia, con centros de datos en Cuenca y Guayaquil replicados entre sí. Para alojar cargas, guardar copias fuera de su sitio o mantener servidores listos para funcionar si su sitio principal falla.</p>
+          <ul className="coc-list mt-up" style={i(3)}>
+            <li>Infraestructura como servicio</li>
+            <li>Respaldo gestionado</li>
+            <li>Recuperación ante desastres</li>
+          </ul>
+          <div className="mt-up" style={i(4)}>
+            <Link className="btn btn-inverse sh-cta" href="/coreoncloud">Conocer CoreOnCloud <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true"/></Link>
+          </div>
+        </div>
+        <TwoSites/>
+      </InView>
+    </section>
+  );
+}
+
+export function Closing({service = ""}: {service?: string}) {
   return (
     <section className="cie" id="contacto" aria-labelledby="cie-h">
       <PointerGlow className="cie-glow"/>
@@ -83,7 +108,7 @@ export function Closing() {
           <h2 id="cie-h" className="mt-up">Conversemos sobre su infraestructura.</h2>
           <p className="mt-up" style={i(1)}>Cuéntenos qué necesita modernizar, proteger o recuperar. Revisaremos su solicitud para conversar sobre el entorno y el alcance de una evaluación.</p>
           <div className="mt-up" style={i(2)}>
-            <Link className="btn btn-inverse sh-cta" href="/contacto">Solicitar evaluación <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true"/></Link>
+            <Link className="btn btn-inverse sh-cta" href={service ? "/contacto?servicio=" + service : "/contacto"}>Solicitar evaluación <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true"/></Link>
           </div>
         </div>
         <ScopeVenn/>

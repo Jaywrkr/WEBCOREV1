@@ -1,15 +1,21 @@
 import type {Metadata} from "next";
+import Link from "next/link";
+import {Mail, Phone, MapPin} from "lucide-react";
 import {ContactForm} from "@/components/contact-form";
 import {Eyebrow} from "@/components/ui";
-import {getService} from "@/content/services";
+import {interests} from "@/content/services";
+import {site} from "@/content/site";
 
-export const metadata: Metadata = {title: "Contacto"};
+export const metadata: Metadata = {
+  title: "Contacto",
+  description: "Solicite una evaluación a Coresolutions o escríbanos directamente. Oficina principal en Cuenca y centros de datos en Cuenca y Guayaquil.",
+};
 
 /* El servicio puede llegar preseleccionado desde una ficha (?servicio=slug)
    y permanece editable en el formulario. */
 export default async function Contact({searchParams}: {searchParams: Promise<{servicio?: string}>}) {
   const {servicio = ""} = await searchParams;
-  const preselected = getService(servicio);
+  const preselected = interests.find(x => x.slug === servicio);
   return (
     <>
       <section className="section section-dark">
@@ -25,7 +31,12 @@ export default async function Contact({searchParams}: {searchParams: Promise<{se
             <h2>Solicitar evaluación</h2>
             <p className="muted mt-6">Con cuatro datos basta para empezar. Si llega desde una ficha de servicio, ese servicio aparece seleccionado y puede cambiarlo.</p>
             {preselected && <p className="muted mt-4 text-sm">Servicio preseleccionado: {preselected.title}.</p>}
-            <p className="text-sm muted mt-6">Ubicación: Quito, Ecuador. Dirección, teléfono y correo de contacto pendientes de confirmación por la empresa.</p>
+            <ul className="ct-direct" aria-label="Contacto directo">
+              <li><Mail size={18} strokeWidth={1.75} aria-hidden="true"/><a href={"mailto:" + site.email}>{site.email}</a></li>
+              <li><Phone size={18} strokeWidth={1.75} aria-hidden="true"/><a href={"tel:" + site.phone.replace(/\s/g, "")}>{site.phone}</a></li>
+              <li><MapPin size={18} strokeWidth={1.75} aria-hidden="true"/><span>{site.street}, {site.address}</span></li>
+            </ul>
+            <p className="text-sm muted mt-6">Lea cómo tratamos sus datos en la <Link className="text-link" href="/privacidad">política de privacidad</Link>.</p>
           </div>
           <ContactForm defaultService={preselected?.slug ?? ""}/>
         </div>

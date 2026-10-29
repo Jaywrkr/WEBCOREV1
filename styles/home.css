@@ -10,8 +10,8 @@
   -webkit-mask-image:radial-gradient(70% 80% at 72% 45%,#000 15%,transparent 72%);mask-image:radial-gradient(70% 80% at 72% 45%,#000 15%,transparent 72%)}
 /* En la portada el degradado del hero continúa bajo la cabecera transparente */
 body:has(.k-home) .header.at-top{background:transparent}
-.k-home .sh{margin-top:-80px;padding-top:calc(clamp(56px,9vw,120px) + 80px)}
-@media (max-width:760px){.k-home .sh{margin-top:-72px;padding-top:calc(clamp(56px,9vw,120px) + 72px)}}
+.k-home > .sh:first-child{margin-top:-80px;padding-top:calc(clamp(56px,9vw,120px) + 80px)}
+@media (max-width:760px){.k-home > .sh:first-child{margin-top:-72px;padding-top:calc(clamp(56px,9vw,120px) + 72px)}}
 .sh-glow,.cie-glow{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .5s var(--ease);
   background:radial-gradient(460px circle at var(--mx,70%) var(--my,30%),rgba(131,142,227,.26),transparent 62%)}
 .sh-glow[data-active],.cie-glow[data-active]{opacity:1}
@@ -166,6 +166,15 @@ body:has(.k-home) .header.at-top{background:transparent}
 /* Cierre */
 .cie{position:relative;isolation:isolate;overflow:hidden;color:#fff;padding:clamp(72px,9vw,120px) 0;
   background:radial-gradient(70% 90% at 100% 50%,rgba(45,67,231,.5) 0%,rgba(45,67,231,0) 65%),linear-gradient(180deg,#01095c 0%,#00063f 100%)}
+/* CoreOnCloud en la portada */
+.coc{position:relative;isolation:isolate;overflow:hidden;color:#fff;padding:clamp(72px,9vw,120px) 0;
+  background:radial-gradient(70% 90% at 0% 40%,rgba(45,67,231,.45) 0%,rgba(45,67,231,0) 65%),linear-gradient(180deg,#00063f 0%,#01095c 100%)}
+.coc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:center}
+.coc h2{font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-.025em;line-height:1.05;margin:0 0 16px;max-width:18ch}
+.coc p:not(.sh-eyebrow){margin:0 0 24px;color:#dfe3ff;max-width:56ch;font-size:17px;line-height:1.6}
+.coc-list{list-style:none;margin:0 0 32px;padding:0;display:flex;flex-wrap:wrap;gap:8px}
+.coc-list li{border:1px solid rgba(255,255,255,.35);padding:8px 12px;font:500 12px var(--font-plex-mono),monospace;letter-spacing:.06em;color:#fff}
+@media (max-width:900px){.coc-grid{grid-template-columns:1fr}}
 .cie-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:center}
 @media (max-width:900px){.cie-grid{grid-template-columns:1fr}.cie .mt-venn{max-width:420px}}
 .cie h2{font-size:clamp(30px,4vw,52px);font-weight:500;letter-spacing:-.025em;line-height:1.05;margin:0 0 16px;max-width:18ch}

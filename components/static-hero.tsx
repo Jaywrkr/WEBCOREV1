@@ -18,7 +18,7 @@ export function StaticHero() {
         <div className="hx-copy">
           <p className="hx-eyebrow mt-rise" style={d(0)}>{hero.eyebrow}</p>
           <h1 id="hx-title" className="hx-title mt-rise" style={d(80)}>
-            {hero.title} <span className="hx-accent">{hero.titleAccent}</span>
+            {hero.title} <em className="hx-accent">{hero.titleAccent}</em>
           </h1>
           <p className="hx-desc mt-rise" style={d(200)}>{hero.description}</p>
           <div className="hx-actions mt-rise" style={d(320)}>

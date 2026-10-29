@@ -38,7 +38,7 @@ export function EditorialGrid() {
       <InView className="container" threshold={0.08}>
         <div className="lg-head">
           <p className="lg-kicker mt-up">LO QUE LO SOSTIENE</p>
-          <h2 id="lg-h" className="mt-up" style={{"--i": 1} as CSSProperties}>Soluciones, capa por capa.</h2>
+          <h2 id="lg-h" className="mt-up" style={{"--i": 1} as CSSProperties}>Soluciones, <em>capa por capa.</em></h2>
           <p className="mt-up" style={{"--i": 2} as CSSProperties}>Cada servicio es una de las capas que mantienen su operación en pie. Empiece por la que necesita reforzar.</p>
         </div>
         <p className="lg-hint" aria-hidden="true">DESLICE PARA VER LAS 8 →</p>

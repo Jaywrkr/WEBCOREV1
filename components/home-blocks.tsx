@@ -25,7 +25,7 @@ export function Rigor() {
       <InView className="container" threshold={0.2}>
         <div className="rig-head">
           <p className="svc-eyebrow mt-up">CÓMO ENTREGAMOS</p>
-          <h2 id="rig-h" className="mt-up" style={i(1)}>Primero se dibuja. Luego se construye. Después se documenta.</h2>
+          <h2 id="rig-h" className="mt-up" style={i(1)}>Primero se dibuja. Luego se construye. <em>Después se documenta.</em></h2>
           <p className="mt-up" style={i(2)}>El mismo sistema en tres momentos, para que sepa qué recibe en cada etapa.</p>
         </div>
         <ol className="ed-grid ed-grid-3 rig-flow">
@@ -55,7 +55,7 @@ export function Method() {
   return (
     <section className="met" id="metodologia" aria-labelledby="met-h">
       <InView className="container" threshold={0.25}>
-        <h2 id="met-h" className="met-title mt-up">Del diagnóstico a la operación.</h2>
+        <h2 id="met-h" className="met-title mt-up">Del diagnóstico <em>a la operación.</em></h2>
         <p className="met-lead mt-up" style={i(1)}>Un entorno complejo se vuelve operable cuando se entiende, se diseña con criterio y se documenta.</p>
         <MethodLine/>
         <ol className="met-grid">
@@ -77,7 +77,7 @@ export function Technologies() {
   return (
     <section className="tec" id="tecnologias" aria-labelledby="tec-h">
       <InView className="container">
-        <h2 id="tec-h" className="mt-up">Tecnologías que integramos.</h2>
+        <h2 id="tec-h" className="mt-up">Tecnologías que <em>integramos.</em></h2>
         <p className="mt-up" style={i(1)}>Nombres sujetos a confirmación por la empresa. Integrar una tecnología no implica una relación de partner certificado.</p>
         <ul>{site.partners.map((p, n) => <li className="mt-up" style={i(n + 2)} key={p}>{p}</li>)}</ul>
       </InView>
@@ -116,7 +116,7 @@ export function Closing({service = ""}: {service?: string}) {
       <PointerGlow className="cie-glow"/>
       <InView className="container cie-grid">
         <div>
-          <h2 id="cie-h" className="mt-up">Conversemos sobre su infraestructura.</h2>
+          <h2 id="cie-h" className="mt-up">Conversemos sobre <em>su infraestructura.</em></h2>
           <p className="mt-up" style={i(1)}>Cuéntenos qué necesita modernizar, proteger o recuperar. Revisaremos su solicitud para conversar sobre el entorno y el alcance de una evaluación.</p>
           <div className="mt-up" style={i(2)}>
             <Link className="btn btn-inverse sh-cta" href={service ? "/contacto?servicio=" + service : "/contacto"}>Solicitar evaluación <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true"/></Link>

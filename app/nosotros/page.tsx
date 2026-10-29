@@ -26,7 +26,7 @@ export default function About() {
       <section className="section section-dark">
         <div className="container">
           <Eyebrow>NOSOTROS</Eyebrow>
-          <h1 className="display max-w-4xl">Ingeniería y acompañamiento para infraestructura crítica.</h1>
+          <h1 className="display max-w-4xl">Ingeniería y acompañamiento para <em>infraestructura crítica.</em></h1>
           <p className="max-w-2xl mt-7 text-gray-200">Somos una empresa ecuatoriana que integra soluciones de infraestructura, nube, protección de datos y ciberseguridad para organizaciones que dependen de su operación tecnológica.</p>
         </div>
       </section>

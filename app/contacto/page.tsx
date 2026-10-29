@@ -21,7 +21,7 @@ export default async function Contact({searchParams}: {searchParams: Promise<{se
       <section className="section section-dark">
         <div className="container">
           <Eyebrow>CONTACTO</Eyebrow>
-          <h1 className="display max-w-3xl">Conversemos sobre su infraestructura.</h1>
+          <h1 className="display max-w-3xl">Conversemos sobre <em>su infraestructura.</em></h1>
           <p className="max-w-2xl mt-7 text-gray-200">Cuéntenos qué necesita modernizar, proteger o recuperar. Revisaremos su solicitud y le responderemos para definir el alcance de una evaluación.</p>
         </div>
       </section>

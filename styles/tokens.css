@@ -1,14 +1,13 @@
 :root {
  --brand:#01095C; --blue-10:#E9EAFC; --blue-20:#CED1F5; --blue-30:#ABB2ED; --blue-40:#838EE3; --blue-50:#596BD6; --blue-60:#394AB5; --blue-70:#26368F; --blue-80:#172371; --blue-90:#01095C; --blue-100:#00053B;
  --accent-blue:#2D43E7;
- /* Color de firma: cobre. Brillante sobre fondos oscuros; oscuro para texto
-    sobre fondos claros (contraste AA). */
- --signal:#FF7A45; --signal-soft:#FFB08A; --signal-ink:#B4461A;
+ /* Sin color secundario: los acentos son tonos de la propia marca.
+    --tone-light para acentos sobre fondo claro, --tone-dark sobre oscuro. */
+ --tone-light:#8A92AE; --tone-dark:#8F98D8; --label-light:var(--blue-60); --label-dark:var(--blue-30);
  /* Grises con un leve tinte del azul de la marca (no la escala de IBM) */
  --gray-0:#FFFFFF; --gray-10:#F4F5F9; --gray-20:#E3E6EF; --gray-30:#CBD0DE; --gray-40:#A7AEC2; --gray-50:#858DA5; --gray-60:#636C86; --gray-70:#4A526B; --gray-80:#333A52; --gray-90:#22283F; --gray-100:#12162B;
  --success:#13875A; --warning:#E8A317; --danger:#D7352B;
- --font-display:var(--font-sora),"Sora",sans-serif;
- --font-accent:var(--font-instrument),"Instrument Serif",serif;
+ --font-display:var(--font-geist),"Geist",sans-serif;
  --ease:cubic-bezier(.2,0,.38,.9); --container:1280px;
  --space-1:8px; --space-2:16px; --space-3:24px; --space-4:32px; --space-5:40px; --space-6:48px; --space-8:64px; --space-10:80px;
 }

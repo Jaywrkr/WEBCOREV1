@@ -47,7 +47,7 @@ export default function CoreOnCloud() {
       <PageHero
         crumbs={[["Inicio", "/"], ["CoreOnCloud"]]}
         eyebrow="NUBE PROPIA EN ECUADOR"
-        title={<>CoreOnCloud. <span className="sh-accent">Su infraestructura, en dos sitios.</span></>}
+        title={<>CoreOnCloud. <em>Su infraestructura, en dos sitios.</em></>}
         lede="Nuestra nube propia: infraestructura como servicio, respaldo y recuperación ante desastres, con centros de datos en Cuenca y Guayaquil replicados entre sí."
         cta={{href: "/contacto?servicio=coreoncloud", label: "Solicitar información"}}
         secondary={{href: "#servicios", label: "Ver qué puede llevar"}}

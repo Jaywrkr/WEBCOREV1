@@ -1,13 +1,16 @@
 import type {Metadata} from "next";
-import {IBM_Plex_Sans, IBM_Plex_Mono, IBM_Plex_Serif} from "next/font/google";
+import {IBM_Plex_Sans, IBM_Plex_Mono, Sora, Instrument_Serif} from "next/font/google";
 import {Header} from "@/components/header";
 import {Footer} from "@/components/footer";
 import {site} from "@/content/site";
 import "./globals.css";
 
-const sans = IBM_Plex_Sans({subsets: ["latin"], weight: ["300", "400", "500", "600"], variable: "--font-plex-sans", display: "swap"});
+/* IBM Plex para texto y datos; Sora para titulares (voz propia de la marca);
+   Instrument Serif itálica para los acentos dentro de los titulares. */
+const sans = IBM_Plex_Sans({subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-sans", display: "swap"});
 const mono = IBM_Plex_Mono({subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-mono", display: "swap"});
-const serif = IBM_Plex_Serif({subsets: ["latin"], weight: ["400", "600"], variable: "--font-plex-serif", display: "swap"});
+const display = Sora({subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-sora", display: "swap"});
+const accent = Instrument_Serif({subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-instrument", display: "swap"});
 
 const description = "Infraestructura, nube, protección de datos y ciberseguridad para empresas en Ecuador. Nube propia CoreOnCloud con centros de datos en Cuenca y Guayaquil.";
 
@@ -35,8 +38,8 @@ const organization = {
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="es">
-      <body className={sans.variable + " " + mono.variable + " " + serif.variable}>
+    <html lang="es" className={[sans.variable, mono.variable, display.variable, accent.variable].join(" ")}>
+      <body>
         <a className="skip" href="#contenido">Saltar al contenido</a>
         <script type="application/ld+json" dangerouslySetInnerHTML={{__html: JSON.stringify(organization)}}/>
         <Header/>

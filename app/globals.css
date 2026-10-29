@@ -9,7 +9,7 @@
    etiquetas, secciones, tarjetas), cabecera, pie y formulario. Las reglas
    propias de la portada y de la demostración viven en styles/home.css. */
 
-@theme inline { --font-sans:var(--font-plex-sans); --font-mono:var(--font-plex-mono); --font-serif:var(--font-plex-serif); --color-brand:var(--brand); --color-accent:var(--accent-blue); }
+@theme inline { --font-sans:var(--font-plex-sans); --font-mono:var(--font-plex-mono); --font-serif:var(--font-instrument); --color-brand:var(--brand); --color-accent:var(--accent-blue); }
 
 /* Base */
 *{box-sizing:border-box}
@@ -19,14 +19,18 @@ button,input,select,textarea{font:inherit}
 a{color:inherit;text-decoration:none}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid var(--accent-blue);outline-offset:4px}
 h1,h2,h3,p{margin-top:0}
-h1,h2,h3{font-weight:600;line-height:1.16}
+h1,h2,h3{font-family:var(--font-display);font-weight:600;line-height:1.16;letter-spacing:-.02em}
 h1{font-size:32px}h2{font-size:26px}h3{font-size:20px}
+/* Acento de marca: una o dos palabras del titular en serif itálica cobre */
+:is(h1,h2,h3) em{font-family:var(--font-accent);font-style:italic;font-weight:400;letter-spacing:-.005em;color:var(--signal-ink)}
+:is(.section-dark,.hx,.sh,.cie,.coc) :is(h1,h2,h3) em{color:var(--signal)}
 
 /* Primitivas */
 .container{width:calc(100% - 48px);max-width:var(--container);margin-inline:auto}
-.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:600}
+.eyebrow{text-transform:uppercase;letter-spacing:.18em;font-size:12px;font-weight:600;color:var(--signal-ink)}
+.section-dark .eyebrow{color:var(--signal)}
 .mono{font-family:var(--font-plex-mono),monospace}
-.display{font-size:clamp(42px,6vw,72px);line-height:1.05;letter-spacing:-.02em;font-weight:600}
+.display{font-family:var(--font-display);font-size:clamp(40px,5.6vw,68px);line-height:1.04;letter-spacing:-.035em;font-weight:600;margin-bottom:.35em}
 .section{padding-block:80px}.section-muted{background:var(--gray-10)}.section-dark{background:var(--brand);color:white}
 .section-title{max-width:680px;font-size:clamp(26px,3vw,40px);letter-spacing:-.02em}
 .muted{color:var(--gray-60)}.text-link{color:var(--accent-blue);font-weight:600}.text-link:hover{text-decoration:underline}
@@ -65,8 +69,8 @@ h1{font-size:32px}h2{font-size:26px}h3{font-size:20px}
 .cf-opt{font-weight:400;color:var(--gray-60)}
 .cf-hint{margin:-2px 0 8px;font-size:14px;line-height:1.5;color:var(--gray-70)}
 .cf-error{margin:8px 0 0;font-size:14px;line-height:1.5;color:#a01822}
-.cf .input[aria-invalid="true"]{border-color:#da1e28;box-shadow:inset 0 0 0 1px #da1e28}
-.cf-summary{border:1px solid #da1e28;border-left-width:4px;background:#fdf3f4;padding:16px 20px;color:var(--gray-100)}
+.cf .input[aria-invalid="true"]{border-color:var(--danger);box-shadow:inset 0 0 0 1px var(--danger)}
+.cf-summary{border:1px solid var(--danger);border-left-width:4px;background:#fdf3f4;padding:16px 20px;color:var(--gray-100)}
 .cf-summary:focus{outline:2px solid var(--accent-blue);outline-offset:2px}
 .cf-summary p{margin:0;font-weight:600}
 .cf-summary ul{margin:8px 0 0;padding-left:20px}

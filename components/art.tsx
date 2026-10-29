@@ -1,189 +1,134 @@
 import type {CSSProperties} from "react";
 
-/* Ilustraciones abstractas de la cuadrícula editorial de la portada, en la
-   línea del blog de IBM Research: una pieza gráfica por tema, generada con
-   SVG (sin imágenes externas). Son decorativas: el titular de cada tarjeta
-   lleva el significado. Formato 16:9. */
+/* Diagramas de las capas de la portada. Mismo lenguaje que el modelo del hero:
+   líneas blancas sobre negro, acentos azules, etiquetas monoespaciadas y un
+   solo rojo para la falla. Cada uno retoma una idea ya presentada:
+   capas que sostienen la operación, consolidación, original y copia,
+   perímetro, modelo bajo control, señal estable y ruta alterna.
+   Decorativos: el titular de cada tarjeta lleva el significado. */
 
 const v = (vars: Record<string, string | number>) => vars as CSSProperties;
 
-/* Pseudoaleatorio determinista: el mismo dibujo en servidor y cliente. */
-function rand(seed: number) {
-  let s = seed;
-  return () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
-}
-
-/* Infraestructura: un cilindro cromado, la pieza física que sostiene todo. */
-export function ArtInfra() {
+/* Infraestructura: el iceberg en miniatura, la operación sobre sus capas. */
+export function ArtLayers() {
+  const w = [110, 160, 210];
   return (
-    <svg viewBox="0 0 320 180" className="art art-infra" aria-hidden="true">
-      <defs>
-        <linearGradient id="ai-metal" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#1e1e1e"/><stop offset=".08" stopColor="#6e6e6e"/>
-          <stop offset=".18" stopColor="#f7f7f7"/><stop offset=".27" stopColor="#5a5a5a"/>
-          <stop offset=".42" stopColor="#c8c8c8"/><stop offset=".5" stopColor="#ffffff"/>
-          <stop offset=".6" stopColor="#6b6b6b"/><stop offset=".76" stopColor="#e2e2e2"/>
-          <stop offset=".9" stopColor="#4a4a4a"/><stop offset="1" stopColor="#141414"/>
-        </linearGradient>
-        <linearGradient id="ai-cap" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#c9d0ff"/><stop offset=".45" stopColor="#6f80ff"/>
-          <stop offset=".8" stopColor="#ff7a45"/><stop offset="1" stopColor="#e5262f"/>
-        </linearGradient>
-        <linearGradient id="ai-fade" x1="0" x2="1">
-          <stop offset="0" stopColor="#000" stopOpacity=".55"/><stop offset=".25" stopColor="#000" stopOpacity="0"/>
-        </linearGradient>
-      </defs>
-      <rect width="320" height="180" fill="#000"/>
-      <g className="art-move">
-        <path d="M40 38H254V142H40A17 52 0 0 1 40 38Z" fill="url(#ai-metal)"/>
-        {Array.from({length: 13}, (_, k) => <path key={k} d={`M28 ${46 + k * 7.5}H254`} stroke="#000" strokeOpacity=".07"/>)}
-        <path d="M40 38H254V142H40A17 52 0 0 1 40 38Z" fill="url(#ai-fade)"/>
-        <ellipse cx="254" cy="90" rx="18" ry="52" fill="#101010"/>
-        <ellipse cx="257" cy="90" rx="14" ry="47" fill="url(#ai-cap)" className="art-glow"/>
-        <ellipse cx="252" cy="70" rx="3" ry="16" fill="#fff" fillOpacity=".35"/>
-      </g>
-    </svg>
-  );
-}
-
-/* Nube y virtualización: muchas piezas físicas que pasan a un circuito virtual. */
-export function ArtCloud() {
-  const r = rand(7);
-  const circles = [];
-  for (let c = 0; c < 4; c++) for (let k = 0; k < 6; k++) {
-    circles.push({x: 26 + c * 34, y: 18 + k * 30, rr: 9 + r() * 9, o: .25 + r() * .75});
-  }
-  const rows = [26, 58, 90, 122, 154];
-  return (
-    <svg viewBox="0 0 320 180" className="art art-cloud" aria-hidden="true">
-      <defs>
-        <linearGradient id="ac-bg" x1="0" x2="1">
-          <stop offset="0" stopColor="#2d43e7"/><stop offset="1" stopColor="#596bd6"/>
-        </linearGradient>
-      </defs>
-      <rect width="320" height="180" fill="url(#ac-bg)"/>
-      {circles.map((c, k) => <circle key={k} className="art-bob" cx={c.x} cy={c.y} r={c.rr} fill="#fff" fillOpacity={c.o} style={v({"--k": k % 6})}/>)}
-      <g stroke="#fff" strokeOpacity=".55" fill="none">
-        {rows.map(y => <path key={y} d={`M168 ${y}H306`}/>)}
-        {[190, 228, 266].map((x, k) => <path key={x} d={`M${x} ${rows[k]}V${rows[k + 2]}`}/>)}
-      </g>
-      {rows.flatMap((y, i) => [180, 214, 248, 282].filter((_, j) => (i + j) % 2 === 0).map(x => (
-        <rect key={x + "-" + y} x={x - 6} y={y - 6} width="12" height="12" fill="#2d43e7" stroke="#fff"/>
-      )))}
-      {[190, 228, 266].map((x, k) => <circle key={x} cx={x} cy={rows[k]} r="3.5" fill="#fff"/>)}
-    </svg>
-  );
-}
-
-/* Ciberseguridad: perímetros anidados y amenazas que quedan afuera. */
-export function ArtSecurity() {
-  const hex = (r: number, rot: number) => Array.from({length: 6}, (_, k) => {
-    const a = (Math.PI / 3) * k + rot;
-    return `${(160 + r * Math.cos(a)).toFixed(1)},${(90 + r * Math.sin(a)).toFixed(1)}`;
-  }).join(" ");
-  return (
-    <svg viewBox="0 0 320 180" className="art art-sec" aria-hidden="true">
-      <rect width="320" height="180" fill="#e5e7eb"/>
-      <g className="art-spin" fill="none" stroke="#121720" strokeWidth=".8">
-        {Array.from({length: 9}, (_, k) => <polygon key={k} points={hex(22 + k * 7.5, k * 0.06)} strokeOpacity={.35 + k * .07}/>)}
-      </g>
-      {[[44, 30], [286, 46], [262, 160], [52, 150], [160, 8], [310, 110]].map(([x, y], k) => (
-        <circle key={k} cx={x} cy={y} r="3.2" fill="#e5262f" className="art-blink" style={v({"--k": k})}/>
-      ))}
-    </svg>
-  );
-}
-
-/* Protección de datos: copias sucesivas de un mismo círculo. */
-export function ArtBackup() {
-  return (
-    <svg viewBox="0 0 320 180" className="art art-backup" aria-hidden="true">
-      <rect width="320" height="180" fill="#dde1e6"/>
-      <g className="art-spin-slow" fill="none" stroke="#fa4d56" strokeWidth=".7">
-        {Array.from({length: 34}, (_, k) => {
-          const a = (k / 34) * Math.PI * 1.15 - 0.4;
-          return <circle key={k} cx={150 + 46 * Math.cos(a)} cy={98 + 34 * Math.sin(a)} r={44 + (k % 5) * 3} strokeOpacity={.35 + (k % 4) * .15}/>;
-        })}
-      </g>
-      <circle cx="150" cy="98" r="44" fill="none" stroke="#da1e28" strokeWidth="2"/>
-    </svg>
-  );
-}
-
-/* Servicios gestionados: puntos de estado que revelan una degradación. */
-export function ArtOps() {
-  const states = ["#42be65", "#42be65", "#42be65", "#a7d14b", "#f1c21b", "#ff832b", "#fa4d56", "#da1e28"];
-  return (
-    <svg viewBox="0 0 320 180" className="art art-ops" aria-hidden="true">
-      <rect width="320" height="180" fill="#f4f4f4"/>
-      <g fill="#8d8d8d">
-        {[46, 98, 150].flatMap(y => Array.from({length: 46}, (_, k) => <circle key={y + "-" + k} cx={12 + k * 6.6} cy={y} r=".8"/>))}
-      </g>
-      {states.map((c, k) => (
-        <circle key={k} cx={28 + k * 37} cy={22 + k * 19} r="5.5" fill={c} className="art-pop" style={v({"--k": k})}/>
-      ))}
-    </svg>
-  );
-}
-
-/* IA on-premise: fuentes de datos que alimentan un modelo dentro de su perímetro. */
-export function ArtAI() {
-  const ys = [34, 90, 146];
-  return (
-    <svg viewBox="0 0 320 180" className="art art-ai" aria-hidden="true">
-      <rect width="320" height="180" fill="#000"/>
-      <rect x="12" y="10" width="296" height="160" fill="none" stroke="#525252" strokeDasharray="3 5"/>
-      <g fill="none" stroke="#fff" strokeWidth="1">
-        {ys.map(y => <path key={y} d={`M76 ${y}H120M134 ${y}H196`}/>)}
-        <path d="M196 34C214 34 222 70 226 90M196 146C214 146 222 110 226 90M196 90H226" className="art-flow"/>
-        <path d="M196 26C252 26 286 70 286 90C286 110 252 154 196 154C214 128 214 52 196 26Z"/>
-        <path d="M286 90H306"/>
-      </g>
-      {ys.map(y => <rect key={y} x="34" y={y - 18} width="36" height="36" fill="#fff"/>)}
-      {ys.map(y => (
-        <g key={"g" + y}>
-          <rect x="120" y={y - 7} width="14" height="14" fill="#000" stroke="#fff"/>
-          <path d={`M123 ${y + 3}L127 ${y - 2}L131 ${y + 3}`} fill="none" stroke="#fff"/>
+    <svg viewBox="0 0 320 180" className="art" aria-hidden="true">
+      <rect x="146" y="14" width="28" height="28" fill="#fff"/>
+      <path className="art-line" pathLength={1} d="M30 56H290"/>
+      <path className="art-line art-faint" pathLength={1} d="M160 42V160"/>
+      {w.map((x, k) => (
+        <g key={x}>
+          <rect className="art-box" x={160 - x / 2} y={70 + k * 32} width={x} height="20" style={v({"--k": k})}/>
+          <circle className="art-packet" cx={160 - x / 2 + 8} cy={84 + k * 32} r="2" style={v({"--len": x - 16 + "px", "--k": k})}/>
         </g>
       ))}
-      <path d="M52 56V68M52 112V124" stroke="#fff" strokeDasharray="1 3"/>
+      <text x="30" y="50" className="art-lbl">LO QUE SE VE</text>
+      <text x="290" y="172" textAnchor="end" className="art-lbl">LO QUE LO SOSTIENE</text>
     </svg>
   );
 }
 
-/* CoreOnCloud: dos sitios, con datos que se replican de uno a otro. */
-export function ArtTwin() {
-  const r = rand(19);
-  const dots = (cx: number) => Array.from({length: 7}, () => ({x: cx - 22 + r() * 44, y: 72 + r() * 40}));
-  const a = dots(100), b = dots(220);
+/* Nube y virtualización: piezas dispersas que pasan a una sola plataforma. */
+export function ArtConsolidate() {
+  const loose = [[34, 40], [70, 28], [52, 78], [92, 66], [30, 116], [76, 120], [104, 104], [48, 150], [96, 146]];
   return (
-    <svg viewBox="0 0 320 180" className="art art-twin" aria-hidden="true">
-      <rect width="320" height="180" fill="#01095c"/>
-      <circle cx="100" cy="92" r="60" fill="none" stroke="#fff" strokeOpacity=".35"/>
-      <circle cx="220" cy="92" r="60" fill="none" stroke="#fff" strokeOpacity=".35"/>
-      {[...a, ...b].map((d, k) => <circle key={k} cx={d.x} cy={d.y} r="5" fill="#fff" fillOpacity={k % 3 ? 1 : .7}/>)}
-      <circle className="art-travel" cx="128" cy="92" r="5" fill="#8b97ff"/>
-      <text x="100" y="172" textAnchor="middle" className="art-lbl">CUE</text>
-      <text x="220" y="172" textAnchor="middle" className="art-lbl">GYE</text>
+    <svg viewBox="0 0 320 180" className="art" aria-hidden="true">
+      {loose.map(([x, y], k) => <rect key={k} className="art-loose" x={x} y={y} width="16" height="16" style={v({"--k": k})}/>)}
+      <path className="art-line art-accent" pathLength={1} d="M134 90H176"/>
+      <path className="art-accent-fill" d="M170 84L178 90L170 96Z"/>
+      <rect className="art-box" x="194" y="34" width="104" height="112"/>
+      {loose.map((_, k) => <rect key={k} className="art-cell" x={206 + (k % 3) * 30} y={46 + Math.floor(k / 3) * 32} width="20" height="24" style={v({"--k": k})}/>)}
+      <text x="34" y="172" className="art-lbl">DISPERSO</text>
+      <text x="298" y="172" textAnchor="end" className="art-lbl">UNA PLATAFORMA</text>
     </svg>
   );
 }
 
-/* Demostración: un nodo cae y la ruta se desvía por el sitio alterno. */
-export function ArtFailover() {
-  const n: Record<string, [number, number]> = {u: [34, 90], r: [104, 90], a: [184, 46], b: [264, 46], c: [184, 134], d: [264, 134]};
-  const line = (p: string, q: string) => `M${n[p][0]} ${n[p][1]}L${n[q][0]} ${n[q][1]}`;
+/* Protección de datos: el original y su copia verificada. */
+export function ArtCopy() {
   return (
-    <svg viewBox="0 0 320 180" className="art art-fail" aria-hidden="true">
-      <rect width="320" height="180" fill="#fff"/>
-      <g stroke="#c6c6c6" fill="none">
-        {[["u", "r"], ["r", "a"], ["a", "b"], ["r", "c"], ["c", "d"], ["a", "c"], ["b", "d"]].map(([p, q]) => <path key={p + q} d={line(p, q)}/>)}
+    <svg viewBox="0 0 320 180" className="art" aria-hidden="true">
+      <rect className="art-orig" x="56" y="50" width="72" height="72"/>
+      <rect className="art-copy" x="192" y="50" width="72" height="72"/>
+      <path className="art-line art-dash" d="M128 86H192"/>
+      <circle className="art-sync" cx="128" cy="86" r="3.5"/>
+      <g className="art-check">
+        <circle cx="264" cy="50" r="10"/>
+        <path d="M259 50l3.5 3.5L269 46"/>
       </g>
-      <path d={`${line("u", "r")}L${n.c[0]} ${n.c[1]}L${n.d[0]} ${n.d[1]}`} fill="none" stroke="#2d43e7" strokeWidth="3" className="art-route" pathLength={1}/>
-      {Object.entries(n).map(([k, [x, y]]) => (
-        <circle key={k} cx={x} cy={y} r={k === "u" ? 10 : 8} fill={k === "a" ? "#da1e28" : k === "c" || k === "d" ? "#2d43e7" : "#121720"}/>
+      <text x="92" y="146" textAnchor="middle" className="art-lbl">ORIGINAL</text>
+      <text x="228" y="146" textAnchor="middle" className="art-lbl">COPIA VERIFICADA</text>
+    </svg>
+  );
+}
+
+/* Ciberseguridad: el núcleo, su perímetro y lo que queda afuera. */
+export function ArtPerimeter() {
+  const threats = [[40, 34, 98, 52], [286, 40, 222, 58], [44, 150, 98, 128], [282, 146, 222, 124], [160, 8, 160, 30]];
+  return (
+    <svg viewBox="0 0 320 180" className="art" aria-hidden="true">
+      <rect x="140" y="70" width="40" height="40" fill="#fff"/>
+      <rect className="art-scan" x="100" y="32" width="120" height="116"/>
+      {threats.map(([x, y, tx, ty], k) => (
+        <g key={k}>
+          <path className="art-trail" d={`M${x} ${y}L${tx} ${ty}`}/>
+          <circle className="art-threat" cx={tx} cy={ty} r="3.5" style={v({"--k": k})}/>
+        </g>
       ))}
-      <path d="M178 40l12 12M190 40l-12 12" stroke="#fff" strokeWidth="2"/>
+      <text x="220" y="164" textAnchor="end" className="art-lbl">PERÍMETRO</text>
+    </svg>
+  );
+}
+
+/* IA on-premise: los datos alimentan el modelo sin salir del perímetro. */
+export function ArtModel() {
+  const pts = [[96, 44], [160, 30], [224, 44], [236, 112], [160, 140], [84, 112]];
+  return (
+    <svg viewBox="0 0 320 180" className="art" aria-hidden="true">
+      <rect className="art-line art-dash" x="44" y="14" width="232" height="146" fill="none"/>
+      {pts.map(([x, y], k) => <path key={"l" + k} className="art-link" d={`M${x} ${y}L160 86`} style={v({"--k": k})}/>)}
+      {pts.map(([x, y], k) => <circle key={k} className="art-datum" cx={x} cy={y} r="5" style={v({"--k": k})}/>)}
+      <rect x="146" y="72" width="28" height="28" fill="#fff"/>
+      <text x="270" y="152" textAnchor="end" className="art-lbl">SU ENTORNO</text>
+    </svg>
+  );
+}
+
+/* Servicios gestionados: de una señal irregular a una operación estable. */
+export function ArtSignal() {
+  return (
+    <svg viewBox="0 0 320 180" className="art" aria-hidden="true">
+      <path className="art-noise" d="M24 92L44 50L60 132L78 60L94 120L110 72L126 108L140 82L154 98L168 86L182 94L196 90L296 90"/>
+      <path className="art-line" pathLength={1} d="M24 90H296"/>
+      <circle className="art-beat" cx="24" cy="90" r="4.5" style={v({"--len": "272px"})}/>
+      {[64, 128, 192, 256].map(x => <path key={x} className="art-tick" d={`M${x} 104V112`}/>)}
+      <text x="24" y="160" className="art-lbl">REACTIVO</text>
+      <text x="296" y="160" textAnchor="end" className="art-lbl">MONITOREADO</text>
+    </svg>
+  );
+}
+
+/* Demostración: cae un componente y la operación sigue por la ruta alterna. */
+export function ArtFailover() {
+  return (
+    <svg viewBox="0 0 640 180" className="art" aria-hidden="true">
+      <g className="art-lines">
+        <path d="M110 90H200L268 44H420"/>
+        <path className="art-alt" pathLength={1} d="M200 90L268 136H420"/>
+      </g>
+      {[["USUARIOS", 30, 72, 80], ["RED", 200, 72, 68]].map(([l, x, y, w]) => (
+        <g key={l as string}><rect className="art-box" x={x as number} y={y as number} width={w as number} height="36"/><text x={(x as number) + 12} y={(y as number) + 23} className="art-lbl art-lbl-in">{l}</text></g>
+      ))}
+      <g className="art-fail">
+        <rect x="268" y="26" width="104" height="36"/>
+        <text x="280" y="49" className="art-lbl">CÓMPUTO</text>
+        <path d="M352 36l10 10M362 36l-10 10"/>
+      </g>
+      <rect className="art-box" x="420" y="26" width="92" height="36"/><text x="432" y="49" className="art-lbl art-lbl-in">DATOS</text>
+      <rect className="art-ok" x="268" y="118" width="128" height="36"/><text x="280" y="141" className="art-lbl art-lbl-in">CONTINGENCIA</text>
+      <rect className="art-ok" x="420" y="118" width="104" height="36"/><text x="432" y="141" className="art-lbl art-lbl-in">RESPALDO</text>
+      <circle className="art-route" cx="0" cy="0" r="5"/>
     </svg>
   );
 }

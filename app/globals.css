@@ -3,7 +3,7 @@
 @import "../styles/home.css";
 @import "../styles/motion.css";
 @import "../styles/pages.css";
-@import "../styles/editorial.css";
+@import "../styles/home-dark.css";
 
 /* Hoja base del sitio: reset, tipografía, primitivas (contenedor, botones,
    etiquetas, secciones, tarjetas), cabecera, pie y formulario. Las reglas

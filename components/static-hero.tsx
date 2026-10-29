@@ -22,7 +22,7 @@ export function StaticHero() {
           </h1>
           <p className="hx-desc mt-rise" style={d(200)}>{hero.description}</p>
           <div className="hx-actions mt-rise" style={d(320)}>
-            <Link className="btn" href="/contacto">{hero.cta} <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true"/></Link>
+            <Link className="btn btn-inverse" href="/contacto">{hero.cta} <ArrowUpRight size={18} strokeWidth={1.75} aria-hidden="true"/></Link>
             <a className="hx-secondary" href="#soluciones">Encontrar una solución <ArrowDown size={16} strokeWidth={1.75} aria-hidden="true"/></a>
           </div>
         </div>

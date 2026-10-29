@@ -1,10 +1,10 @@
 import {StaticHero} from "@/components/static-hero";
-import {Rigor, Method, Technologies, Closing, CoreOnCloudBand} from "@/components/home-blocks";
+import {Rigor, Method, Technologies, Closing} from "@/components/home-blocks";
 import {EditorialGrid} from "@/components/editorial";
 import {SystemSimulator} from "@/components/system-simulator";
 
-/* Portada editorial: hero → cuadrícula de soluciones (una tarjeta por tema,
-   con su ilustración) → cómo entregamos → demostración → CoreOnCloud →
+/* Portada sobre un fondo continuo (el del modelo del hero): hero → soluciones
+   como capas (CoreOnCloud destacado) → cómo entregamos → demostración →
    método → tecnologías → contacto. */
 export default function Home() {
   return (
@@ -13,7 +13,6 @@ export default function Home() {
       <EditorialGrid/>
       <Rigor/>
       <SystemSimulator/>
-      <CoreOnCloudBand/>
       <Method/>
       <Technologies/>
       <Closing/>

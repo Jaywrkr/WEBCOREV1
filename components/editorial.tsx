@@ -1,65 +1,57 @@
 import type {CSSProperties, ReactNode} from "react";
 import Link from "next/link";
-import {Server, Layers, ShieldCheck, DatabaseBackup, Activity, Cpu, Cloud, GitBranch, ArrowUpRight} from "lucide-react";
-import {getService} from "@/content/services";
-import {InView} from "@/components/motion";
-import {ArtInfra, ArtCloud, ArtSecurity, ArtBackup, ArtOps, ArtAI, ArtTwin, ArtFailover} from "@/components/art";
+import {ArrowUpRight} from "lucide-react";
+import {InView, PointerGlow} from "@/components/motion";
+import {TwoSites} from "@/components/metaphors";
+import {ArtLayers, ArtConsolidate, ArtCopy, ArtPerimeter, ArtModel, ArtSignal, ArtFailover} from "@/components/art";
 
-/* Cuadrícula editorial de la portada, en la línea del blog de IBM Research:
-   cada tarjeta es una puerta a un servicio, con una ilustración abstracta,
-   un titular que nombra el problema y etiquetas. Toda la tarjeta es enlace. */
+/* Soluciones como capas de lo que sostiene la operación. Cuadrícula de tamaños
+   variados sobre el fondo de la portada: CoreOnCloud destacado, la
+   demostración en ancho y una tarjeta por servicio. Cada diagrama continúa el
+   lenguaje del modelo del hero. Toda la tarjeta es enlace. */
 
-type Tile = {cat: string; icon: ReactNode; art: ReactNode; title: string; meta: string; kind: string; href: string; tags: string[]};
-
-const ic = {size: 18, strokeWidth: 1.5, "aria-hidden": true} as const;
-const tech = (slug: string) => getService(slug)?.technologies.slice(0, 3) ?? [];
-const name = (slug: string) => getService(slug)?.title ?? "";
+type Tile = {code: string; area: string; art: ReactNode; title: string; body?: string; cta: string; href: string; size?: "big" | "wide"};
 
 const tiles: Tile[] = [
-  {cat: "Infraestructura", icon: <Server {...ic}/>, art: <ArtInfra/>, kind: "Ficha de servicio",
-    title: "Infraestructura que sostiene la operación, no que la limita", meta: name("infraestructura-centro-datos"),
-    href: "/servicios/infraestructura-centro-datos", tags: tech("infraestructura-centro-datos")},
-  {cat: "Nube", icon: <Layers {...ic}/>, art: <ArtCloud/>, kind: "Ficha de servicio",
-    title: "De muchos servidores a una plataforma que se gestiona como una", meta: name("nube-virtualizacion"),
-    href: "/servicios/nube-virtualizacion", tags: tech("nube-virtualizacion")},
-  {cat: "Continuidad", icon: <DatabaseBackup {...ic}/>, art: <ArtBackup/>, kind: "Ficha de servicio",
-    title: "Un respaldo que nunca se ha restaurado es solo una suposición", meta: name("proteccion-datos"),
-    href: "/servicios/proteccion-datos", tags: tech("proteccion-datos")},
-  {cat: "Plataforma", icon: <Cloud {...ic}/>, art: <ArtTwin/>, kind: "Nube propia",
-    title: "CoreOnCloud: su sitio alterno, en Cuenca y Guayaquil", meta: "CoreOnCloud",
-    href: "/coreoncloud", tags: ["IaaS", "Respaldo", "DRaaS"]},
-  {cat: "Seguridad", icon: <ShieldCheck {...ic}/>, art: <ArtSecurity/>, kind: "Ficha de servicio",
-    title: "Reducir la exposición antes de que un incidente detenga todo", meta: name("ciberseguridad"),
-    href: "/servicios/ciberseguridad", tags: tech("ciberseguridad")},
-  {cat: "Inteligencia artificial", icon: <Cpu {...ic}/>, art: <ArtAI/>, kind: "Ficha de servicio",
-    title: "Inteligencia artificial sin que sus datos salgan de su entorno", meta: name("inteligencia-artificial-on-premise"),
-    href: "/servicios/inteligencia-artificial-on-premise", tags: tech("inteligencia-artificial-on-premise")},
-  {cat: "Operación", icon: <Activity {...ic}/>, art: <ArtOps/>, kind: "Ficha de servicio",
-    title: "Enterarse de una falla antes de que la reporten los usuarios", meta: name("servicios-gestionados"),
-    href: "/servicios/servicios-gestionados", tags: tech("servicios-gestionados")},
-  {cat: "Demostración", icon: <GitBranch {...ic}/>, art: <ArtFailover/>, kind: "Modelo conceptual",
-    title: "¿Qué sucede cuando un sistema deja de estar disponible?", meta: "Operación, interrupción y recuperación",
-    href: "#demostracion", tags: ["Interactivo"]},
+  {code: "PLATAFORMA · CUE ↔ GYE", area: "CoreOnCloud", size: "big", art: <TwoSites/>, cta: "Conocer CoreOnCloud", href: "/coreoncloud",
+    title: "Su sitio alterno, en Cuenca y Guayaquil.",
+    body: "Nuestra nube propia: dos centros de datos en Ecuador, replicados entre sí, para alojar cargas, guardar copias o recuperar la operación."},
+  {code: "CAPA 01", area: "Infraestructura", art: <ArtLayers/>, cta: "Ver servicio", href: "/servicios/infraestructura-centro-datos",
+    title: "Lo que sostiene la operación, dimensionado para crecer."},
+  {code: "CAPA 02", area: "Nube y virtualización", art: <ArtConsolidate/>, cta: "Ver servicio", href: "/servicios/nube-virtualizacion",
+    title: "De muchos servidores a una plataforma."},
+  {code: "CAPA 03", area: "Protección de datos", art: <ArtCopy/>, cta: "Ver servicio", href: "/servicios/proteccion-datos",
+    title: "Una copia vale cuando se ha probado restaurarla."},
+  {code: "CAPA 04", area: "Ciberseguridad", art: <ArtPerimeter/>, cta: "Ver servicio", href: "/servicios/ciberseguridad",
+    title: "Un perímetro definido antes del incidente."},
+  {code: "MODELO · INTERACTIVO", area: "Demostración", size: "wide", art: <ArtFailover/>, cta: "Explorar la demostración", href: "#demostracion",
+    title: "¿Qué sucede cuando un sistema deja de estar disponible?"},
+  {code: "CAPA 05", area: "Inteligencia artificial", art: <ArtModel/>, cta: "Ver servicio", href: "/servicios/inteligencia-artificial-on-premise",
+    title: "IA sobre sus datos, sin que salgan de su entorno."},
+  {code: "CAPA 06", area: "Servicios gestionados", art: <ArtSignal/>, cta: "Ver servicio", href: "/servicios/servicios-gestionados",
+    title: "Una señal estable, no una alarma de los usuarios."},
 ];
 
 export function EditorialGrid() {
   return (
-    <section className="ed" id="soluciones" aria-labelledby="ed-h">
-      <InView className="container" threshold={0.1}>
-        <div className="ed-head">
-          <h2 id="ed-h" className="mt-up">Soluciones</h2>
-          <p className="mt-up" style={{"--i": 1} as CSSProperties}>Empiece por lo que necesita resolver.</p>
-          <Link className="ed-all mt-up" style={{"--i": 2} as CSSProperties} href="/contacto">Solicitar evaluación <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden="true"/></Link>
+    <section className="lg" id="soluciones" aria-labelledby="lg-h">
+      <InView className="container" threshold={0.08}>
+        <div className="lg-head">
+          <p className="lg-kicker mt-up">LO QUE LO SOSTIENE</p>
+          <h2 id="lg-h" className="mt-up" style={{"--i": 1} as CSSProperties}>Soluciones, capa por capa.</h2>
+          <p className="mt-up" style={{"--i": 2} as CSSProperties}>Cada servicio es una de las capas que mantienen su operación en pie. Empiece por la que necesita reforzar.</p>
         </div>
-        <ul className="ed-grid">
+        <p className="lg-hint" aria-hidden="true">DESLICE PARA VER LAS 8 →</p>
+        <ul className="lg-grid">
           {tiles.map((t, k) => (
-            <li className="ed-tile mt-up" style={{"--i": k % 4} as CSSProperties} key={t.href}>
+            <li className={"lg-tile mt-up" + (t.size ? " lg-" + t.size : "")} style={{"--i": k % 4} as CSSProperties} key={t.href}>
               <Link href={t.href}>
-                <span className="ed-cat">{t.icon}{t.cat}</span>
-                <span className="ed-art">{t.art}</span>
-                <span className="ed-title">{t.title}</span>
-                <span className="ed-meta"><span>{t.meta}</span><span>{t.kind}</span></span>
-                <span className="ed-tags">{t.tags.map(g => <span key={g}>{g}</span>)}</span>
+                <PointerGlow className="lg-glow"/>
+                <span className="lg-code"><span>{t.code}</span><span>{t.area}</span></span>
+                <span className="lg-art">{t.art}</span>
+                <span className="lg-title">{t.title}</span>
+                {t.body && <span className="lg-body">{t.body}</span>}
+                <span className="lg-cta">{t.cta} <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden="true"/></span>
               </Link>
             </li>
           ))}

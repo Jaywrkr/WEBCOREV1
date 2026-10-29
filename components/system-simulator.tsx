@@ -79,28 +79,28 @@ export function SystemSimulator() {
                  aria-label={"Topología simplificada: usuarios, red, cómputo, datos, contingencia y respaldo. Estado: " + current.label}>
               <defs>
                 <pattern id="sysgrid" width="34" height="34" patternUnits="userSpaceOnUse">
-                  <path d="M34 0H0V34" fill="none" stroke="#dde3ef" strokeWidth="1"/>
+                  <path d="M34 0H0V34" fill="none" stroke="rgba(255,255,255,.05)" strokeWidth="1"/>
                 </pattern>
               </defs>
               <rect width="800" height="470" fill="url(#sysgrid)"/>
               <g fill="none" strokeWidth="2">
-                <path d="M119 216H274L413 123H590" stroke={mode === "incident" ? "#9ba4b6" : "#01095c"}/>
-                <path d="M274 216L413 350H590" stroke={mode === "recovery" ? "#2d43e7" : "#bfc6d5"} strokeDasharray={mode === "recovery" ? "none" : "6 9"}/>
+                <path d="M119 216H274L413 123H590" stroke={mode === "incident" ? "rgba(255,255,255,.18)" : "rgba(255,255,255,.85)"}/>
+                <path d="M274 216L413 350H590" stroke={mode === "recovery" ? "#8b97ff" : "rgba(255,255,255,.25)"} strokeDasharray={mode === "recovery" ? "none" : "6 9"}/>
               </g>
-              <g fontFamily="monospace" fontSize="12">
-                <rect x="45" y="186" width="130" height="60" fill="#fff" stroke="#929cae"/><text x="62" y="222" fill="#01095c">USUARIOS</text>
-                <rect x="238" y="186" width="130" height="60" fill="#fff" stroke="#929cae"/><text x="255" y="222" fill="#01095c">RED</text>
-                <rect x="380" y="93" width="130" height="60" fill={mode === "incident" ? "#f8e7e8" : "#01095c"} stroke={mode === "incident" ? "#da1e28" : "#01095c"}/>
-                <text x="397" y="129" fill={mode === "incident" ? "#a01822" : "white"}>CÓMPUTO</text>
-                <rect x="578" y="93" width="155" height="60" fill={mode === "incident" ? "#f8e7e8" : "#01095c"} stroke={mode === "incident" ? "#da1e28" : "#01095c"}/>
-                <text x="595" y="129" fill={mode === "incident" ? "#a01822" : "white"}>DATOS</text>
-                <rect x="380" y="320" width="155" height="60" fill={mode === "recovery" ? "#01095c" : "white"} stroke="#01095c"/>
-                <text x="397" y="356" fill={mode === "recovery" ? "white" : "#01095c"}>CONTINGENCIA</text>
-                <rect x="578" y="320" width="155" height="60" fill={mode === "recovery" ? "#01095c" : "white"} stroke="#01095c"/>
-                <text x="595" y="356" fill={mode === "recovery" ? "white" : "#01095c"}>RESPALDO</text>
+              <g fontFamily="var(--font-plex-mono), monospace" fontSize="12" letterSpacing=".06em">
+                <rect x="45" y="186" width="130" height="60" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.55)"/><text x="62" y="222" fill="#fff">USUARIOS</text>
+                <rect x="238" y="186" width="130" height="60" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.55)"/><text x="255" y="222" fill="#fff">RED</text>
+                <rect x="380" y="93" width="130" height="60" fill={mode === "incident" ? "rgba(255,90,95,.12)" : "#fff"} stroke={mode === "incident" ? "#ff5a5f" : "#fff"}/>
+                <text x="397" y="129" fill={mode === "incident" ? "#ff8389" : "#000"}>CÓMPUTO</text>
+                <rect x="578" y="93" width="155" height="60" fill={mode === "incident" ? "rgba(255,90,95,.12)" : "#fff"} stroke={mode === "incident" ? "#ff5a5f" : "#fff"}/>
+                <text x="595" y="129" fill={mode === "incident" ? "#ff8389" : "#000"}>DATOS</text>
+                <rect x="380" y="320" width="155" height="60" fill={mode === "recovery" ? "#2d43e7" : "rgba(255,255,255,.04)"} stroke={mode === "recovery" ? "#8b97ff" : "rgba(255,255,255,.55)"}/>
+                <text x="397" y="356" fill="#fff">CONTINGENCIA</text>
+                <rect x="578" y="320" width="155" height="60" fill={mode === "recovery" ? "#2d43e7" : "rgba(255,255,255,.04)"} stroke={mode === "recovery" ? "#8b97ff" : "rgba(255,255,255,.55)"}/>
+                <text x="595" y="356" fill="#fff">RESPALDO</text>
               </g>
               {mounted && !reduced && mode !== "incident" && (
-                <motion.circle r="5" fill="#2d43e7" initial={{offsetDistance: "0%"}} animate={{offsetDistance: "100%"}}
+                <motion.circle r="5" fill="#8b97ff" initial={{offsetDistance: "0%"}} animate={{offsetDistance: "100%"}}
                   transition={{duration: 3, repeat: Infinity, ease: "linear"}}
                   style={{offsetPath: mode === "recovery" ? 'path("M 120 216 L 274 216 L 413 350 L 590 350")' : 'path("M 120 216 L 274 216 L 413 123 L 590 123")'}}/>
               )}

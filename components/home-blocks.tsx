@@ -1,6 +1,6 @@
 import type {CSSProperties} from "react";
 import Link from "next/link";
-import {ArrowUpRight} from "lucide-react";
+import {ArrowRight, ArrowUpRight} from "lucide-react";
 import {site} from "@/content/site";
 import {InView, PointerGlow} from "@/components/motion";
 import {MethodLine, ScopeVenn, StageDiagram, TwoSites} from "@/components/metaphors";
@@ -28,16 +28,15 @@ export function Rigor() {
           <h2 id="rig-h" className="mt-up" style={i(1)}>Primero se dibuja. Luego se construye. Después se documenta.</h2>
           <p className="mt-up" style={i(2)}>El mismo sistema en tres momentos, para que sepa qué recibe en cada etapa.</p>
         </div>
-        <ol className="rig-flow">
+        <ol className="ed-grid ed-grid-3 rig-flow">
           {rigor.map((r, n) => (
-            <li className="rig-card" style={{"--s": n * 0.7 + "s"} as CSSProperties} key={r.title}>
-              <div className="rig-fig"><StageDiagram stage={r.stage}/></div>
-              <div className="rig-body">
-                <span className="rig-step">0{n + 1} · {r.label}</span>
-                <h3>{r.title}</h3>
-                <p>{r.body}</p>
+            <li className="ed-tile ed-static rig-card" style={{"--s": n * 0.7 + "s"} as CSSProperties} key={r.title}>
+              <div className="ed-box">
+                <span className="ed-cat"><span className="rig-num">0{n + 1}</span>{r.label}{n < rigor.length - 1 && <ArrowRight size={16} strokeWidth={1.5} aria-hidden="true" className="rig-next"/>}</span>
+                <span className={"ed-art rig-art rig-art-" + r.stage}><StageDiagram stage={r.stage}/></span>
+                <h3 className="ed-title">{r.title}</h3>
+                <p className="rig-text">{r.body}</p>
               </div>
-              {n < rigor.length - 1 && <span className="rig-link" aria-hidden="true"/>}
             </li>
           ))}
         </ol>

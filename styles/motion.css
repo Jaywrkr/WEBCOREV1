@@ -132,7 +132,6 @@
   .mt-link{animation:mt-draw .5s var(--ease) both;animation-delay:calc(.5s + var(--i) * 80ms)}
   .mt-datum{animation:mt-pop .4s var(--ease) both;animation-delay:calc(.2s + var(--i) * 80ms)}
   .mt-node{animation:mt-pop .5s var(--ease) 1s both}
-  .sol-a:not([hidden]) > *:not(.mt-need){animation:mt-rise .5s var(--ease) both;animation-delay:.12s}
 }
 
 /* Al entrar en pantalla (requiere JavaScript) */
@@ -152,7 +151,6 @@
   .rig .mt-draw{stroke-dasharray:1}
   [data-io]:not([data-in]) .rig-card{opacity:0}
   [data-io][data-in] .rig-card{animation:mt-rise .7s var(--ease) backwards;animation-delay:var(--s)}
-  [data-io][data-in] .rig-card::before{animation:mt-grow-x .8s var(--ease) both;animation-delay:calc(var(--s) + .3s)}
   [data-io][data-in] .sd-bg{animation:mt-fade .6s both;animation-delay:calc(var(--s) + .2s)}
   [data-io][data-in] .sd-node-plan{animation:mt-pop .45s var(--ease) both;animation-delay:calc(var(--s) + .35s + var(--k) * 120ms)}
   [data-io][data-in] .sd-edge-plan{animation:mt-fade .5s both;animation-delay:calc(var(--s) + .75s + var(--k) * 100ms)}
@@ -166,8 +164,6 @@
   [data-io][data-in] .sd-page{animation:mt-rise .7s var(--ease) both;animation-delay:calc(var(--s) + .2s)}
   [data-io][data-in] .sd-mini{animation:mt-fade .6s both;animation-delay:calc(var(--s) + .6s)}
   [data-io][data-in] .sd-line{animation:mt-draw .45s var(--ease) both;animation-delay:calc(var(--s) + .85s + var(--k) * 120ms)}
-  [data-io][data-in] .rig-link{animation:mt-grow-x .5s var(--ease) both;animation-delay:calc(var(--s) + 1.6s)}
-  @media (max-width:900px){[data-io][data-in] .rig-link{animation-name:mt-grow-y}}
 
   .mt-sites .mt-draw{stroke-dasharray:1}
   [data-io]:not([data-in]) .mt-site,[data-io]:not([data-in]) .mt-sync-head,[data-io]:not([data-in]) .mt-sites text{opacity:0}
